@@ -14,10 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_models', function (Blueprint $table) {
-            $table->string('ProductModelName', 50)->primary();
-            $table->enum('ProductTypeName', ['iPhone','iPad','Mac','Watch']);
+            $table->integer('ProductModelId')->primary();
+            $table->string('ProductModelName', 50)->nullable(false);
+            $table->enum('ProductTypeId', [1,2,3,4]);
             
-            $table->foreign('ProductTypeName')->references('ProductTypeName')->on('product_types');
+            $table->foreign('ProductTypeId')->references('ProductTypeId')->on('product_types');
             $table->timestamps();
         });
     }

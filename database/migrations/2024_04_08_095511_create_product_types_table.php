@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_types', function (Blueprint $table) {
-            $table->enum('ProductTypeName', ['iPhone','iPad','Mac','Watch'])->primary();
+            $table->integer('ProductTypeID')->primary();
+            $table->enum('ProductTypeName', ['iPhone','iPad','Mac','Watch'])->nullable(false);
             $table->timestamps();
         });
     }

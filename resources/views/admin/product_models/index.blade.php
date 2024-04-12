@@ -1,58 +1,39 @@
 @extends('admin.layout_admin.layout_admin')
-@section('title', 'Sản phẩm')
+@section('title', 'Dòng sản phẩm')
 @section('content')
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
-            <h1 class="w-full text-4xl text-center mb-3">SẢN PHẨM</h1>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
-                <a href="{{ route('products.create') }}">Thêm sản phẩm</a>
+            <h1 class="w-full text-4xl text-center mb-3">DÒNG SẢN PHẨM</h1>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-auto px-2">
+                <a href="{{ route('product_models.create') }}">Thêm dòng sản phẩm</a>
             </button>
         </div>
         <hr>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 w-3/12">
+                    <th scope="col" class="px-6 py-3 text-left w-2/6">
+                        Tên loại sản phẩm
                     </th>
-                    <th scope="col" class="px-6 py-3 text-center w-4/12">
-                        Tên sản phẩm
+                    <th scope="col" class="px-6 py-3 text-center w-2/6">
+                        Tên dòng sản phẩm
                     </th>
-                    <th scope="col" class="px-6 py-3 hidden xl:table-cell text-center w-1/12">
-                        Model
-                    </th>
-                    <th scope="col" class="px-6 py-3 hidden sm:table-cell text-center w-1/12 text-nowrap">
-                        Dung lượng
-                    </th>
-                    <th scope="col" class="px-6 py-3 hidden lg:table-cell text-center w-1/12">
-                        Đơn giá
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center w-2/12">
-
+                    <th scope="col" class="px-6 py-3 text-right w-2/6">
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $dt)
                     <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            <img src="{{ URL('images/Thumbnais/' . $dt->ProductThumbnail) }}"
-                                class="w-20 lg:w-1/2 sm:min-w-20" alt="">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 text-left">
+                            {{ $dt->getProductTypeName->ProductTypeName }}
                         </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $dt->ProductName }}
-                        </th>
-                        <td class="px-6 py-4 text-center hidden xl:table-cell">
-                            {{ $dt->getProductModelName->ProductModelName }}
+                        <td class="px-6 py-4 text-center">
+                            {{ $dt->ProductModelName }}
                         </td>
-                        <td class="px-6 py-4 text-center hidden sm:table-cell">
-                            {{ $dt->Memory }}
-                        </td>
-                        <td class="px-6 py-4 text-center hidden lg:table-cell">
-                            {{ number_format($dt->UnitPrice) . '₫' }}
-                        </td>
-                        <td class="text-center">
+                        <td class="text-right">
                             <button>
-                                <a href="{{route('products.show', $dt->ProductId)}}">
+                                <a href="">
                                     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 96 96"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <title />
@@ -65,7 +46,7 @@
                                 </a>
                             </button>
                             <button>
-                                <a href="{{route('products.edit', $dt->ProductId)}}" class="w-1">
+                                <a href="" class="w-1">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <title />
@@ -85,10 +66,10 @@
                                     </svg>
                                 </a>
                             </button>
-                            <form action="{{route('products.destroy', $dt->ProductId)}}" method="post" class="inline-block" id="deleteForm{{ $dt->ProductId }}">
+                            <form action="{{route('product_models.destroy', $dt->ProductModelId)}}" method="post" class="inline-block" id="deleteForm{{ $dt->ProductModelId }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" data-p-id="{{ $dt->ProductId }}" class="delete-btn">
+                                <button type="button" data-pm-id="{{ $dt->ProductModelId }}" class="delete-btn">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round"
@@ -103,22 +84,19 @@
                                             stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </button>
-                            </form>    
+                            </form>                            
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <div class="mt-2 px-2 text-center">
-            {{ $data->links() }}
-        </div>
     </div>
     <script>
         //xử lý nút xóa
         const deleteButtons = document.querySelectorAll('.delete-btn');
         deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const ProductId = this.getAttribute('data-p-id');
+            button.addEventListener('click', function () {
+                const ProductModelId = this.getAttribute('data-pm-id');
 
                 Swal.fire({
                     title: 'Xác nhận xóa',
@@ -131,12 +109,12 @@
                     cancelButtonText: 'Hủy',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        const deleteForm = document.getElementById('deleteForm' + ProductId);
+                        const deleteForm = document.getElementById('deleteForm' + ProductModelId);
                         deleteForm.submit();
                     }
                 });
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

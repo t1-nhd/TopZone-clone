@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
+    <style>
+        form label{
+            font-weight: bold;
+        }
+    </style>
     @vite('resources/css/app.css')
 </head>
 <body>
     @include('admin.layout_admin.header')
-    @yield('content')
+    <div class="pt-[50px]">
+        @yield('content')
+    </div>
 </body>
 </html>

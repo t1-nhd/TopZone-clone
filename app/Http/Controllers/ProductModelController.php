@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductModel;
 use App\Http\Requests\StoreProductModelRequest;
 use App\Http\Requests\UpdateProductModelRequest;
+use App\Models\ProductType;
 
 class ProductModelController extends Controller
 {
@@ -15,7 +16,10 @@ class ProductModelController extends Controller
      */
     public function index()
     {
-        //
+        $productModels = ProductModel::All();
+        return view('admin.product_models.index', [
+            'data' => $productModels
+        ]);
     }
 
     /**
@@ -25,7 +29,8 @@ class ProductModelController extends Controller
      */
     public function create()
     {
-        //
+        $productTypes = ProductType::all();
+        return view('admin.product_models.create', ['types' => $productTypes]);
     }
 
     /**
@@ -36,7 +41,14 @@ class ProductModelController extends Controller
      */
     public function store(StoreProductModelRequest $request)
     {
-        //
+        $newProductModel = new ProductModel();
+
+        $newProductModel->ProductTypeId = $request->ProductTypeId;
+        $newProductModel->ProductModelName = $request->ProductModelName;
+
+        $newProductModel->save();
+
+        return redirect()->route('product_models.index');
     }
 
     /**
@@ -73,14 +85,16 @@ class ProductModelController extends Controller
         //
     }
 
-    /**
+    /** 
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\ProductModel  $productModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductModel $productModel)
+    public function destroy($id)
     {
-        //
+        ProductModel::find($id)->delete();
+        return redirect()->route('product_models.index');
     }
+    
 }

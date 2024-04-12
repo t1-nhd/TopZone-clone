@@ -64,4 +64,8 @@ class Product extends Model
         'Sensor',
         'Locater'
     ];
+
+    function getProductModelName() {
+        return $this->belongsTo(ProductModel::class,'ProductModelId','ProductModelId');
+    }
 }

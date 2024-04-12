@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\ProductModel;
+use App\Models\ProductType;
 
 class ProductController extends Controller
 {
@@ -16,11 +18,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::query();
-        $stt = 0;
         $data = $products->paginate(10);
         return view('admin.products.index', [
-            'products' => $data,
-            'stt' => $stt
+            'data' => $data,
         ]);
     }
 
@@ -31,7 +31,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $productModels = ProductModel::all();
+        $productTypes = ProductType::all();
+        return view('admin.products.create',[
+            'models' => $productModels,
+            'types' => $productTypes
+        ]);
     }
 
     /**
@@ -42,18 +47,33 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
-    }
+        $newProduct = $request->validate([
+            'ProductModelId' => 'required',
 
+            'ProductName' => 'required',
+            'UnitPrice' => 'numeric'
+        ]);
+        if ($request->hasFile('ProductThumbnail')) {
+            $image = $request->file('ProductThumbnail');
+            $imageName = str_replace(' ', '-', strtolower($request->ProductName)) . '.' .$image->getClientOriginalExtension();
+            $newProduct['ProductThumbnail'] = $imageName;
+        }
+
+        $result = Product::create($newProduct);
+
+        if($result) return redirect()->route('products.index')->with("Thêm sản phẩm thành công!");
+        else return redirect()->route('products.index')->with("Thêm sản phẩm không thành công!");
+    }
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return view('admin.products.show', ['product' => $product]);
     }
 
     /**
@@ -62,9 +82,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('admin.products.show', ['product' => $product]);
     }
 
     /**
@@ -85,8 +106,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        ProductModel::findOrFail($id)->delete();
+        return redirect()->route('product_models.index');
     }
 }

@@ -8,9 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ProductModel extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'ProductModelName';
+    protected $primaryKey = 'ProductModelId';
 
     protected $fillable = [
-        'ProductModelName', 'ProductTypeName'
+        'ProductModelId',
+        'ProductModelName', 
+        'ProductTypeId'
     ];
+
+    function getProductTypeName() {
+        return $this->belongsTo(ProductType::class, 'ProductTypeId', 'ProductTypeId');
+    }
 }

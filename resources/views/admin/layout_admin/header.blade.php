@@ -1,7 +1,7 @@
-<nav class="bg-white border-gray-200 dark:bg-neutral-950">
+<nav class="bg-white border-gray-200 dark:bg-neutral-950 fixed w-full top-0">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="{{URL("images/logo-video.png")}}" class="h-8" alt="TopZone logo" />
+            <img src="{{ URL('images/logo-video.png') }}" class="h-8" alt="TopZone logo" />
         </a>
         <button data-collapse-toggle="navbar-default" type="button"
             class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -16,22 +16,34 @@
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-neutral-950 md:dark:bg-neutral-950 dark:border-gray-700">
-                <li>
-                    <a href="{{route("products.index")}}"
+                <li class="group">
+                    <a href="{{ route('products.index') }}"
                         class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
                         aria-current="page">Sản phẩm</a>
+                    <div class="invisible absolute z-50 flex w-auto flex-col bg-gray-100 border rounded-sm py-3 text-gray-800 group-hover:visible">
+                        <div class="hover:bg-slate-300 w-full h-full">
+                            <a href="{{route('product_types.index')}}" class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2">Loại sản phẩm</a>
+                        </div>
+                        <div class="hover:bg-slate-300 w-full h-full">
+                            <a href="{{route('product_models.index')}}" class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2">Dòng sản phẩm</a>
+                        </div>
+                    </div>
+                </li>
+                {{--  --}}
+                <li>
+                    <a href="#"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Khách
+                        Hàng</a>
                 </li>
                 <li>
                     <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Khách Hàng</a>
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Nhân
+                        viên</a>
                 </li>
                 <li>
                     <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Nhân viên</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Hoạt động</a>
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Hoạt
+                        động</a>
                 </li>
             </ul>
         </div>

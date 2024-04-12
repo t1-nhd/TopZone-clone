@@ -15,7 +15,8 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        //
+        $productTypes = ProductType::all();
+        return view('admin.product_types.index', ['data' => $productTypes]);
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product_types.create');
     }
 
     /**
@@ -79,8 +80,9 @@ class ProductTypeController extends Controller
      * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductType $productType)
+    public function destroy($id)
     {
-        //
+        ProductType::findOrFail($id)->delete();
+        return redirect()->route('product_types.index');
     }
 }
