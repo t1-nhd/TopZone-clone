@@ -9,8 +9,11 @@
         form label{
             font-weight: bold;
         }
+        dt{
+            font-weight: bold;
+        }
     </style>
-    @vite('resources/css/app.css')
+    @vite('resources/css/app.css', 'resources/js/app.js')
 </head>
 <body>
     @include('admin.layout_admin.header')

@@ -26,39 +26,40 @@ return new class extends Migration
             $table->integer('Inventory')->nullable(false);
             $table->boolean('isNew')->default(true);
             
-            // iPhone fields
             $table->string('MonitorTechnology')->nullable();
             $table->string('Resolution')->nullable();
             $table->string('MonitorSize')->nullable();
-            $table->string('CameraBack')->nullable();
-            $table->string('CameraFront')->nullable();
             $table->string('Os')->nullable();
             $table->string('Cpu')->nullable();
+            $table->string('Wireless')->nullable();
+            $table->string('BatteryCapacity')->nullable();
+            $table->string('Port')->nullable();
+
+            // iPhone iPad Mac(Webcam)
+            $table->string('Jack')->nullable();
+            $table->string('CameraFront')->nullable();
             $table->string('CpuSpeed')->nullable();
             $table->string('Gpu')->nullable();
-            $table->string('Cellular')->nullable();
-            $table->string('Sim')->nullable();
-            $table->string('Wireless')->nullable();
-            $table->string('Port')->nullable();
-            $table->string('Jack')->nullable();
-            $table->string('BatteryCapacity')->nullable();
             $table->string('BatteryType')->nullable();
             $table->string('BatteryTechnology')->nullable();
-            
-            // iPad fields
+
+            // iPhone iPad
+            $table->string('Sim')->nullable();
+            $table->string('CameraBack')->nullable();
+            $table->string('Cellular')->nullable();
+
+            //  iPad Mac
             $table->string('SpecialFeature')->nullable();
             $table->string('ChargerIncluded')->nullable();
             $table->string('MaximumChargable')->nullable();
             
-            // Mac fields
-            $table->string('PerformanceCharger')->nullable();
+            // Mac
             $table->string('MaximumRamUpgraded')->nullable();
-            $table->string('WebCam')->nullable();
             $table->tinyInteger('NumberOfCore')->nullable();
             $table->tinyInteger('NumberOfThread')->nullable();
             $table->string('MaximumCpuSpeed')->nullable();
-            
-            // Watch fields
+
+            // Watch
             $table->string('SportSupport')->nullable();
             $table->string('CallingSupport')->nullable();
             $table->string('MonitorMaterials')->nullable();

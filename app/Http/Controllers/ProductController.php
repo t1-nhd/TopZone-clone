@@ -15,10 +15,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        $products = Product::query();
-        $data = $products->paginate(10);
+        $data = Product::all();
         return view('admin.products.index', [
             'data' => $data,
         ]);
@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $productModels = ProductModel::all();
+        $productModels = ProductModel::orderBy('ProductModelName', 'asc')->get();
         $productTypes = ProductType::all();
         return view('admin.products.create',[
             'models' => $productModels,
@@ -45,24 +45,26 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
+    
+
     public function store(StoreProductRequest $request)
     {
-        $newProduct = $request->validate([
-            'ProductModelId' => 'required',
-
-            'ProductName' => 'required',
-            'UnitPrice' => 'numeric'
-        ]);
-        if ($request->hasFile('ProductThumbnail')) {
-            $image = $request->file('ProductThumbnail');
-            $imageName = str_replace(' ', '-', strtolower($request->ProductName)) . '.' .$image->getClientOriginalExtension();
-            $newProduct['ProductThumbnail'] = $imageName;
-        }
+        $newProductModelId = ProductModel::where('ProductModelName', $request->ProductModelName)->first()->ProductModelId;
+        $newProduct['ProductModelId'] = $newProductModelId;
+        $newProduct['ProductName'] = $request->ProductName;
+        $newProduct['Ram'] = $request->Ram;
+        $newProduct['Memory'] = $request->Memory;
+        if($request->ProductThumbnail) $newProduct['ProductThumbnail'] = $request->ProductThumbnail;
+        $newProduct['DesignSizeAndWeight'] = $request->DesignSizeAndWeight;
+        $newProduct['UnitPrice'] = $request->UnitPrice;
+        $newProduct['Warrenty'] = $request->Warrenty;
+        $newProduct['Inventory'] = $request->Inventory;
+        $newProduct['isNew'] = $request->isNew;
 
         $result = Product::create($newProduct);
 
-        if($result) return redirect()->route('products.index')->with("Thêm sản phẩm thành công!");
-        else return redirect()->route('products.index')->with("Thêm sản phẩm không thành công!");
+        if($result) return redirect()->route('products.index')->with("thanh-cong", "Thêm sản phẩm thành công!");
+        else return redirect()->route('products.create')->with("that-bai", "Thêm sản phẩm không thành công!");
     }
     /**
      * Display the specified resource.
@@ -72,8 +74,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        
         $product = Product::find($id);
-        return view('admin.products.show', ['product' => $product]);
+        return view('admin.products.show', ['product' => $product])->with('title', $product->ProductName);
     }
 
     /**
@@ -84,8 +87,17 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $ramList = ['4 GB', '6 GB','8 GB','16 GB','18 GB','36 GB'];
+        $memoryList = ['64 GB', '128 GB','256 GB','512 GB','1 TB'];
+        $warrantyList = ['3 tháng', '6 tháng', '12 tháng', '24 tháng'];
+        $productModels = ProductModel::orderBy('ProductModelName', 'asc')->get();
         $product = Product::find($id);
-        return view('admin.products.show', ['product' => $product]);
+        return view('admin.products.edit', [
+            'product' => $product, 'models' => $productModels,
+            'ramList' => $ramList,
+            'memoryList' => $memoryList,
+            'warrantyList' => $warrantyList
+        ])->with('title', $product->ProductName);
     }
 
     /**
@@ -106,9 +118,17 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+    public function delete($id)
+    {
+        $product = Product::find($id);
+        return view('admin.products.delete', ['product' => $product]);
+    }
+
     public function destroy($id)
     {
-        ProductModel::findOrFail($id)->delete();
-        return redirect()->route('product_models.index');
+        $result = Product::query()->where('ProductId', $id)->delete();
+        if($result) return redirect()->route('products.index')->with('thanh-cong', 'Xóa thành công');
+        return redirect()->route('products.index')->with('that-bai', 'Xóa không thành công');
+        
     }
 }

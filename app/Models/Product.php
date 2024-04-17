@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'ProductId';
+    protected $primaryKey = 'ProductID';
 
     protected $fillable = [
         'ProductId',
         'ProductName',
-        'ProductModelName',
+        'ProductModelId',
         'Ram',
         'Memory',
         'ProductThumbnail',
@@ -21,6 +21,7 @@ class Product extends Model
         'DesignSizeAndWeight',
         'Warrenty',
         'Inventory',
+        'isNew',
         'MonitorTechnology',
         'Resolution',
         'MonitorSize',
@@ -64,6 +65,17 @@ class Product extends Model
         'Sensor',
         'Locater'
     ];
+    protected static function boot(){
+        parent::boot();
+        static::creating(function ($product) {
+            $lastProduct = Product::orderBy('ProductId', 'desc')->first();
+            if($lastProduct){
+                $lastNumber = (int)substr($lastProduct->ProductId,3) + 1;
+            }
+            else $lastNumber = 1;
+            $product->ProductId = "P" . str_pad($lastNumber,9,"0",STR_PAD_LEFT); 
+        });
+    }
 
     function getProductModelName() {
         return $this->belongsTo(ProductModel::class,'ProductModelId','ProductModelId');
