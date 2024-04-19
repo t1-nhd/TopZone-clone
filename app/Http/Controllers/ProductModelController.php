@@ -68,9 +68,14 @@ class ProductModelController extends Controller
      * @param  \App\Models\ProductModel  $productModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductModel $productModel)
+    public function edit($id)
     {
-        //
+        $productModel = ProductModel::find($id);
+        $productTypes = ProductType::all();
+        return view('admin.product_models.edit', [
+            'model' => $productModel,
+            'types' => $productTypes,
+        ])->with('title', $productModel->ProductModelName);
     }
 
     /**
@@ -80,9 +85,14 @@ class ProductModelController extends Controller
      * @param  \App\Models\ProductModel  $productModel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductModelRequest $request, ProductModel $productModel)
+    public function update(UpdateProductModelRequest $request, $id)
     {
-        //
+        $productModel = ProductModel::findOrFail($id);
+        $request->validated();
+        $productModel->fill($request->all());
+        $productModel->save();
+
+        return redirect()->route('product_models.index')->with('success', 'Cập nhật dòng sản phẩm thành công');
     }
 
     /** 

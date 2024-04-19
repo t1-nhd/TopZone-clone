@@ -19,7 +19,7 @@ class Product extends Model
         'ProductThumbnail',
         'UnitPrice',
         'DesignSizeAndWeight',
-        'Warrenty',
+        'Warranty',
         'Inventory',
         'isNew',
         'MonitorTechnology',

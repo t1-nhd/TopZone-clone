@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function(){
     Route::get('/', function(){return view('admin.index');});
     Route::resource('products', ProductController::class);
+    // Route::post('products/{product}', [ProductController::class, 'update'])->name('products.update');
+
     Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
     Route::resource('product_models', ProductModelController::class);
     Route::get('/product_types', [ProductTypeController::class, 'index'])->name('product_types.index');

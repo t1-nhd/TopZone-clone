@@ -1,6 +1,6 @@
 <nav class="bg-black border-gray-200 fixed w-full top-0 z-50">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="{{route('admin.index')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ URL('images/logo-video.png') }}" class="h-8" alt="TopZone logo" />
         </a>
         <button data-collapse-toggle="navbar-default" type="button"

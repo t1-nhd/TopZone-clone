@@ -2,7 +2,7 @@
 @section('title', 'Thêm sản phẩm')
 
 @section('content')
-    <div>
+    <div class="container mx-auto px-4">
         <div class="overflow-x-auto m-10">
             <button type="button"
                 class="w-full flex items-center justify-center px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto hover:bg-gray-100">
@@ -14,9 +14,9 @@
             </button>
             <h1 class="w-full text-4xl text-center mb-3">THÊM SẢN PHẨM</h1>
         </div>
-        <form method="POST" action="{{ route('products.store') }}">
+        <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
             @csrf
-            <div class="w-1/3 ml-20">
+            <div class="w-full lg:w-1/2">
                 <div class="mt-3">
                     <label for="product-model-name" class="block">Model thiết bị</label>
                     <div class="w-full flex">
@@ -41,26 +41,9 @@
                         class="px-3 w-full h-10 border border-black rounded-lg">
                 </div>
                 <div class="mt-3">
-                    <label for="thumbnail" class="block">Thumbnail sản phẩm</label>
-                    <div id="thumbnail" class="flex items-center justify-center w-full">
-                        <label for="dropzone-file"
-                            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click
-                                        to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or WEBP</p>
-                            </div>
-                            <input id="dropzone-file" type="file" name="ProductThumbnail" class="hidden" />
-                        </label>
-
-                    </div>
-
+                    <label for="product-thumbnail" class="block">Thumbnail sản phẩm</label>
+                    <input name="ProductThumbnail" type="file" id="product-thumbnail"
+                        class="px-3 w-full h-10 border border-black rounded-lg" />
                 </div>
                 <div class="mt-3 flex">
                     <div class="w-1/2 mr-1">
@@ -104,10 +87,10 @@
                 </div>
 
                 <div class="mt-3">
-                    <label for="warrenty" class="block">Bảo hành:</label>
-                    <select name="Warrenty" id="warrenty" class="px-3 w-full h-10 border border-black rounded-lg">
-                        <option value="12 tháng">3 tháng</option>
-                        <option value="12 tháng">6 tháng</option>
+                    <label for="warranty" class="block">Bảo hành:</label>
+                    <select name="Warranty" id="warranty" class="px-3 w-full h-10 border border-black rounded-lg" required>
+                        <option value="3 tháng">3 tháng</option>
+                        <option value="6 tháng">6 tháng</option>
                         <option value="12 tháng">12 tháng</option>
                         <option value="24 tháng">24 tháng</option>
                     </select>
@@ -121,8 +104,10 @@
 
                 <div class="mt-3">
                     <label for="is-new" class="flex">Mới ra mắt:</label>
-                    <input type="checkbox" id="is-new" name="isNew" value="1"
-                        class="form-checkbox h-5 w-5 text-indigo-600">
+                    <select name="isNew" id="is-new" class="px-3 w-full h-10 border border-black rounded-lg">
+                        <option value=1>Đúng</option>
+                        <option value=0>Sai</option>
+                    </select>
                 </div>
 
                 <div class="mt-3 pb-3">

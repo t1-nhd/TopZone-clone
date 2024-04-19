@@ -62,7 +62,7 @@
                             <input type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold h-9 rounded w-20" value="Xóa"/>
                         </form>
                         <button type="button" class="mx-2 bg-amber-400 hover:bg-amber-500 text-white font-bold h-9 rounded w-20">
-                            <a href="{{route('products.index')}}">Hủy</a>
+                            <a href="javascript:window.history.back()">Hủy</a>
                         </button>
                     </div>
                 </div>

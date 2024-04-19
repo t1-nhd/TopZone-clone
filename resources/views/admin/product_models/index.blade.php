@@ -33,20 +33,7 @@
                         </td>
                         <td class="text-right">
                             <button>
-                                <a href="">
-                                    <svg fill="#000000" width="20px" height="20px" viewBox="0 0 96 96"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <title />
-                                        <g>
-                                            <path d="M18,24H78a6,6,0,0,0,0-12H18a6,6,0,0,0,0,12Z" />
-                                            <path d="M78,42H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
-                                            <path d="M78,72H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
-                                        </g>
-                                    </svg>
-                                </a>
-                            </button>
-                            <button>
-                                <a href="" class="w-1">
+                                <a href="{{route('product_models.edit', $dt->ProductModelId)}}" class="w-1">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <title />
