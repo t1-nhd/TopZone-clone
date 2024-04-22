@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductImage;
+use App\Models\Product;
 use App\Http\Requests\StoreProductImageRequest;
 use App\Http\Requests\UpdateProductImageRequest;
 
@@ -15,7 +16,8 @@ class ProductImageController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::select('ProductName')->distinct()->get();
+        return view('admin.product_images.index', ['data' => $products]);
     }
 
     /**
@@ -34,7 +36,7 @@ class ProductImageController extends Controller
      * @param  \App\Http\Requests\StoreProductImageRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductImageRequest $request)
+    public function store(StoreProductImageRequest $request, $id)
     {
         //
     }
@@ -45,9 +47,10 @@ class ProductImageController extends Controller
      * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductImage $productImage)
+    public function show($productName)
     {
-        //
+        $gallary = ProductImage::where('ProductName', $productName)->get();
+        return view('admin.product_images.show', ['gallary' => $gallary])->with('title', $productName);
     }
 
     /**
@@ -56,7 +59,7 @@ class ProductImageController extends Controller
      * @param  \App\Models\ProductImage  $productImage
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductImage $productImage)
+    public function edit($id)
     {
         //
     }

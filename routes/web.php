@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ProductModelController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\StaffController;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function(){
     Route::get('/', function(){return view('admin.index');});
     Route::resource('products', ProductController::class);
-    // Route::post('products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::resource('product_images', ProductImageController::class);
 
     Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
     Route::resource('product_models', ProductModelController::class);
@@ -31,7 +32,6 @@ Route::prefix('admin')->group(function(){
     Route::delete('/product_types', [ProductTypeController::class, 'destroy'])->name('product_types.destroy');
 });
 
-
 Route::get('/', function () {
-    return view('admin.index');
+    return view('welcome');
 })->name('admin.index');

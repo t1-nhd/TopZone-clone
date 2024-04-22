@@ -106,8 +106,6 @@
                     </button>
                 </div>
             </div>
-
-
         </form>
         <hr>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -135,13 +133,13 @@
             <tbody>
                 @if ($data->count() == 0)
                 <th scope="row" colspan="6" class="py-8 text-2xl font-medium text-gray-400 whitespace-nowrap text-center">
-                    không sản phẩm nào phù hợp
+                    không có sản phẩm nào phù hợp
                 </th>
-                @else
+                @endif
                 @foreach ($data as $dt)
                 <tr class="bg-white border-b">
                     <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
-                        <img src="{{ URL('images/Thumbnais/' . $dt->ProductThumbnail) }}"
+                        <img src="{{ URL('images/Thumbnails/' . $dt->ProductThumbnail) }}"
                             class="w-20 lg:w-1/2 sm:min-w-20" alt="">
                     </th>
                     <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -213,12 +211,11 @@
                     </td>
                 </tr>
             @endforeach
-                @endif
                 
             </tbody>
         </table>
-        <div class="mt-2 px-2 text-center">
-        </div>
+        {{-- <div class="mt-2 px-2 text-center">
+        </div> --}}
     </div>
     <script>
         var ram = document.getElementById("filter-ram").value;

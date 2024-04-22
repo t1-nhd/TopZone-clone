@@ -6,9 +6,11 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductModel;
+use App\Models\ProductImage;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -110,7 +112,7 @@ class ProductController extends Controller
 
             $newProduct->ProductThumbnail = $imageName;
 
-            $image->move(public_path('images\Thumbnais'), $imageName);
+            $image->move(public_path('images\Thumbnails'), $imageName);
         }
 
         $result = $newProduct->save();
@@ -127,9 +129,12 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-
         $product = Product::find($id);
-        return view('admin.products.show', ['product' => $product])->with('title', $product->ProductName);
+        $productImages = ProductImage::where('ProductName', $product->ProductName)->get('ProductImage');
+        return view('admin.products.show', [
+            'product' => $product, 
+            'productImages' => $productImages
+        ])->with('title', $product->ProductName);
     }
 
     /**
@@ -169,10 +174,9 @@ class ProductController extends Controller
             $imageName = str_replace(' ', '-', strtolower($product->ProductName)) . "." . $image->extension();
             DB::table('products')->where('ProductId', $id)->update(['ProductThumbnail' => $imageName]);
 
-            $image->move(public_path('images\Thumbnais'), $imageName);
+            $image->move(public_path('images\Thumbnails'), $imageName);
         }
         $request->validated();
-
         DB::table('products')->where('ProductId', $id)->update([
             'ProductName' => $request->ProductName,
             'Ram' => $request->Ram,

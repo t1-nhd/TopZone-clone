@@ -33,8 +33,10 @@
                                 <label for="product-thumbnail" class="text-sm font-bold text-gray-500">Thumbnail sản
                                     phẩm</label>
                                 <input name="ProductThumbnail" type="file" id="product-thumbnail"
-                                    class="mb-1 w-full border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"/>
+                                    class="w-full file:pr-3 file:mr-3 h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2 file:h-full file:border-none file:bg-blue-500 file:text-white hover:file:bg-blue-700" />
+                                <img src="" alt="">
                             </div>
+                            
                         </div>
                     </div>
                     <div class="w-full lg:w-1/2 bg-white shadow sm:rounded-lg lg:ml-3">
@@ -63,20 +65,20 @@
                                         <label for="ProductName" class="text-sm font-bold text-gray-500">Tên sản
                                             phẩm</label>
                                         <input name="ProductName" type="text"
-                                            class="mb-1 w-full border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->ProductName }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="UnitPrice" class="text-sm font-bold text-gray-500">Đơn giá</label>
                                         <input name="UnitPrice" type="number"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->UnitPrice }}" />
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="DesignSizeAndWeight" class="text-sm font-bold text-gray-500">Kích thước
-                                            và
-                                            trọng lượng</label>
-                                        <textarea type="text" rows="3" name="DesignSizeAndWeight" class="mb-1 w-full border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->DesignSizeAndWeight }}</textarea>
+                                            và trọng lượng</label>
+                                        <textarea type="text" rows="3" name="DesignSizeAndWeight"
+                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->DesignSizeAndWeight }}</textarea>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="warranty" class="text-sm font-bold text-gray-500">Thời gian bảo
@@ -96,7 +98,7 @@
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Inventory" class="text-sm font-bold text-gray-500">Kho</label>
                                         <input name="Inventory" type="number"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Inventory }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -157,21 +159,21 @@
                                             màn
                                             hình</label>
                                         <input name="MonitorTechnology" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->MonitorTechnology }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Resolution" class="text-sm font-bold text-gray-500">Độ phân
                                             giải</label>
                                         <input name="Resolution" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Resolution }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="MonitorSize" class="text-sm font-bold text-gray-500">Màn hình
                                             rộng</label>
                                         <input name="MonitorSize" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ Str::replace('"', '', $product->MonitorSize) }}" />
                                     </div>
                                     <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -182,7 +184,7 @@
                                             <label for="CameraBack" class="text-sm font-bold text-gray-500">Camera
                                                 sau</label>
                                             <input name="CameraBack" type="text"
-                                                class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                                class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                                 value="{{ $product->CameraBack }}" />
                                         </div>
                                     @endif
@@ -195,7 +197,7 @@
                                                 Front</label>
                                         @endif
                                         <input name="CameraFront" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->CameraFront }}" />
                                     </div>
                                     <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -204,25 +206,25 @@
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Os" class="text-sm font-bold text-gray-500">Hệ điều hành</label>
                                         <input name="Os" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Os }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Cpu" class="text-sm font-bold text-gray-500">CPU</label>
                                         <input name="Cpu" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Cpu }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="CpuSpeed" class="text-sm font-bold text-gray-500">Tốc độ CPU</label>
                                         <input name="CpuSpeed" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->CpuSpeed }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Gpu" class="text-sm font-bold text-gray-500">GPU</label>
                                         <input name="Gpu" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Gpu }}" />
                                     </div>
                                     <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -232,18 +234,18 @@
                                         <label for="Wireless" class="text-sm font-bold text-gray-500">Kết nối không
                                             dây</label>
                                         <textarea name="Wireless" rows="3"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->Wireless }}</textarea>
+                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->Wireless }}</textarea>
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Port" class="text-sm font-bold text-gray-500">Cổng sạc</label>
                                         <input name="Port" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Port }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Jack" class="text-sm font-bold text-gray-500">Jack</label>
                                         <input name="Jack" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->Jack }}" />
                                     </div>
                                     <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -260,20 +262,20 @@
                                                 Pin</label>
                                         @endif
                                         <input name="BatteryCapacity" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->BatteryCapacity }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="BatteryType" class="text-sm font-bold text-gray-500">Loại Pin</label>
                                         <input name="BatteryType" type="text"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             value="{{ $product->BatteryType }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="BatteryTechnology" class="text-sm font-bold text-gray-500">Công nghệ
                                             Pin</label>
                                         <textarea name="BatteryTechnology" rows="3"
-                                            class="mb-1 border w-full border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryTechnology }}</textarea>
+                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryTechnology }}</textarea>
                                     </div>
 
                                 </dl>

@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    @include('admin.layout_admin.header')
+    @include('layout.header')
     <div class="pt-[50px]">
         @yield('content')
     </div>

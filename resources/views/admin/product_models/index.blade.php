@@ -8,6 +8,13 @@
                 <a href="{{ route('product_models.create') }}">Thêm dòng sản phẩm</a>
             </button>
         </div>
+        @if (@session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 transition-opacity duration-500 pb-3"
+                role="alert">
+                <p class="font-bold">THÀNH CÔNG</p>
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
         <hr>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -33,7 +40,7 @@
                         </td>
                         <td class="text-right">
                             <button>
-                                <a href="{{route('product_models.edit', $dt->ProductModelId)}}" class="w-1">
+                                <a href="{{ route('product_models.edit', $dt->ProductModelId) }}" class="w-1">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <title />
@@ -53,7 +60,8 @@
                                     </svg>
                                 </a>
                             </button>
-                            <form action="{{route('product_models.destroy', $dt->ProductModelId)}}" method="post" class="inline-block" id="deleteForm{{ $dt->ProductModelId }}">
+                            <form action="{{ route('product_models.destroy', $dt->ProductModelId) }}" method="post"
+                                class="inline-block" id="deleteForm{{ $dt->ProductModelId }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" data-pm-id="{{ $dt->ProductModelId }}" class="delete-btn">
@@ -66,12 +74,14 @@
                                         <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" />
                                         <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                         <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                     </svg>
                                 </button>
-                            </form>                            
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -82,7 +92,7 @@
         //xử lý nút xóa
         const deleteButtons = document.querySelectorAll('.delete-btn');
         deleteButtons.forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 const ProductModelId = this.getAttribute('data-pm-id');
 
                 Swal.fire({
@@ -103,5 +113,5 @@
             });
         });
     </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

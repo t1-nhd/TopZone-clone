@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'ProductImage';
+    protected $primaryKey = 'ProductImageId';
 
     protected $fillable = [
-        'ProductImage', 'ProductId'
+        'ProductImageId','ProductImage', 'ProductName'
     ];
+
+    function getProductName() {
+        return $this->belongsTo(Product::class, 'ProductId', 'ProductId');
+    }
 }

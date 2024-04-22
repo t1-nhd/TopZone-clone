@@ -48,7 +48,7 @@ class ProductModelController extends Controller
 
         $newProductModel->save();
 
-        return redirect()->route('product_models.index');
+        return redirect()->route('product_models.index')->with('success', 'Thêm thành công');
     }
 
     /**
@@ -92,7 +92,7 @@ class ProductModelController extends Controller
         $productModel->fill($request->all());
         $productModel->save();
 
-        return redirect()->route('product_models.index')->with('success', 'Cập nhật dòng sản phẩm thành công');
+        return redirect()->route('product_models.index')->with('success', 'Cập nhật thành công');
     }
 
     /** 
@@ -104,7 +104,7 @@ class ProductModelController extends Controller
     public function destroy($id)
     {
         ProductModel::find($id)->delete();
-        return redirect()->route('product_models.index');
+        return redirect()->route('product_models.index')->with('success', 'Xóa thành công');
     }
     
 }
