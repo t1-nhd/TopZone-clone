@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
+        $data = Product::all();
         $selected = [
             "search" => $request->search,
             "ram" => $request->FilterRam,
@@ -30,26 +30,25 @@ class ProductController extends Controller
             "unit-price" => $request->SortUnitPrice,
             "model" => $request->FilterProductModel
         ];
-
-        $data = Product::all();
-
-        $data = Product::query()
-            ->when($request->filled('search'), function ($query) use ($request) {
-                $query->where('ProductName', 'LIKE', "%{$request->input('search')}%");
-            })
-            ->when($request->filled('FilterRam'), function ($query) use ($request) {
-                $query->where('Ram', $request->input('FilterRam'));
-            })
-            ->when($request->filled('FilterMemory'), function ($query) use ($request) {
-                $query->where('Memory', $request->input('FilterMemory'));
-            })
-            ->when($request->filled('FilterProductModel'), function ($query) use ($request) {
-                $query->where('ProductModelId', $request->input('FilterProductModel'));
-            })
-            ->when($request->filled('SortUnitPrice'), function ($query) use ($request) {
-                $query->orderBy('UnitPrice', $request->input('SortUnitPrice'));
-            })
-            ->get();
+        if ($request) {
+            $data = Product::query()
+                ->when($request->filled('search'), function ($query) use ($request) {
+                    $query->where('ProductName', 'LIKE', "%{$request->input('search')}%");
+                })
+                ->when($request->filled('FilterRam'), function ($query) use ($request) {
+                    $query->where('Ram', $request->input('FilterRam'));
+                })
+                ->when($request->filled('FilterMemory'), function ($query) use ($request) {
+                    $query->where('Memory', $request->input('FilterMemory'));
+                })
+                ->when($request->filled('FilterProductModel'), function ($query) use ($request) {
+                    $query->where('ProductModelId', $request->input('FilterProductModel'));
+                })
+                ->when($request->filled('SortUnitPrice'), function ($query) use ($request) {
+                    $query->orderBy('UnitPrice', $request->input('SortUnitPrice'));
+                })
+                ->get();
+        }
 
         $ramList = ['4 GB', '6 GB', '8 GB', '16 GB', '18 GB', '36 GB'];
         $memoryList = ['64 GB', '128 GB', '256 GB', '512 GB', '1 TB'];
@@ -62,6 +61,13 @@ class ProductController extends Controller
             'models' => $productModels,
             'ramList' => $ramList,
             'memoryList' => $memoryList,
+        ]);
+    }
+    public function list($productType){
+        $products = Product::where('ProductModelName', 'LIKE', '%{$productType}%');
+        return view('products.index', [
+            'data' => $products,
+            'title' => $productType,
         ]);
     }
 
@@ -132,7 +138,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $productImages = ProductImage::where('ProductName', $product->ProductName)->get('ProductImage');
         return view('admin.products.show', [
-            'product' => $product, 
+            'product' => $product,
             'productImages' => $productImages
         ])->with('title', $product->ProductName);
     }

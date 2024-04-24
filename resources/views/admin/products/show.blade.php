@@ -52,10 +52,10 @@
                                     <img src="{{ URL('images/Thumbnails/' . $product->ProductThumbnail) }}"
                                         class="w-1/2 lg:w-2/3 sm:min-w-20" alt="">
                                 </div>
-                                <div class="bg-gray-200 px-4 font-bold py-2 sm:px-6 block  sm:flex justify-between">
-                                    <div>Hình ảnh chi tiết sản phẩm</div>
-                                    <div class="font-medium text-end">
-                                        <a href="{{ route('product_images.edit', $product->ProductId) }}"
+                                <div class="bg-gray-200 px-4 py-2 sm:px-6 block  sm:flex justify-between">
+                                    <div class="font-bold">Hình ảnh chi tiết sản phẩm</div>
+                                    <div class="text-end">
+                                        <a href="{{ route('product_images.edit', $product->ProductName) }}"
                                             class="text-blue-500 hover:text-blue-700">Chỉnh sửa ảnh chi tiết</a>
                                     </div>
                                 </div>

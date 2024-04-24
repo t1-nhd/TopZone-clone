@@ -22,9 +22,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('admin')->group(function(){
-    Route::get('/', function(){return view('admin.index');});
+    Route::get('/', function(){return view('admin.index');})->name('admin.index');
+    // Product
     Route::resource('products', ProductController::class);
-    Route::resource('product_images', ProductImageController::class);
+    // ProductImage
+    Route::get('/product_images', [ProductImageController::class, 'index'])->name('product_images.index');
+    Route::get('/product_images/{ProductName}/edit', [ProductImageController::class, 'edit'])->name('product_images.edit');
+    Route::post('/product_images', [ProductImageController::class, 'store'])->name('product_images.store');
+    Route::get('/product_images/{ProductName}/delete', [ProductImageController::class, 'delete'])->name('product_images.delete');
+    Route::delete('/product_images/{id}', [ProductImageController::class, 'destroy'])->name('product_images.destroy');
+
+
 
     Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
     Route::resource('product_models', ProductModelController::class);
@@ -32,6 +40,7 @@ Route::prefix('admin')->group(function(){
     Route::delete('/product_types', [ProductTypeController::class, 'destroy'])->name('product_types.destroy');
 });
 
+Route::get('/{productType}', [ProductController::class, 'list'])->name('products.list');
 Route::get('/', function () {
     return view('welcome');
-})->name('admin.index');
+})->name('index');

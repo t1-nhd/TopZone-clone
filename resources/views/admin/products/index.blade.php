@@ -38,11 +38,13 @@
                 <p>{{ session('success') }}</p>
             </div>
         @endif
-        @if (@session('fail'))
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 transition-opacity duration-500"
+        @if ($errors->any())
+            <div class="bg-red-100 border-l-4 border-amber-500 text-amber-700 p-4 transition-opacity duration-500"
                 role="alert">
-                <p class="font-bold">THẤT BẠI</p>
-                <p>{{ session('fail') }}</p>
+                <p class="font-bold">CHÚ Ý</p>
+                @foreach($errors->all() as $error)
+                <p class="">{{$error}}</p>
+                @endforeach
             </div>
         @endif  
         <form action="{{ route('products.index') }}" method="get" class="my-5">

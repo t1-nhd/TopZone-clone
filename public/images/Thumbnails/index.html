@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <script src="https://cdn.tailwindcss.com"></script>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
@@ -20,12 +21,33 @@
         />
     </head>
     <body>
-        <div class="your-class">
+        <div class="iphone-slider">
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+        </div>
+        <div class="ipad-slider">
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+        </div>
+        <div class="mac-slider">
             <div>your content</div>
             <div>your content</div>
             <div>your content</div>
             <div>your content</div>
             <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+            <div>your content</div>
+        </div>
+        <div class="watch-slider">
             <div>your content</div>
             <div>your content</div>
             <div>your content</div>
@@ -52,7 +74,33 @@
         ></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $(".your-class").slick({});
+                $(".iphone-slider, .ipad-slider, .mac-slider, .watch-slider").slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    arrows: true,
+                    dots: true,
+                    infinite: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                centerPadding: "40px",
+                                slidesToShow: 2,
+                            },
+                        },
+                        {
+                            breakpoint: 640,
+                            settings: {
+                                arrows: false,
+                                centerPadding: "40px",
+                                slidesToShow: 1,
+                            },
+                        },
+                    ],
+                });
             });
         </script>
     </body>
