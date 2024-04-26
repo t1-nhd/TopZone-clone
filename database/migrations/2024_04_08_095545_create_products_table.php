@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->string('ProductId', 10)->primary();
-            $table->string('ProductModelName', 50)->nullable(false);
+            $table->integer('ProductModelId')->nullable(false);
             $table->string('ProductName')->nullable(false);
             $table->string('ProductThumbnail')->nullable(false);
             $table->string('Memory')->nullable(false);
-            $table->string('Ram')->nullable();
+
             $table->integer('UnitPrice')->nullable(false);
             $table->string('DesignSizeAndWeight')->nullable(false);
-            $table->string('Warrenty')->nullable(false);
+            $table->string('Warranty')->nullable(false);
             $table->integer('Inventory')->nullable(false);
             $table->boolean('isNew')->default(true);
             
@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('Port')->nullable();
 
             // iPhone iPad Mac(Webcam)
+            $table->string('Ram')->nullable();
             $table->string('Jack')->nullable();
             $table->string('CameraFront')->nullable();
             $table->string('CpuSpeed')->nullable();
@@ -77,7 +78,7 @@ return new class extends Migration
             $table->string('Sensor')->nullable();
             $table->string('Locater')->nullable();
             
-            $table->foreign('ProductModelName')->references('ProductModelName')->on('product_models');
+            $table->foreign('ProductModelId')->references('ProductModelId')->on('product_models');
             $table->timestamps();
         });
     }

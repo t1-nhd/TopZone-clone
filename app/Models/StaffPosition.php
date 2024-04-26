@@ -9,6 +9,7 @@ class StaffPosition extends Model
 {
     use HasFactory;
     protected $primaryKey = 'StaffPositionId';
+    protected $keyType = 'string';
     
     protected $fillable = [
         'StaffPositionId', 'StaffPositionName', 'BasicSalary'

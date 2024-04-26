@@ -9,6 +9,7 @@ class ProductType extends Model
 {
     use HasFactory;
     protected $primaryKey = 'ProductTypeId';
+    public $incrementing = true;
 
     protected $fillable = [
         'ProductTypeId',

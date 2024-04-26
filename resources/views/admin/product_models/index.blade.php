@@ -4,9 +4,6 @@
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
             <h1 class="w-full text-4xl text-center mb-3">DÒNG SẢN PHẨM</h1>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-auto px-2">
-                <a href="{{ route('product_models.create') }}">Thêm dòng sản phẩm</a>
-            </button>
         </div>
         @if (@session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 transition-opacity duration-500 pb-3"
@@ -15,9 +12,35 @@
                 <p>{{ session('success') }}</p>
             </div>
         @endif
-        <hr>
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+        <div class="py-7 px-7">
+            <form method="POST" action="{{ route('product_models.store') }}">
+                @csrf
+                <div class="w-full border rounded-lg p-3">
+                    <div class="w-full block sm:flex">
+                        <div class="mt-3 w-full sm:w-1/3 sm:mr-3">
+                            <label for="product-type-id" class="block">Sản phẩm loại:</label>
+                            <select name="ProductTypeId" id="product-type-id"
+                                class="px-3 w-full h-10 border border-black rounded-lg">
+                                <option selected disabled>Chọn loại</option>
+                                @foreach ($types as $type)
+                                    <option value="{{ $type->ProductTypeId }}">{{ $type->ProductTypeName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mt-3 w-full sm:w-2/3">
+                            <label for="product-model-name" class="block">Tên sản phẩm</label>
+                            <input type="text" id="product-model-name" name="ProductModelName" value="" required
+                                class="px-3 w-full h-10 border border-black rounded-lg">
+                        </div>
+                    </div>
+                    <div class="flex justify-end my-3">
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-32">Thêm</button>
+                    </div>
+            </form>
+        </div>
+        <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left w-2/6">
                         Tên loại sản phẩm

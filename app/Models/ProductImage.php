@@ -9,6 +9,7 @@ class ProductImage extends Model
 {
     use HasFactory;
     protected $primaryKey = 'ProductImageId';
+    public $incrementing = true;
 
     protected $fillable = [
         'ProductImageId','ProductImage', 'ProductName'

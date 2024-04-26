@@ -37,8 +37,19 @@
             scroll-snap-align: start;
             scroll-snap-stop: always;
         }
-        .slick-slide{
+
+        .slick-slide {
             width: 100%;
+        }
+
+        .new-box {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+        }
+
+        .new-box::before {
+            content: "Mới";
         }
     </style>
     @vite('resources/css/app.css', 'resources/js/app.js')
@@ -46,9 +57,7 @@
 
 <body>
     @include('layout.header')
-    <div class="pt-[92px] sm:pt-[56px]">
-        @yield('content')
-    </div>
+    @yield('content')
     @include('layout.footer')
 </body>
 

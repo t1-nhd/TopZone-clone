@@ -16,8 +16,10 @@ class ProductModelController extends Controller
      */
     public function index()
     {
-        $productModels = ProductModel::All();
+        $productTypes = ProductType::all();
+        $productModels = ProductModel::orderBy('ProductTypeId', 'asc')->get();
         return view('admin.product_models.index', [
+            'types' => $productTypes,
             'data' => $productModels
         ]);
     }
@@ -29,8 +31,7 @@ class ProductModelController extends Controller
      */
     public function create()
     {
-        $productTypes = ProductType::all();
-        return view('admin.product_models.create', ['types' => $productTypes]);
+        //
     }
 
     /**

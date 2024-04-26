@@ -63,13 +63,7 @@ class ProductController extends Controller
             'memoryList' => $memoryList,
         ]);
     }
-    public function list($productType){
-        $products = Product::where('ProductModelName', 'LIKE', '%{$productType}%');
-        return view('products.index', [
-            'data' => $products,
-            'title' => $productType,
-        ]);
-    }
+    
 
     /**
      * Show the form for creating a new resource.

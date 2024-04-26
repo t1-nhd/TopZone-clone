@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use App\Http\Requests\StoreCartItemRequest;
 use App\Http\Requests\UpdateCartItemRequest;
+use App\Models\Cart;
+use Illuminate\Http\Request;
 
 class CartItemController extends Controller
 {
@@ -27,16 +29,21 @@ class CartItemController extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCartItemRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCartItemRequest $request)
+    public function addToCart(Request $request)
     {
-        //
+        $cart = Cart::where('CustomerId', $request->CustomerId)->first();
+        if($cart){
+            $cartItem = new CartItem();
+            $cartItem['CartId'] = $cart->CartId;
+            $cartItem['ProductId'] = $request->ProductId;
+            $cartItem['Quantity'] = 1;
+            $cartItem['Paid'] = 0;
+            $cartItem->save();
+    
+            return redirect()->back()->with('success', 'Thêm vào giỏ hàng thành công');
+        }
+        return "hehe";
+        
     }
 
     /**

@@ -53,6 +53,14 @@
             <div>your content</div>
             <div>your content</div>
         </div>
+        <div class="flex justify-between">
+            <div class="prev border border-black px-3 ">
+                <button>PREV</button>
+            </div>
+            <div class="next border border-black px-3 ">
+                <button>NEXT</button>
+            </div>
+        </div>
 
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -74,12 +82,40 @@
         ></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $(".iphone-slider, .ipad-slider, .mac-slider, .watch-slider").slick({
+                $(".iphone-slider, .ipad-slider, .mac-slider").slick({
                     slidesToShow: 4,
                     slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 2000,
                     arrows: true,
+                    prevArrow: '.prev',
+                    nextArrow: '.next',
+                    dots: true,
+                    infinite: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                                centerPadding: "40px",
+                                slidesToShow: 2,
+                            },
+                        },
+                        {
+                            breakpoint: 640,
+                            settings: {
+                                arrows: false,
+                                centerPadding: "40px",
+                                slidesToShow: 1,
+                            },
+                        },
+                    ],
+                });
+
+                $(".watch-slider").slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    prevArrow: '.prev',
+                    nextArrow: '.next',
                     dots: true,
                     infinite: true,
                     responsive: [

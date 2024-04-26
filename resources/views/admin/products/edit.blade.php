@@ -105,8 +105,8 @@
                                         <label for="is-new" class="text-sm font-bold text-gray-500">Mới ra mắt?</label>
                                         <select name="isNew" id="is-new"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
-                                            <option value=1>Đúng</option>
-                                            <option value=2>Sai</option>
+                                            <option {{$product->isNew == 1?'Selected':''}} value=1>Đúng</option>
+                                            <option {{$product->isNew == 0?'Selected':''}} value=2>Sai</option>
                                         </select>
                                     </div>
                                 </dl>

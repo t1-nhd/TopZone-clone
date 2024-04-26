@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->integer('ProductImageId')->primary()->autoIncrement();
             $table->string('ProductImage', 255)->nullable(false);
-            $table->string('ProductId', 10)->nullable(false);
+            $table->string('ProductName', 255)->nullable();
             
-            $table->foreign('ProductId')->references('ProductId')->on('products');
             $table->timestamps();
         });
     }

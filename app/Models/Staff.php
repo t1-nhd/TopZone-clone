@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Staff extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'ProductModelName';
+    protected $primaryKey = 'StaffId';
+    protected $keyType = 'string';
 
     protected $fillable = [
         'StaffId',
