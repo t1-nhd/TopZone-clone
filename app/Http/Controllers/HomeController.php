@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductModel;
 use App\Models\ProductType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
 
 class HomeController extends Controller
 {
@@ -41,20 +41,20 @@ class HomeController extends Controller
         $productModels = ProductModel::where('ProductTypeId', $model->ProductTypeId)->get();
         $products = Product::where('ProductModelId', $model->ProductModelId)->get();
         return view('products.filter', [
-            'type' => $type,
+            'type' => $type->ProductTypeName,
             'models' => $productModels,
             'data' => $products,
-            'title' => $productModel
+            'title' => $productModel,
         ]);
     }
-
 
     public function show($productName, $memory)
     {
         $product = Product::where('ProductName', $productName)->where('Memory', $memory)->first();
-
+        $images = ProductImage::where('ProductName', $productName)->get('ProductImage');
         return view('products.show',[
             'product' => $product,
+            'images' => $images,
             'title' => $productName . " " . $memory
         ]);
     }

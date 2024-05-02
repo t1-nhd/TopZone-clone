@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('account_types', function (Blueprint $table) {
-            $table->tinyInteger('AccountTypeId')->primary();
-            $table->string('AccountTypeName', 255)->nullable(false);
-            $table->timestamps();
+        Schema::table('staff', function (Blueprint $table) {
+            $table->dropColumn('Active');
         });
     }
 
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_types');
+        Schema::table('staffs', function (Blueprint $table) {
+            //
+        });
     }
 };

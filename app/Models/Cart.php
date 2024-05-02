@@ -14,4 +14,8 @@ class Cart extends Model
     protected $fillable = [
         'CartId', 'CustomerId'
     ];
+
+    function getCustomerId() {
+        return $this->belongsTo(Customer::class,'CustomerId','CustomerId');
+    }
 }

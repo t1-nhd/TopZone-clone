@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Staff;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class AdminCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->admin){
+            if(Auth::user()->account_type == 2 || Auth::user()->account_type == 1){
                 return $next($request);
             }
             return redirect()->route('index');

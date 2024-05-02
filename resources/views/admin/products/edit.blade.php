@@ -283,7 +283,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-3 pb-3 block sm:flex justify-center lg:justify-end">
+                <div class="z-10 sticky bottom-0 w-full bg-white pt-3 pb-3 block sm:flex justify-center lg:justify-end">
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-full sm:w-32 mr-1">Cập
                         nhật</button>

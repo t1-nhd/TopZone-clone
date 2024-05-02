@@ -9,13 +9,21 @@
         </div>
         <div class="flex justify-center">
             <div class="container sm:px-10 text-gray-300 text-md">
-                <a href="{{route('list', $type->ProductTypeName)}}" class="mx-5 hover:text-white hover:border-b hover:pb-1">
+                <a href="{{ route('list', $type) }}" class="mx-5 hover:text-white hover:transition-all delay-100 pb-3 hover:border-b">
                     Tất cả
                 </a>
                 @foreach ($models as $model)
-                    <a href="{{route('filter', $model->ProductModelName)}}" class="mx-5 hover:text-white hover:pb-1 hover:border-b">
-                        {{ $model->ProductModelName }}
-                    </a>
+                    @if ($model->ProductModelName == $title)
+                        <a href="{{ route('filter', $model->ProductModelName) }}"
+                            class="mx-5 text-white pb-3 border-b">
+                            {{ $model->ProductModelName }}
+                        </a>
+                    @else
+                        <a href="{{ route('filter', $model->ProductModelName) }}"
+                            class="mx-5 hover:text-white hover:transition-all delay-100 pb-3 hover:border-b">
+                            {{ $model->ProductModelName }}
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('StaffName', 255)->nullable(false);
             $table->string('Email')->nullable(false)->unique();
             $table->boolean('Gender')->nullable(false);
-            $table->string('YearOfBirth', 255)->nullable(false);
+            $table->string('YearOfBirth', 4)->nullable(false);
             $table->string('Phone', 10)->nullable(false);
             $table->string('CitizenId', 12)->nullable(false)->unique();
             $table->boolean('Active')->default(true);

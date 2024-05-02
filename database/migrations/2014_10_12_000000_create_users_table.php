@@ -21,6 +21,8 @@ return new class extends Migration
             $table->tinyInteger('account_type')->default(0);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('account_type')->references('AccountTypeId')->on('account_types');
         });
     }
 

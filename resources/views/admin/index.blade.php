@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
-                    <a href="#">
+                    <a href="{{route('staffs.index')}}">
                         <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
                             <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full my-4">
                                 <i class="fa-solid fa-user-tie text-white"></i>

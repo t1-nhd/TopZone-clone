@@ -1,10 +1,9 @@
 @extends('layout.layout')
 @section('title', 'TopZone - Cửa hàng Apple chính hãng')
 @section('content')
-
-    <section>
+    <section class=" pt-[84px] sm:pt-[56px]">
         {{-- Banner --}}
-        <div class="banner-slider w-full pt-[80px] sm:pt-[56px]">
+        <div class="banner-slider w-full">
             <div class="w-full">
                 <img src="{{ URL('images/Banner/AirPods-Pro-2-2880-800-1920x533.webp') }}" alt="">
             </div>

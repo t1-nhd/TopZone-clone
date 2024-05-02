@@ -9,7 +9,7 @@ class CartItem extends Model
 {
     use HasFactory;
     protected $primaryKey = ['CartId', 'ProductId'];
-    protected $keyType = 'string'; 
+    protected $keyType = 'string';
 
     protected $fillable = [
         'CartId', 
@@ -17,4 +17,8 @@ class CartItem extends Model
         'Quantity',
         'Paid'
     ];
+
+    function getProduct() {
+        return $this->belongsTo(Product::class,'ProductId','ProductId');
+    }
 }

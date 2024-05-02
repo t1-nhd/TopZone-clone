@@ -111,7 +111,6 @@
                 }
             }
         }
-
         .img-bg {
             background-repeat: no-repeat;
             background-position: center;
@@ -120,7 +119,6 @@
             padding-bottom: 100%;
         }
     </style>
-    @vite('resources/css/app.css', 'resources/js/app.js')
 </head>
 
 <body>

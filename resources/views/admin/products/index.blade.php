@@ -5,13 +5,13 @@
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
             <h1 class="w-full text-4xl text-center mb-3">SẢN PHẨM</h1>
-            <div class="flex justify-between">
-                <div class="w-2/3">
+            <div class="block sm:flex justify-between">
+                <div class="sm:w-1/3 px-3">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
                         <a href="{{ route('products.create') }}">Thêm sản phẩm</a>
                     </button>
                 </div>
-                <div class="w-1/3 px-3">
+                <div class="w-full sm:w-1/3 px-3 sm:pt-0 pt-1">
                     <form action="{{ route('products.index') }}" method="get">
                         <div class="relative w-full">
                             <input name="search" type="search" id="search-box"
@@ -42,19 +42,24 @@
             <div class="bg-red-100 border-l-4 border-amber-500 text-amber-700 p-4 transition-opacity duration-500"
                 role="alert">
                 <p class="font-bold">CHÚ Ý</p>
-                @foreach($errors->all() as $error)
-                <p class="">{{$error}}</p>
+                @foreach ($errors->all() as $error)
+                    <p class="">{{ $error }}</p>
                 @endforeach
             </div>
-        @endif  
+        @endif
         <form action="{{ route('products.index') }}" method="get" class="my-5">
             <div class="w-full block sm:flex justify-end px-3">
-                <div class="mr-1">
+                @if ($isFilter)
+                    <a href="{{ route('products.index') }}"
+                        class="flex justify-center items-center mt-1 h-6 px-3 rounded-full bg-gray-300 mr-1"><i
+                            class="fa-solid fa-xmark mr-1 mt-1"></i>Bỏ lọc</a>
+                @endif
+                <div class="mr-1 mb-1">
                     <select name="FilterProductModel" id="filter-model" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Dòng sản phẩm</option>
                         <option value=""></option>
                         @foreach ($models as $model)
-                            @if ($selected["model"] == $model->ProductModelId)
+                            @if ($selected['model'] == $model->ProductModelId)
                                 <option value="{{ $model->ProductModelId }}" selected>
                                     {{ $model->ProductModelName }}</option>
                             @else
@@ -64,12 +69,12 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mr-1">
+                <div class="mr-1 mb-1">
                     <select name="FilterRam" id="filter-ram" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Ram</option>
                         <option value=""></option>
                         @foreach ($ramList as $item)
-                            @if ($selected["ram"] == $item)
+                            @if ($selected['ram'] == $item)
                                 <option value="{{ $item }}" selected>{{ $item }}
                                 </option>
                             @else
@@ -78,12 +83,12 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mr-1">
+                <div class="mr-1 mb-1">
                     <select name="FilterMemory" id="filter-memory" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Dung lượng</option>
                         <option value=""></option>
                         @foreach ($memoryList as $item)
-                            @if ($selected["memory"] == $item)
+                            @if ($selected['memory'] == $item)
                                 <option value="{{ $item }}" selected>{{ $item }}
                                 </option>
                             @else
@@ -92,12 +97,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="mr-1">
+                <div class="mr-1 mb-1 sm:mr-3">
                     <select name="SortUnitPrice" id="filter-unit-price" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Đơn giá</option>
                         <option value=""></option>
-                        <option value="desc" {{($selected['unit-price' ?? ''] == "desc" ? 'selected' : '')}}>↓ Giảm dần </option>
-                        <option value="asc" {{($selected['unit-price' ?? ''] == "asc" ? 'selected' : '')}}>↑ Tăng dần</option>
+                        <option value="desc" {{ $selected['unit-price' ?? ''] == 'desc' ? 'selected' : '' }}>↓ Giảm dần
+                        </option>
+                        <option value="asc" {{ $selected['unit-price' ?? ''] == 'asc' ? 'selected' : '' }}>↑ Tăng dần
+                        </option>
 
                     </select>
                 </div>
@@ -134,86 +141,87 @@
             </thead>
             <tbody>
                 @if ($data->count() == 0)
-                <th scope="row" colspan="6" class="py-8 text-2xl font-medium text-gray-400 whitespace-nowrap text-center">
-                    không có sản phẩm nào phù hợp
-                </th>
+                    <th scope="row" colspan="6"
+                        class="py-8 text-2xl font-medium text-gray-400 whitespace-nowrap text-center">
+                        không có sản phẩm nào phù hợp
+                    </th>
                 @endif
                 @foreach ($data as $dt)
-                <tr class="bg-white border-b">
-                    <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
-                        <img src="{{ URL('images/Thumbnails/' . $dt->ProductThumbnail) }}"
-                            class="w-20 lg:w-1/2 sm:min-w-20" alt="">
-                    </th>
-                    <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $dt->ProductName . ' ' . $dt->Memory }}
-                    </th>
-                    <td class="py-4 text-center hidden xl:table-cell">
-                        {{ $dt->Ram }}
-                    </td>
-                    <td class="py-4 text-center hidden sm:table-cell">
-                        {{ $dt->Memory }}
-                    </td>
-                    <td class="py-4 text-center hidden lg:table-cell">
-                        {{ number_format($dt->UnitPrice) . '₫' }}
-                    </td>
-                    <td class="text-center">
-                        <button>
-                            <a href="{{ route('products.show', $dt->ProductId) }}">
-                                <svg fill="#000000" width="20px" height="20px" viewBox="0 0 96 96"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <title />
-                                    <g>
-                                        <path d="M18,24H78a6,6,0,0,0,0-12H18a6,6,0,0,0,0,12Z" />
-                                        <path d="M78,42H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
-                                        <path d="M78,72H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
-                                    </g>
-                                </svg>
-                            </a>
-                        </button>
-                        <button>
-                            <a href="{{ route('products.edit', $dt->ProductId) }}" class="w-1">
-                                <svg width="20px" height="20px" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <title />
-                                    <g id="Complete">
-                                        <g id="edit">
-                                            <g>
-                                                <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8"
-                                                    fill="none" stroke="#000000" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" />
-                                                <polygon fill="none"
-                                                    points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8"
-                                                    stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" />
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <img src="{{ URL('images/Thumbnails/' . $dt->ProductThumbnail) }}"
+                                class="w-20 lg:w-1/2 sm:min-w-20" alt="">
+                        </th>
+                        <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+                            {{ $dt->ProductName . ' ' . $dt->Memory }}
+                        </th>
+                        <td class="py-4 text-center hidden xl:table-cell">
+                            {{ $dt->Ram }}
+                        </td>
+                        <td class="py-4 text-center hidden lg:table-cell">
+                            {{ $dt->Memory }}
+                        </td>
+                        <td class="py-4 text-center hidden sm:table-cell">
+                            {{ number_format($dt->UnitPrice) . '₫' }}
+                        </td>
+                        <td class="text-center">
+                            <button>
+                                <a href="{{ route('products.show', $dt->ProductId) }}">
+                                    <svg fill="#000000" width="20px" height="20px" viewBox="0 0 96 96"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title />
+                                        <g>
+                                            <path d="M18,24H78a6,6,0,0,0,0-12H18a6,6,0,0,0,0,12Z" />
+                                            <path d="M78,42H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
+                                            <path d="M78,72H18a6,6,0,0,0,0,12H78a6,6,0,0,0,0-12Z" />
+                                        </g>
+                                    </svg>
+                                </a>
+                            </button>
+                            <button>
+                                <a href="{{ route('products.edit', $dt->ProductId) }}" class="w-1">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <title />
+                                        <g id="Complete">
+                                            <g id="edit">
+                                                <g>
+                                                    <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8"
+                                                        fill="none" stroke="#000000" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2" />
+                                                    <polygon fill="none"
+                                                        points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8"
+                                                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" />
+                                                </g>
                                             </g>
                                         </g>
-                                    </g>
-                                </svg>
-                            </a>
-                        </button>
-                        <button>
-                            <a href="{{ route('products.delete', $dt->ProductId) }}" class="w-1">
-                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M14 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </a>
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-                
+                                    </svg>
+                                </a>
+                            </button>
+                            <button>
+                                <a href="{{ route('products.delete', $dt->ProductId) }}" class="w-1">
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M14 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+
             </tbody>
         </table>
         {{-- <div class="mt-2 px-2 text-center">
