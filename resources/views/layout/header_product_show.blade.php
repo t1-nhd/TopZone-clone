@@ -1,4 +1,4 @@
-<header class="w-full bg-black">
+<header class="w-full bg-black absolute z-50">
     <div class="flex w-full h-full justify-center sm:justify-around">
         <div class="w-[88px] mt-3">
             <a href="{{ route('index') }}" class="">

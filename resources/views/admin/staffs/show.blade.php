@@ -20,12 +20,12 @@
                 <div class="block w-1/2">
                     <div class="w-full bg-white shadow overflow-hidden sm:rounded-lg ">
                         <div class="w-full bg-white shadow">
-                            <div class="flex justify-end">
-                                <a href="{{ route('staffs.edit', $staff->StaffId) }}"
-                                    class="text-blue-500 hover:text-blue-700 mr-2">Chỉnh sửa</a>
-                                <a href="{{ route('staffs.delete', $staff->StaffId) }}"
-                                    class="text-red-500 hover:text-red-700">Xóa</a>
-                            </div>
+                            @if (Auth::user()->account_type == 2 && Auth::user()->email != $staff->Email)
+                                <div class="flex justify-end">
+                                    <a href="{{ route('staffs.delete', $staff->StaffId) }}"
+                                        class="text-red-500 hover:text-red-700">Khóa</a>
+                                </div>
+                            @endif
                             <div class="border-t border-gray-200 py-5">
                                 <dl>
                                     <div class="bg-white px-4 py-1 flex justify-between items-center">

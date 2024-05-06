@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\BillDetails;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -23,10 +26,26 @@ class CartController extends Controller
         $cartItems = DB::table('cart_items')
             ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
             ->where('CartId', $cart->CartId)
+            ->where('Paid', 0)
             ->get();
 
         return view('cart.index', [
             'cartItems' => $cartItems,
+        ]);
+    }
+
+    public function show()
+    {
+        $email = Auth::user()->email;
+        $customer = Customer::where('Email', $email)->first();
+        $cart = Cart::where('CustomerId', $customer->CustomerId)->first();
+        $cartItems = DB::table('cart_items')
+            ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
+            ->where('CartId', $cart->CartId)
+            ->get();
+        return view('cart.show', [
+            'cartItems' => $cartItems,
+            'customer' => $customer,
         ]);
     }
 
@@ -66,7 +85,7 @@ class CartController extends Controller
         $quantity = $cartItem->Quantity;
 
         if ($request->update == 'decrement') {
-            if($quantity <= 1){
+            if ($quantity <= 1) {
                 DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->delete();
                 return redirect()->route('carts.index');
             }
@@ -89,8 +108,42 @@ class CartController extends Controller
         $customer = Customer::where('Email', $email)->first('CustomerId');
         $cart = Cart::where('CustomerId', $customer->CustomerId)->first('CartId')->CartId;
 
-        DB::table('cart_items')->where('CartId', $cart)->where('ProductId',$productId)->delete();
-        
+        DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->delete();
+
         return redirect()->route('carts.index');
+    }
+
+    public function payment(Request $request)
+    {
+        // dd($request->all());
+        $bill = new Bill();
+
+        $lastBill = Bill::orderBy('BillId', 'desc')->first();
+        if ($lastBill) {
+            $lastNumber = (int)substr($lastBill->BillId, 3) + 1;
+        } else $lastNumber = 1;
+        $newBillId = "HD" . str_pad($lastNumber, 8, "0", STR_PAD_LEFT);
+
+        $bill->BillId = $newBillId;
+        $bill->CustomerId = $request->CustomerId;
+        $bill->Address = $request->Address;
+        $bill->Note = $request->Note;
+        $bill->save();
+
+        foreach($request->cartItems as $cartItem){
+            // dd($cartItem);
+            DB::table('bill_details')->insert([
+                'BillId' => $newBillId, 
+                'ProductId' => $cartItem['ProductId'],
+                'Quantity' => $cartItem['Quantity'],
+            ]);
+
+            $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->update([
+                'Paid' => 1
+            ]);
+        }
+
+        $billDetails = DB::table('bill_details')->where('BillId', $newBillId)->get();
+        return $billDetails;
     }
 }

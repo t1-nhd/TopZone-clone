@@ -63,7 +63,7 @@
                         class="bg-red-500 hover:bg-red-700 text-white font-bold h-9 rounded w-full sm:w-32 mr-1">Xác nhận</button>
                     <button
                         class="bg-blue-600 hover:bg-blue-700 text-white font-bold h-9 rounded w-full mt-3 sm:mt-0 sm:w-20 sm:ml-1">
-                        <a href="{{ route('products.index') }}">
+                        <a href="{{ route('staffs.index') }}">
                             Hủy
                         </a>
                     </button>

@@ -51,10 +51,12 @@ class HomeController extends Controller
     public function show($productName, $memory)
     {
         $product = Product::where('ProductName', $productName)->where('Memory', $memory)->first();
+        $memories = Product::where('ProductName', $productName)->get('Memory');
         $images = ProductImage::where('ProductName', $productName)->get('ProductImage');
         return view('products.show',[
             'product' => $product,
             'images' => $images,
+            'memories' => $memories,
             'title' => $productName . " " . $memory
         ]);
     }

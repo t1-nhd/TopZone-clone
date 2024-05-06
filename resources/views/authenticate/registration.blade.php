@@ -9,13 +9,24 @@
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-4" action="{{ route('registration') }}" method="POST">
                 @csrf
+                
                 <div class="flex">
-                    <div class="w-2/3 mr-1">
+                    <div class="w-1/4 flex-col items-center">
+                        <div class="mr-1">
+                            <label for="gender" class="block text-sm font-medium leading-6 text-gray-900 invisible">Giới tính:</label>
+                            <select name="Gender" id="gender"
+                                class="block w-full px-3 h-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <option value=1 selected>Anh</option>
+                                <option value=0>Chị</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w-2/4 mr-1">
                         <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Họ</label>
                         <input id="last-name" name="LastName" type="text" required
                             class="block w-full px-3 h-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
-                    <div class="1/3">
+                    <div class="w-1/4">
                         <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Tên</label>
                         <input id="first-name" name="FirstName" type="text" required
                             class="block w-full px-3 h-10 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -59,13 +70,13 @@
                     </div>
                 @enderror
                 @error('ConfirmPassword')
-                        <div class="mt-3 bg-red-300 shadow-lg rounded-lg p-4">
-                            <div class="flex flex-col justify-center items-center">
-                                <div class="text-xl font-bold">Đăng ký không thành công!</div>
-                                <div class="text-gray-600">{{ $message }}</div>
-                            </div>
+                    <div class="mt-3 bg-red-300 shadow-lg rounded-lg p-4">
+                        <div class="flex flex-col justify-center items-center">
+                            <div class="text-xl font-bold">Đăng ký không thành công!</div>
+                            <div class="text-gray-600">{{ $message }}</div>
                         </div>
-                    @enderror
+                    </div>
+                @enderror
                 <div>
                     <button type="submit"
                         class="flex my-10 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Đăng

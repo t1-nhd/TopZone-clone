@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('title', 'TopZone - Cửa hàng Apple chính hãng')
 @section('content')
-    <section class=" pt-[84px] sm:pt-[56px]">
+    <section class="pt-[84px] sm:pt-[56px]">
         {{-- Banner --}}
         <div class="banner-slider w-full">
             <div class="w-full">

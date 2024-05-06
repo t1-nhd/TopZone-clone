@@ -14,7 +14,7 @@
             <h3 class="text-3xl font-medium text-gray-700">THÔNG TIN NHANH</h3>
             <div class="mt-4 flex flex-wrap -mx-6">
                 <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
-                    <a href="">
+                    <a href="{{route('customers.index')}}">
                         <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
                             <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full my-4">
                                 <i class="fas fa-user text-white"></i>

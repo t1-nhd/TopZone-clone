@@ -137,9 +137,9 @@ class StaffController extends Controller
 
     public function destroy($id){
         $staff = Staff::findOrFail($id);
-        $staff->Active = 0;
-        $staff->save();
-
-        return redirect()->route('staffs.index');
+        $user = User::where('email', $staff->Email);
+        $user->Active = 0;
+        $user->save();
+        return redirect()->route('staffs.index')->with('delete', 'Tài khoản ' . $staff->Email . ' đã bị khóa, nhân viên này hiện tại sẽ không được đăng nhập vào bất kỳ hệ thống nào của cửa hàng');
     }
 }

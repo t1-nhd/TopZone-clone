@@ -24,18 +24,23 @@ class AuthenticateController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt(['email' => $request->Email, 'password' => $request->Password])) {
-            if (Auth::user()->active){
-                $request->session()->put('email', $request->Email);
-                return redirect()->route('index')->with('login-checked', 'Đăng nhập thành công!');
+            if (Auth::user()->active) {
+                if (Auth::user()->account_type == 1 || Auth::user()->account_type == 2) {
+                    $request->session()->put('email', $request->Email);
+                    return redirect()->route('admin.index')->with('login-checked', 'Đăng nhập thành công!');
+                }
+                else{
+                    $request->session()->put('email', $request->Email);
+                    return redirect()->route('index')->with('login-checked', 'Đăng nhập thành công!');
+                }
             }
             return redirect()->route('show-login', [
                 'email' => $request->Email
             ])->with('login-failed', 'Tài khoản bạn vừa đăng nhập đã bị khóa! Vui lòng sử dụng tài khoản khác');
-           
         }
         return redirect()->route('show-login', [
             'email' => $request->Email
-        ])->with('login-failed', 'Email hoặc Mật khẩu không đúng!');
+        ])->with('login-failed', 'Email hoặc mật khẩu không đúng!');
     }
 
 
@@ -88,6 +93,7 @@ class AuthenticateController extends Controller
             $customer->CustomerId = $newCustomerId;
             $customer->LastName = $request->LastName;
             $customer->FirstName = $request->FirstName;
+            $customer->Gender = $request->Gender;
             $customer->Email = $request->Email;
             $customer->Phone = $request->Phone;
             $customer->save();

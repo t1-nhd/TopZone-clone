@@ -7,7 +7,7 @@
             <a href="{{ route('products.index', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
                 {{ $title }}</a>
         </div>
-        <div class="hidden md:flex justify-end mt-2 pr-10 pb-20">
+        <div class="hidden md:flex justify-end mt-2 pr-10 mb-2">
             <input type="text" name="search" id="search"
                 class="h-12 rounded-lg md:w-full lg:w-1/4 p-4 border-white bg-[#333] text-white focus:bg-white focus:text-black"
                 placeholder="Tìm kiếm sản phẩm" onkeyup="liveSearch()">

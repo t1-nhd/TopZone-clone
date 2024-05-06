@@ -35,23 +35,34 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('products', ProductController::class);
     Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
     // ProductImage
-    Route::get('/product_images', [ProductImageController::class, 'index'])->name('product_images.index');
-    Route::get('/product_images/{ProductName}/edit', [ProductImageController::class, 'edit'])->name('product_images.edit');
-    Route::post('/product_images', [ProductImageController::class, 'store'])->name('product_images.store');
+    Route::get('product_images', [ProductImageController::class, 'index'])->name('product_images.index');
+    Route::get('product_images/{ProductName}/edit', [ProductImageController::class, 'edit'])->name('product_images.edit');
+    Route::post('product_images', [ProductImageController::class, 'store'])->name('product_images.store');
     Route::get('/product_images/{ProductName}/delete', [ProductImageController::class, 'delete'])->name('product_images.delete');
     Route::delete('/product_images/{id}', [ProductImageController::class, 'destroy'])->name('product_images.destroy');
     // Product Model & Type
     Route::resource('product_models', ProductModelController::class);
     Route::get('/product_types', [ProductTypeController::class, 'index'])->name('product_types.index');
     Route::delete('/product_types', [ProductTypeController::class, 'destroy'])->name('product_types.destroy');
+    // Staff
+    Route::get('staffs', [StaffController::class, 'index'])->name('staffs.index');
+    Route::get('staffs/{email}', [StaffController::class, 'show'])->name('staffs.show');
+    Route::get('staffs/create', [StaffController::class, 'create'])->name('staffs.create');
+    Route::post('staffs', [StaffController::class, 'store'])->name('staffs.store');
+    Route::get('staffs/id}/delete', [StaffController::class, 'delete'])->name('staffs.delete');
+    Route::post('staffs', [StaffController::class, 'destroy'])->name('staffs.destroy');
 
-    Route::resource('staffs', StaffController::class);
+    // Customer
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('customers/{id}', [CustomerController::class, 'show'])->name('customers.show');
 });
 // Giỏ hàng
-Route::middleware('login')->group(function () {
+Route::middleware('customer')->group(function () {
     Route::get('gio-hang', [CartController::class, 'index'])->name('carts.index');
     Route::post('them-vao-gio-hang', [CartController::class, 'addToCart'])->name('carts.add');
+    Route::get('xac-nhan-thanh-toan', [CartController::class, 'show'])->name('carts.show');
     Route::post('cap-nhat-so-luong-gio-hang', [CartController::class, 'update'])->name('carts.update');
+    Route::post('thanh-toan', [CartController::class, 'payment'])->name('carts.payment');
     Route::delete('xoa-khoi-gio-hang', [CartController::class, 'removeFromCart'])->name('carts.destroy');
 });
 
