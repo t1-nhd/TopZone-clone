@@ -3,84 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
-use App\Http\Requests\StoreBillRequest;
-use App\Http\Requests\UpdateBillRequest;
+use App\Models\Customer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class BillController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $bills = Bill::orderBy('BillId', 'desc')->get();
+        
+        // return $bills;
+        return view('admin.bills.index', [
+            'data' => $bills,
+        ]);
+    }
+    public function show($id){
+        $bill = Bill::findOrFail($id);
+        $customer = Customer::findOrFail($bill->CustomerId);
+        $bill_details = DB::table('bill_details')
+                        ->join('products', 'products.ProductId', '=', 'bill_details.ProductId')
+                        ->where('BillId', $bill->BillId)
+                        ->get();
+        $bill_status = ['Pending', 'Approve', 'Reject', 'Shipping'];
+        
+        return view('admin.bills.show',[
+            'bill' => $bill,
+            'customer' => $customer,
+            'details' => $bill_details,
+            'status' => $bill_status
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreBillRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreBillRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bill  $bill
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bill $bill)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bill  $bill
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bill $bill)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBillRequest  $request
-     * @param  \App\Models\Bill  $bill
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateBillRequest $request, Bill $bill)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Bill  $bill
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Bill $bill)
-    {
-        //
+    public function update(Request $request){
+        // dd($request->all());
+        DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => $request->Status,]);
+        return redirect()->back()->with('update-success', 'Cập nhật trạng thái thành công');
     }
 }

@@ -5,52 +5,8 @@
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
             <h1 class="w-full text-4xl text-center mb-3">QUẢN LÝ KHÁCH HÀNG</h1>
-            <div class="block sm:flex justify-between">
-            </div>
-            <hr>
-            {{-- <form action="{{ route('customers.index') }}" method="get" class="my-5">
-                <div class="w-full block sm:flex justify-end px-3 ">
-                    @if ($isFilter)
-                        <a href="{{ route('customers.index') }}"
-                            class="w-fit flex justify-center items-center mt-1 h-6 px-3 rounded-full bg-gray-300"><i
-                                class="fa-solid fa-xmark mr-1 mt-1"></i>Bỏ lọc</a>
-                    @endif
-                    <div class="w-full my-2 sm:my-0 sm:w-fit flex sm:mr-3">
-                        <div class="mr-1 mb-1 w-1/2 sm:w-full">
-                            <select name="FilterStaffPosition" id="filter-position" class="px-3 h-8 border-0 w-full">
-                                <option selected disabled hidden>Chức vụ</option>
-                                @foreach ($positions as $position)
-                                    @if ($selected['filter-position'] == $position->StaffPositionId)
-                                        <option value="{{ $position->StaffPositionId }}" selected>
-                                            {{ $position->StaffPositionName }}</option>
-                                    @else
-                                        <option value="{{ $position->StaffPositionId }}">
-                                            {{ $position->StaffPositionName }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mr-1 mb-1 w-1/2 sm:w-full">
-                            <select name="FilterStaffId" id="filter-orderBy" class="px-3 h-8 border-0 w-full">
-                                <option selected disabled hidden>Ngày tạo</option>
-                                <option value="desc" {{ $selected['orderBy' ?? ''] == 'desc' ? 'selected' : '' }}>Trễ nhất
-                                </option>
-                                <option value="asc" {{ $selected['orderBy' ?? ''] == 'asc' ? 'selected' : '' }}>Sớm nhất
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="">
-                        <button
-                            class="px-3 w-full h-8 border text-white bg-blue-700 border-blue-700 rounded-lg hover:bg-blue-800">
-                            Lọc nhân viên
-                        </button>
-                    </div>
-                </div>
-            </form> --}}
-            <hr>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 mt-10">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                     <tr>
                         <th scope="col" class="py-3 text-center">
                             Họ khách hàng

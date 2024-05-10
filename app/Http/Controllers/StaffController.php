@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateStaffRequest;
 use App\Models\StaffPosition;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -128,18 +129,10 @@ class StaffController extends Controller
         ]);
     }
 
-    public function delete($id){
-        $staff = Staff::findOrFail($id);
-        return view('admin.staffs.delete',[
-            'staff' => $staff,
+    public function update(Request $request){
+        DB::table('users')->where('email', $request->Email)->update([
+            'active' => $request->Active
         ]);
-    }
-
-    public function destroy($id){
-        $staff = Staff::findOrFail($id);
-        $user = User::where('email', $staff->Email);
-        $user->Active = 0;
-        $user->save();
-        return redirect()->route('staffs.index')->with('delete', 'Tài khoản ' . $staff->Email . ' đã bị khóa, nhân viên này hiện tại sẽ không được đăng nhập vào bất kỳ hệ thống nào của cửa hàng');
+        return redirect()->route('staffs.index')->with('block-success', 'Khóa tài khoản thành công');
     }
 }

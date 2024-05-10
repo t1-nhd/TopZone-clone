@@ -95,7 +95,7 @@
                                             alt="">
                                     </div>
                                     <div class="text-md">
-                                        {{ $item->ProductName }}
+                                        {{ $item->ProductName . " " . $item->Memory }}
                                     </div>
                                     <div class="text-lg font-bold">
                                         {{ number_format($item->UnitPrice) . '₫' }}

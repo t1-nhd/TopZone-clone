@@ -26,81 +26,100 @@
                     Giỏ hàng của bạn
                 </div>
             </div>
+            @if (@session('payment-success'))
+                <div class="rounded-lg bg-green-100 h-36 p-3 flex justify-center items-center relative">
+                    <button class="absolute top-1 right-2" onclick="this.parentElement.style.display='none';">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <div class="text-2xl text-green-600 text-center space-y-3">
+                        <div class="pointer-events-none flex justify-center items-center font-bold uppercase"><i
+                                class="fa-solid fa-check rounded-full flex justify-center items-center h-8 w-8 border-green-600 border-4 mr-2"></i>{{ @session('payment-success') }}
+                        </div>
+                        <div class="text-center">
+                            <a href="{{route('profile')}}" class="text-blue-500 hover:text-blue-700">
+                                xem hóa đơn của bạn
+                            </a>
+                            <e class="mx-1">hoặc</e>
+                            <a href="{{ route('index') }}" class="text-blue-500 hover:text-blue-700">
+                                trở về mua sắm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endif
             @if ($count > 0)
                 <div class="">
                     <div class="rounded-t-lg bg-white p-3">
                         <table class="w-full">
                             <tbody>
                                 @foreach ($cartItems as $item)
-                                    @if ($item->Paid == 0)
-                                        @php
-                                            $totalQuantity += $item->Quantity;
-                                            $thanhTien = $item->Quantity * $item->UnitPrice;
-                                            $tongTien += $thanhTien;
-                                        @endphp
-                                        <tr class="py-3">
-                                            <td class="w-2/12 py-3">
-                                                <img src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}"
-                                                    alt="">
-                                            </td>
-                                            <td class="w-6/12 py-3 pl-5">
-                                                <a
-                                                    href="{{ route('show', [$item->ProductName, $item->Memory]) }}">{{ $item->ProductName . ' ' . $item->Memory }}</a>
-                                            </td>
-                                            <td class="w-2/12 py-3 text-center">
-                                                <div class="flex justify-center items-center">
-                                                    <div>
-                                                        <form action="{{ route('carts.update') }}" method="post">
-                                                            @csrf
-                                                            <input type="hidden" name="ProductId"
-                                                                value="{{ $item->ProductId }}">
-                                                            <input type="hidden" name="update" value="decrement">
-                                                            <button class="h-9 w-9 rounded-lg border font-bold">-</button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="mx-2">{{ $item->Quantity }}</div>
-                                                    <div>
-                                                        <form action="{{ route('carts.update') }}" method="post">
-                                                            @csrf
-                                                            <input type="hidden" name="ProductId"
-                                                                value="{{ $item->ProductId }}">
-                                                            <input type="hidden" name="update" value="increment">
-                                                            <button class="h-9 w-9 rounded-lg border font-bold">+</button>
-                                                        </form>
-                                                    </div>
+                                    @php
+                                        $totalQuantity += $item->Quantity;
+                                        $thanhTien = $item->Quantity * $item->UnitPrice;
+                                        $tongTien += $thanhTien;
+                                    @endphp
+                                    <tr class="py-3">
+                                        <td class="w-2/12 py-3">
+                                            <img src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}"
+                                                alt="">
+                                        </td>
+                                        <td class="w-6/12 py-3 pl-5">
+                                            <a
+                                                href="{{ route('show', [$item->ProductName, $item->Memory]) }}">{{ $item->ProductName . ' ' . $item->Memory }}</a>
+                                        </td>
+                                        <td class="w-2/12 py-3 text-center">
+                                            <div class="flex justify-center items-center">
+                                                <div>
+                                                    <form action="{{ route('carts.update') }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="ProductId"
+                                                            value="{{ $item->ProductId }}">
+                                                        <input type="hidden" name="update" value="decrement">
+                                                        <button class="h-9 w-9 rounded-lg border font-bold">-</button>
+                                                    </form>
                                                 </div>
-                                            </td>
-                                            <td class="w-2/12 py-3 font-bold text-center">
-                                                {{ number_format($thanhTien) . '₫' }}
-                                            </td>
-                                            <td class="w-1/12 py-3 text-center">
-                                                <form action="{{ route('carts.destroy') }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="ProductId" value="{{ $item->ProductId }}">
-                                                    <button class="h-9 w-9 font-bold">
-                                                        <svg width="20px" height="20px" viewBox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 12V17" stroke="#000000" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M14 12V17" stroke="#000000" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M4 7H20" stroke="#000000" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path
-                                                                d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                            <path
-                                                                d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                        </svg>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endif
+                                                <div class="mx-2">{{ $item->Quantity }}</div>
+                                                <div>
+                                                    <form action="{{ route('carts.update') }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="ProductId"
+                                                            value="{{ $item->ProductId }}">
+                                                        <input type="hidden" name="update" value="increment">
+                                                        <button class="h-9 w-9 rounded-lg border font-bold">+</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="w-2/12 py-3 font-bold text-center">
+                                            {{ number_format($thanhTien) . '₫' }}
+                                        </td>
+                                        <td class="w-1/12 py-3 text-center">
+                                            <form action="{{ route('carts.destroy') }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="ProductId" value="{{ $item->ProductId }}">
+                                                <button class="h-9 w-9 font-bold">
+                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M10 12V17" stroke="#000000" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M14 12V17" stroke="#000000" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path d="M4 7H20" stroke="#000000" stroke-width="2"
+                                                            stroke-linecap="round" stroke-linejoin="round" />
+                                                        <path
+                                                            d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
+                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path
+                                                            d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -127,7 +146,4 @@
             @endif
         </div>
     </div>
-    <script>
-        $("#alert").delay(3200).fadeOut(300);
-    </script>
 @endsection

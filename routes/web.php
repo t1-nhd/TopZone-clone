@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticateController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CustomerController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ProductModelController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use App\Models\CartItem;
 use App\Models\Product;
@@ -49,12 +51,16 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('staffs/{email}', [StaffController::class, 'show'])->name('staffs.show');
     Route::get('staffs/create', [StaffController::class, 'create'])->name('staffs.create');
     Route::post('staffs', [StaffController::class, 'store'])->name('staffs.store');
-    Route::get('staffs/id}/delete', [StaffController::class, 'delete'])->name('staffs.delete');
-    Route::post('staffs', [StaffController::class, 'destroy'])->name('staffs.destroy');
+    Route::post('staffs', [StaffController::class, 'update'])->name('staffs.update');
 
     // Customer
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('customers/{id}', [CustomerController::class, 'show'])->name('customers.show');
+
+    // Bill
+    Route::get('bills', [BillController::class, 'index'])->name('bills.index');
+    Route::get('bills/{id}/details', [BillController::class, 'show'])->name('bills.show');
+    Route::post('update-bills', [BillController::class, 'update'])->name('bills.update');
 });
 // Giỏ hàng
 Route::middleware('customer')->group(function () {
@@ -64,6 +70,11 @@ Route::middleware('customer')->group(function () {
     Route::post('cap-nhat-so-luong-gio-hang', [CartController::class, 'update'])->name('carts.update');
     Route::post('thanh-toan', [CartController::class, 'payment'])->name('carts.payment');
     Route::delete('xoa-khoi-gio-hang', [CartController::class, 'removeFromCart'])->name('carts.destroy');
+
+
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('profile/{email}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Homepage

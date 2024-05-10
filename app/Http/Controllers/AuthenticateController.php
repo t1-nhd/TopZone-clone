@@ -23,24 +23,23 @@ class AuthenticateController extends Controller
     }
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->Email, 'password' => $request->Password])) {
-            if (Auth::user()->active) {
-                if (Auth::user()->account_type == 1 || Auth::user()->account_type == 2) {
-                    $request->session()->put('email', $request->Email);
-                    return redirect()->route('admin.index')->with('login-checked', 'Đăng nhập thành công!');
-                }
-                else{
-                    $request->session()->put('email', $request->Email);
-                    return redirect()->route('index')->with('login-checked', 'Đăng nhập thành công!');
-                }
+        if (Auth::attempt(['email' => $request->Email, 'password' => $request->Password, 'active' => 1])) {
+            if (Auth::user()->account_type == 1 || Auth::user()->account_type == 2) {
+                $request->session()->put('email', $request->Email);
+                return redirect()->route('admin.index')->with('login-checked', 'Đăng nhập thành công!');
             }
-            return redirect()->route('show-login', [
-                'email' => $request->Email
-            ])->with('login-failed', 'Tài khoản bạn vừa đăng nhập đã bị khóa! Vui lòng sử dụng tài khoản khác');
+            else{
+                $request->session()->put('email', $request->Email);
+                return redirect()->route('index')->with('login-checked', 'Đăng nhập thành công!');
+            }
         }
         return redirect()->route('show-login', [
-            'email' => $request->Email
         ])->with('login-failed', 'Email hoặc mật khẩu không đúng!');
+        // if(User::where('email', $request->Email)->exists()){
+            
+        // }
+        // return redirect()->route('show-login', [
+        // ])->with('login-failed', 'Email này có thể đã bị khóa. Vui lòng kiểm tra lại');
     }
 
 

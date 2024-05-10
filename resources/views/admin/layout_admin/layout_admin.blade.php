@@ -119,6 +119,7 @@
             padding-bottom: 100%;
         }
     </style>
+    @vite('resources/css/app.css')
 </head>
 
 <body>

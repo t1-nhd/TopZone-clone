@@ -21,26 +21,30 @@
         </ul>
         <div class="hidden my-auto sm:flex">
             @if (Auth::check())
-                <div class="group">
-                    <a href=""
-                        class="block py-2 px-3 text-gray-50 rounded hover:bg-[#333] md:hover:bg-transparent md:border-0 md:p-0 ">
-                        Xin chào, {{ Auth::user()->name }} <i class="fa-solid fa-user mrl-1"></i></a>
-                    <div
-                        class="invisible absolute z-50 flex w-auto flex-col bg-gray-100 border rounded-sm text-gray-800 group-hover:visible text-start">
-                        @if (Auth::user()->account_type == 0)
+                @if (Auth::user()->account_type == 0)
+                    <div class="group">
+                        <a href="{{ route('profile') }}"
+                            class="block py-2 px-3 text-gray-50 rounded hover:bg-[#333] md:hover:bg-transparent md:border-0 md:p-0 ">
+                            Xin chào, {{ Auth::user()->name }} <i class="fa-solid fa-user mrl-1"></i></a>
+                        <div
+                            class="invisible absolute z-50 flex w-auto flex-col bg-gray-100 border rounded-sm text-gray-800 group-hover:visible text-start">
                             <div class="hover:bg-slate-300 w-full px-3 h-full">
                                 <a href="{{ route('carts.index', Auth::user()->email) }}"
                                     class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2">
                                     <i class="fa-solid fa-cart-shopping mr-1"></i>Giỏ hàng</a>
                             </div>
-                        @endif
-                        <div class="hover:bg-slate-300 w-full px-3 h-full">
-                            <a href="{{ route('logout') }}"
-                                class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2"><i
-                                    class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Đăng xuất</a>
+                            <div class="hover:bg-slate-300 w-full px-3 h-full">
+                                <a href="{{ route('logout') }}"
+                                    class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2"><i
+                                        class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Đăng xuất</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <a href="{{ route('logout') }}"
+                        class="block py-2 px-3 text-gray-50 rounded hover:bg-[#333] md:hover:bg-transparent md:border-0 md:p-0 ">
+                        Đăng xuất</a>
+                @endif
             @else
                 <div>
                     <a href="{{ route('show-login') }}" class="text-white">Đăng nhập</a>

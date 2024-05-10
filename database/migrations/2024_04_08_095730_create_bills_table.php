@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->string('BillId', 10)->primary();
-            $table->dateTime('PaymentAt')->nullable();
             $table->string('CustomerId', 10)->nullable(false);
+            $table->string('Address', 255)->nullable(false);
+            $table->string('Phone', 10)->nullable(false);
+            $table->string('Note', 1000)->nullable(true);
+            $table->enum('Status', ['Pending', 'Approve', 'Reject', 'Cancel', 'Done', 'Shipping'])->default('Pending');
+            $table->integer('TotalBill')->nullable(false);
             
             $table->foreign('CustomerId')->references('CustomerId')->on('customers');
             $table->timestamps();

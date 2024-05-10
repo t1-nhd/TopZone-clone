@@ -26,7 +26,6 @@ class CartController extends Controller
         $cartItems = DB::table('cart_items')
             ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
             ->where('CartId', $cart->CartId)
-            ->where('Paid', 0)
             ->get();
 
         return view('cart.index', [
@@ -128,6 +127,8 @@ class CartController extends Controller
         $bill->CustomerId = $request->CustomerId;
         $bill->Address = $request->Address;
         $bill->Note = $request->Note;
+        $bill->Phone = $request->Phone;
+        $bill->TotalBill = $request->TotalBill;
         $bill->save();
 
         foreach($request->cartItems as $cartItem){
@@ -137,13 +138,9 @@ class CartController extends Controller
                 'ProductId' => $cartItem['ProductId'],
                 'Quantity' => $cartItem['Quantity'],
             ]);
-
-            $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->update([
-                'Paid' => 1
-            ]);
+            $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
         }
-
         $billDetails = DB::table('bill_details')->where('BillId', $newBillId)->get();
-        return $billDetails;
+        return redirect()->route('carts.index')->with('payment-success','Thanh toán thành công');
     }
 }

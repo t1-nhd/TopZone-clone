@@ -75,7 +75,7 @@
                         </div>
                         <div class="w-full flex items-center">
                             <div class="pr-2 w-fit text-nowrap">Số điện thoại nhận hàng:</div>
-                            <input type="text" name="Address" placeholder="Thay đổi địa chỉ giao hàng"
+                            <input type="text" name="Phone" placeholder="Thay đổi số điện thoại hàng"
                                 class="rounded-md w-full" value="{{ $customer->Phone }}">
                         </div>
                     </div>
@@ -139,6 +139,7 @@
                     <div class="w-full pb-3 font-bold flex justify-between">
                         <div class="">Tổng tiền:</div>
                         <div class="text-red-600">{{ number_format($tongTien) . '₫' }}</div>
+                        <input type="hidden" name="TotalBill" value="{{$tongTien}}">
                     </div>
                     <hr>
                     <div class="flex items-center my-3">

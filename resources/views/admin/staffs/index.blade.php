@@ -4,7 +4,7 @@
 
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
-            <h1 class="w-full text-4xl text-center mb-3">NHÂN VIÊN</h1>
+            <h1 class="w-full text-4xl text-center mb-3">QUẢN LÝ NHÂN VIÊN</h1>
             <div class="block sm:flex justify-between">
                 <div class="sm:w-1/3 px-3">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
@@ -105,6 +105,9 @@
                     </th>
                 @endif
                 @foreach ($data as $dt)
+                    @php
+                        $user = \App\Models\User::where('Email', $dt->Email)->first('active');
+                    @endphp
                     <tr class="bg-white border-b">
                         <th scope="row"
                             class="py-4 hidden lg:table-cell font-medium text-gray-900 whitespace-nowrap text-center">
@@ -125,7 +128,7 @@
                         <td class="py-4 text-center hidden md:table-cell">
                             {{ $dt->Phone }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center flex justify-center items-center translate-y-3 space-x-1">
                             <button>
                                 <a href="{{ route('staffs.show', $dt->Email) }}">
                                     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 96 96"
@@ -139,6 +142,28 @@
                                     </svg>
                                 </a>
                             </button>
+                            @if (Auth::user()->account_type == 2 && Auth::user()->email != $dt->Email)
+                                @if ($user->active == 1)
+                                    <form action="{{ route('staffs.update') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="Email" value="{{ $dt->Email }}">
+                                        <input type="hidden" name="Active" value=0>
+                                        <button class=" text-red-500 hover:text-red-700 mx-1"><i
+                                                class="fa-solid fa-lock text-xl"></i></button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('staffs.update') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="Email" value="{{ $dt->Email }}">
+                                        <input type="hidden" name="Active" value=1>
+                                        <button class=" text-blue-500 hover:text-blue-700 mx-1"><i
+                                                class="fa-solid fa-lock-open text-xl"></i></button>
+                                    </form>
+                                @endif
+                            @else
+                                <div class="mx-1 invisible"><button class=" text-red-500 hover:text-red-700 mx-1"><i
+                                    class="fa-solid fa-lock text-xl"></i></button></div>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

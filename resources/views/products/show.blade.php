@@ -1,7 +1,7 @@
 @extends('layout.layout_product_show')
 @section('title', $title)
 @section('content')
-    <section class="flex justify-center items-center lg:h-screen py-10 sm:py-5 lg:py-0">
+    <section class="flex justify-center items-center py-10 sm:py-5 lg:py-10">
         <div class="w-full px-2 sm:px-0 sm:w-4/5 md:w-full lg:w-4/5 block md:flex mt-10">
             {{-- Image --}}
             <div class="w-full md:w-1/2">
@@ -109,7 +109,7 @@
         <div class="w-full px-2 sm:px-0 sm:w-4/5 md:w-3/5 lg:w-1/2 md:mx-5 h-full">
             <div class="flex-wrap flex justify-center items-center py-10">
                 <button class="h-10 px-3 mx-2 rounded-md border border-gray-300 font-bold">Mô tả</button>
-                <button class="h-10 px-3 mx-2 rounded-md border border-gray-300 font-bold">Thông số kỹ thuật</button>
+                <button class="h-10 px-3 mx-2 rounded-md border border-gray-600 font-bold">Thông số kỹ thuật</button>
                 <button class="h-10 px-3 mt-3 sm:mt-0 mx-2 rounded-md border border-gray-300 font-bold">Đánh giá sản phẩm</button>
             </div>
             {{-- System information --}}

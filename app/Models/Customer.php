@@ -20,6 +20,5 @@ class Customer extends Model
         'YearOfBirth',
         'Phone',
         'Address',
-        'Active'
     ];
 }

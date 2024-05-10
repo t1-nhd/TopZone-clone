@@ -10,7 +10,7 @@
                         stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                     </svg>
-                    <a href="{{ route('customers.index') }}">Trở về</a>
+                    <a href="javascript:history.back()">Trở về</a>
                 </button>
             </div>
             <div class="flex w-full justify-center mb-5">
