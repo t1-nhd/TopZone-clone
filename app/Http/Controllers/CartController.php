@@ -7,6 +7,7 @@ use App\Models\BillDetails;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,6 +116,13 @@ class CartController extends Controller
     public function payment(Request $request)
     {
         // dd($request->all());
+
+        $address = "Nhận tại cửa hàng";
+
+        if($request->delivery == 'delivery'){
+            $address = $request->Address;
+        }
+
         $bill = new Bill();
 
         $lastBill = Bill::orderBy('BillId', 'desc')->first();
@@ -125,7 +133,7 @@ class CartController extends Controller
 
         $bill->BillId = $newBillId;
         $bill->CustomerId = $request->CustomerId;
-        $bill->Address = $request->Address;
+        $bill->Address = $address;
         $bill->Note = $request->Note;
         $bill->Phone = $request->Phone;
         $bill->TotalBill = $request->TotalBill;
@@ -138,9 +146,12 @@ class CartController extends Controller
                 'ProductId' => $cartItem['ProductId'],
                 'Quantity' => $cartItem['Quantity'],
             ]);
+
+            $newInventory = Product::findOrFail($cartItem['ProductId'])->first('Inventory')->Inventory - $cartItem['Quantity'];
+
+            DB::table('products')->where('ProductId', $cartItem['ProductId'])->update(['Inventory' => $newInventory]);
             $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
         }
-        $billDetails = DB::table('bill_details')->where('BillId', $newBillId)->get();
         return redirect()->route('carts.index')->with('payment-success','Thanh toán thành công');
     }
 }

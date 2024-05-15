@@ -72,7 +72,6 @@ class StaffController extends Controller
      */
     public function store(StoreStaffRequest $request)
     {
-
         $request->validated();
         // Kiểm tra số CCCD
         if (Staff::where('CitizenId', $request->CitizenId)->exists()) {
@@ -123,9 +122,12 @@ class StaffController extends Controller
     public function show($email, $new = false)
     {
         $staff = Staff::where('Email', $email)->first();
+        $user = DB::table('users')->where('Email', $email)->first();
+        $active = $user->active;
         return view('admin.staffs.show',[
             'staff' => $staff,
             'new' => $new,
+            'isActive' => $active
         ]);
     }
 

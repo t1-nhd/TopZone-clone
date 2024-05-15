@@ -14,8 +14,8 @@
             {{-- cart --}}
             <form action="{{ route('carts.payment') }}" method="POST">
                 @csrf
-                <input type="hidden" name="CartId" value="{{$cartItems[0]->CartId}}">
-                <input type="hidden" name="CustomerId" value="{{$customer->CustomerId}}">
+                <input type="hidden" name="CartId" value="{{ $cartItems[0]->CartId }}">
+                <input type="hidden" name="CustomerId" value="{{ $customer->CustomerId }}">
 
                 <div class="w-full my-1 rounded-t-lg bg-white block p-3">
                     @foreach ($cartItems as $index => $item)
@@ -24,7 +24,8 @@
                             $thanhTien = $item->Quantity * $item->UnitPrice;
                             $tongTien += $thanhTien;
                         @endphp
-                         <input type="hidden" name="cartItems[{{ $index }}][ProductId]" value="{{ $item->ProductId }}">
+                        <input type="hidden" name="cartItems[{{ $index }}][ProductId]"
+                            value="{{ $item->ProductId }}">
                         <input type="hidden" name="cartItems[{{ $index }}][Quantity]" value="{{ $item->Quantity }}">
                         <div class="h-3/4 grid grid-cols-6 border-b">
                             <div class="h-full col-span-1 p-2">
@@ -76,7 +77,7 @@
                         <div class="w-full flex items-center">
                             <div class="pr-2 w-fit text-nowrap">Số điện thoại nhận hàng:</div>
                             <input type="text" name="Phone" placeholder="Thay đổi số điện thoại hàng"
-                                class="rounded-md w-full" value="{{ $customer->Phone }}">
+                                class="rounded-md w-full h-10 px-3" value="{{ $customer->Phone }}">
                         </div>
                     </div>
                 </div>
@@ -87,13 +88,14 @@
                         <div class="flex items-center">
                             <div class="mr-3 flex items-center">
                                 <input type="radio" name="delivery" onchange="onChange()" checked id="delivery"
-                                    class="mr-1" >
+                                    class="mr-1" value="delivery">
                                 <label for="delivery">
                                     Giao tận nơi
                                 </label>
                             </div>
                             <div class="flex items-center">
-                                <input type="radio" name="delivery" onchange="onChange()" id="at-store" class="mr-1">
+                                <input type="radio" name="delivery" onchange="onChange()" id="at-store" class="mr-1"
+                                    value="at_store">
                                 <label for="at-store">
                                     Nhận tại cửa hàng
                                 </label>
@@ -105,13 +107,13 @@
                                     <div>Địa chỉ nhận:</div>
                                     <e class="text-red-600 font-bold">(*)</e>
                                 </div>
-                                <input required type="text" name="Address" placeholder="Thêm địa chỉ giao hàng"
-                                    class="w-full rounded-md" value="{{ $customer->Address }}">
+                                <input required id="address-input" type="text" name="Address" placeholder="Thêm địa chỉ giao hàng"
+                                    class="w-full rounded-md  h-10 px-3" value="{{ $customer->Address }}">
                             </div>
                         </div>
                         <div>
                             Ghi chú (nếu có):
-                            <input type="text" name="Note" class="w-full rounded-md"
+                            <input type="text" name="Note" class="w-full rounded-md  h-10 px-3"
                                 placeholder="Thêm ghi chú cho đơn hàng">
                         </div>
                     </div>
@@ -120,7 +122,7 @@
                 <div class="w-full my-1 bg-white p-4 space-y-2">
                     <div class="w-full pb-3 font-bold">Hình thức thanh toán</div>
                     <div class="flex items-center space-x-3">
-                        <input type="radio" name="payment" checked id="vnpay" value="vnpay">
+                        <input type="radio" name="payment" id="vnpay" value="vnpay">
                         <label for="vnpay" class="flex">
                             Thanh toán bằng <img
                                 src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" width="15%"
@@ -128,7 +130,7 @@
                         </label>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <input type="radio" name="payment" id="on-delivery" value="ondelivery">
+                        <input type="radio" name="payment" checked id="on-delivery" value="ondelivery">
                         <label for="on-delivery">
                             Thanh toán khi nhận hàng
                         </label>
@@ -139,11 +141,11 @@
                     <div class="w-full pb-3 font-bold flex justify-between">
                         <div class="">Tổng tiền:</div>
                         <div class="text-red-600">{{ number_format($tongTien) . '₫' }}</div>
-                        <input type="hidden" name="TotalBill" value="{{$tongTien}}">
+                        <input type="hidden" name="TotalBill" value="{{ $tongTien }}">
                     </div>
                     <hr>
                     <div class="flex items-center my-3">
-                        <input type="checkbox" id="agree-checkbox" checked onchange="isCheck()" class="mr-1" >
+                        <input type="checkbox" id="agree-checkbox" checked onchange="isCheck()" class="mr-1">
                         <label for="agree-checkbox">
                             Tôi đồng ý với Chính sách xử lý dữ liệu cá nhân của TopZone
                         </label>
@@ -159,12 +161,17 @@
 
     <script>
         var address = document.getElementById('address');
+        var address_input = document.getElementById('address-input');
         var paymentBt = document.getElementById('payment-bt');
 
         function onChange() {
             if (document.getElementById('delivery').checked) {
                 address.style.display = "";
-            } else address.style.display = "none";
+                address_input.required = true;
+            } else {
+                address.style.display = "none";
+                address_input.required = false;
+            }
         }
     </script>
 @endsection

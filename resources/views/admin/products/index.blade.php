@@ -7,9 +7,12 @@
             <h1 class="w-full text-4xl text-center mb-3">SẢN PHẨM</h1>
             <div class="block sm:flex justify-between">
                 <div class="sm:w-1/3 px-3">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded text-nowrap px-3">
                         <a href="{{ route('products.create') }}">Thêm sản phẩm</a>
                     </button>
+                    {{-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded px-3">
+                        <a href="{{ route('products.show-import') }}">Nhập kho</a>
+                    </button> --}}
                 </div>
                 <div class="w-full sm:w-1/3 px-3 sm:pt-0 pt-1">
                     <form action="{{ route('products.index') }}" method="get">
@@ -122,7 +125,7 @@
                 <tr>
                     <th scope="col" class="py-3 w-3/12">
                     </th>
-                    <th scope="col" class="py-3 text-center w-4/12">
+                    <th scope="col" class="py-3 text-center w-3/12">
                         Tên sản phẩm
                     </th>
                     <th scope="col" class="py-3 hidden xl:table-cell text-center w-1/12">
@@ -133,6 +136,9 @@
                     </th>
                     <th scope="col" class="py-3 hidden lg:table-cell text-center w-1/12">
                         Đơn giá
+                    </th>
+                    <th scope="col" class="py-3 hidden lg:table-cell text-center w-1/12">
+                        Trong kho
                     </th>
                     <th scope="col" class="py-3 text-center w-2/12">
 
@@ -163,6 +169,9 @@
                         </td>
                         <td class="py-4 text-center hidden sm:table-cell">
                             {{ number_format($dt->UnitPrice) . '₫' }}
+                        </td>
+                        <td class="py-4 text-center hidden sm:table-cell">
+                            {{ $dt->Inventory }}
                         </td>
                         <td class="text-center">
                             <button>

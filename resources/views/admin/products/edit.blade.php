@@ -97,8 +97,8 @@
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Inventory" class="text-sm font-bold text-gray-500">Kho</label>
-                                        <input name="Inventory" type="number"
-                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
+                                        <input name="Inventory" type="number" disabled
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2 disabled:text-gray-400"
                                             value="{{ $product->Inventory }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

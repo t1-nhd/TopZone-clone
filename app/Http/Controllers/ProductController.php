@@ -31,8 +31,8 @@ class ProductController extends Controller
             "model" => $request->FilterProductModel
         ];
         $isFilter = false;
-        if($request->all()) $isFilter = true;
-        
+        if ($request->all()) $isFilter = true;
+
         $data = Product::query()
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('ProductName', 'LIKE', "%{$request->input('search')}%");
@@ -130,7 +130,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $productImages = ProductImage::where('ProductName', $product->ProductName)->get('ProductImage');
         return view('admin.products.show', [
             'product' => $product,
@@ -225,5 +225,34 @@ class ProductController extends Controller
         $result = Product::query()->where('ProductId', $id)->delete();
         if ($result) return redirect()->route('products.index')->with('success', 'Xóa thành công');
         return redirect()->route('products.index')->with('fail', 'Xóa không thành công');
+    }
+
+    public function showImport(Request $request)
+    {
+        $products = Product::all('ProductId','ProductName', 'Inventory', 'ProductThumbnail');
+        return $products;
+        
+        $isFilter = false;
+        if ($request->all()) $isFilter = true;
+
+        $selected = $request->FilterProductModel;
+
+        $products = Product::query()
+            ->when($request->filled('FilterProductModel'), function ($query) use ($request) {
+                $query->where('ProductModelId', $request->input('FilterProductModel'));
+            })
+            ->get('ProductId','ProductName', 'Inventory', 'ProductThumbnail');
+
+        $productModels = ProductModel::orderBy('ProductModelName', 'asc')->get();
+        
+        return view('admin.products.import',[
+            'data' => $products,
+            'isFilter' => $isFilter,
+            'selected' => $selected,
+            'models' => $productModels,
+        ]);
+    }
+    public function import(Request $request){
+        //
     }
 }

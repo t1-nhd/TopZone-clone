@@ -22,8 +22,18 @@
                         <div class="w-full bg-white shadow">
                             @if (Auth::user()->account_type == 2 && Auth::user()->email != $staff->Email)
                                 <div class="flex justify-end">
-                                    <a href="{{ route('staffs.delete', $staff->StaffId) }}"
-                                        class="text-red-500 hover:text-red-700">Khóa</a>
+                                    <form action="{{ route('staffs.update') }}" method="post">
+                                        @csrf
+                                        @if ($isActive)
+                                            <input type="hidden" name="Active" value=0>
+                                            <input type="hidden" name="Email" value="{{ $staff->Email }}">
+                                            <button class="text-red-500 hover:text-red-700">Khóa</button>
+                                        @else
+                                            <input type="hidden" name="Active" value=0>
+                                            <input type="hidden" name="Email" value="{{ $staff->Email }}">
+                                            <button class="text-blue-500 hover:text-blue-700">Mở khóa</button>
+                                        @endif
+                                    </form>
                                 </div>
                             @endif
                             <div class="border-t border-gray-200 py-5">

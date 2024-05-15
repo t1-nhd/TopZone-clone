@@ -1,11 +1,6 @@
 @extends('layout.layout_profile')
 @section('title', 'Hồ sơ của bạn')
 @section('content')
-    @php
-        $stt_bill = 0;
-        $stt = 0;
-        $thanhTien = 0;
-    @endphp
     <div class="bg-gray-100">
         <div class="container mx-auto py-8">
             <div class="w-full flex px-4">
@@ -40,121 +35,68 @@
                     </div>
                 </div>
                 <div class="w-2/3 h-full">
-                    <div class="bg-white shadow rounded-lg p-6 h-full">
-                        <div class="overflow-x-auto">
-                            <div class="mb-3">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                                    <thead>
-                                        <tr class="text-xs text-gray-700 uppercase bg-gray-100">
-                                            <th scope="col" class="py-3 text-center w-1/12">
-                                                STT
-                                            </th>
-                                            <th scope="col" class="py-3 text-center w-2/12">
-                                                Thời điểm thanh toán
-                                            </th>
-                                            <th scope="col" class="py-3 text-center w-3/12">
-                                                Địa điểm giao
-                                            </th>
-                                            <th scope="col" class="py-3 text-center w-2/12 overflow-hidden">
-                                                Ghi chú
-                                            </th>
-                                            <th scope="col" class="py-3 text-center w-2/12">
-                                                Trạng thái
-                                            </th>
-                                            <th scope="col" class="py-3 text-center w-2/12">
-                                                Giá trị đơn hàng
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="w-full">
-                                        @foreach ($bills as $bill)
-                                            @php
-                                                $status = '';
-                                                // 'Pending','Approve','Reject','Cancel','Shipping','Done'
-                                                switch ($bill->Status) {
-                                                    case 'Approve':
-                                                        $status = 'Đã xác nhận';
-                                                        break;
-                                                    case 'Reject':
-                                                        $status = 'Đã từ chối';
-                                                        break;
-                                                    case 'Cancel':
-                                                        $status = 'Bị khách hủy';
-                                                        break;
-                                                    case 'Shipping':
-                                                        $status = 'Đang giao hàng';
-                                                        break;
-                                                    case 'Done':
-                                                        $status = 'Hoàn thành';
-                                                        break;
-                                                    default:
-                                                        $status = 'Đang xử lý';
-                                                        break;
-                                                }
-                                            @endphp
-                                            <tr class="collapsible border-b bg-gray-50">
-                                                <td class="py-4 font-medium text-gray-900 text-center">
-                                                    {{ ++$stt_bill }}
-                                                </td>
-                                                <td class="py-4 text-center">
-                                                    {{ Carbon\Carbon::parse($bill->created_at)->format('H:i:s d/m/Y') }}
-                                                </td>
-                                                <td class="py-4 text-center">
-                                                    {{ $bill->Address }}
-                                                </td>
-                                                <td class="py-4 text-center">
-                                                    {{ $bill->Note }}
-                                                </td>
-                                                <td class="py-4 text-center font-bold">
-                                                    {{ $status }}
-                                                </td>
-                                                <td class="py-4 text-center font-bold text-red-600">
-                                                    {{ number_format($bill->TotalBill) . '₫' }}
-                                                </td>
-                                            </tr>
-                                            <tr class="hidden border-b">
-                                                <td colspan="7">
-                                                    @php
-                                                        $details = Illuminate\Support\Facades\DB::table('bill_details')
-                                                            ->join(
-                                                                'products',
-                                                                'bill_details.ProductId',
-                                                                '=',
-                                                                'products.ProductId',
-                                                            )
-                                                            ->where('BillId', $bill->BillId)
-                                                            ->get();
-                                                    @endphp
-                                                    @foreach ($details as $detail)
-                                                        @php
-                                                            $thanhTien += $detail->Quantity * $detail->UnitPrice;
-                                                        @endphp
-                                                        <div class="grid grid-cols-12 gap-5 py-2">
-                                                            <div class="text-end col-span-1">{{ ++$stt }}</div>
-                                                            <div class="col-span-3 font-bold">
-                                                                {{ $detail->ProductName }}
-                                                            </div>
-                                                            <div class="col-span-2">
-                                                                {{ $detail->Memory }}
-                                                            </div>
-                                                            <div class="text-center col-span-2">
-                                                                ×{{ $detail->Quantity }}
-                                                            </div>
-                                                            <div class="text-center col-span-2">
-                                                                {{ number_format($detail->UnitPrice) . '₫' }}
-                                                            </div>
-                                                            <div class="col-span-2 text-center text-red-500">
-                                                                {{ number_format($thanhTien) . '₫' }}
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                    <div class="bg-white shadow rounded-lg p-6 h-full w-full">
+                        <form action="{{ route('profile.update') }}" method="post">
+                            @csrf
+                            <div class="flex px-4">
+                                <div class="bg-white py-2 w-2/3 flex-col">
+                                    <label for="LastName" class="text-sm font-bold text-gray-500">Họ của bạn</label>
+                                    <input name="LastName" type="text" required value="{{ $customer->LastName }}"
+                                        class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                                </div>
+                                <div class="bg-white py-2 ml-1 w-1/3 flex-col">
+                                    <label for="FirstName" class="text-sm font-bold text-gray-500">Tên của bạn</label>
+                                    <input name="FirstName" type="text" required value="{{ $customer->FirstName }}"
+                                        class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                                </div>
                             </div>
-                        </div>
+                            <div class="bg-white px-4 py-2 w-full flex-col">
+                                <label for="Phone" class="text-sm font-bold text-gray-500">Số điện thoại</label>
+                                <input name="Phone" type="text" pattern="[0-9]{10}" required
+                                    value="{{ $customer->Phone }}"
+                                    class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                            </div>
+                            <div class="bg-white px-4 py-2 w-full flex-col">
+                                <label for="Address" class="text-sm font-bold text-gray-500">Địa chỉ <i
+                                        class="font-normal">(sử dụng khi giao hàng)</i></label>
+                                <input name="Address" type="text" value="{{ $customer->Address }}"
+                                    placeholder="Thêm địa chỉ giao hàng"
+                                    class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                            </div>
+                            <hr>
+                            <div class="bg-white px-4 w-full pt-10 pb-3 flex items-center">
+                                <label for="ChangePassword" class="text-sm font-bold text-gray-500">Thay đổi mật
+                                    khẩu</label>
+                                <input name="ChangePassword" type="checkbox" id="isChangePassword"
+                                    onchange="onChangePassword()" class="mt-1 ml-1 h-4 w-4" />
+                            </div>
+                            <div id="password_change_input" class="hidden px-4">
+                                <div class="bg-white w-1/2 flex-col">
+                                    <label for="OldPassword" class="text-sm font-bold text-gray-500">Mật khẩu cũ</label>
+                                    <input name="OldPassword" type="password" id="old"
+                                        class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                                </div>
+                                <div class="bg-white w-1/2 flex-col">
+                                    <label for="NewPassword" class="text-sm font-bold text-gray-500">Mật khẩu mới</label>
+                                    <input name="NewPassword" type="password" id="new"
+                                        class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                                </div>
+                                <div class="bg-white w-1/2 flex-col">
+                                    <label for="ConfirmPassword" class="text-sm font-bold text-gray-500">Xác minh mật
+                                        khẩu</label>
+                                    <input name="ConfirmPassword" type="password" id="confirm"
+                                        class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
+                                </div>
+                            </div>
+                            <div class="bg-white w-full flex justify-center space-x-1">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded-lg px-3">
+                                    Cập nhật
+                                </button>
+                                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold h-9 rounded-lg px-3">
+                                    <a href="{{route('profile')}}">Hủy</a>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -174,6 +116,26 @@
                     content.style.display = "table-row";
                 }
             });
+        }
+
+        var isChangePassword = document.getElementById('isChangePassword');
+        var password_change_input = document.getElementById('password_change_input');
+        var old = document.getElementById('old');
+        var _new = document.getElementById('new');
+        var confirm = document.getElementById('confirm');
+
+        function onChangePassword() {
+            if (isChangePassword.checked == true) {
+                password_change_input.style.display = 'block';
+                old.required = true;
+                _new.required = true;
+                confirm.required = true;
+            } else {
+                password_change_input.style.display = 'none';
+                old.required = false;
+                _new.required = false;
+                confirm.required = false;
+            }
         }
     </script>
 @endsection

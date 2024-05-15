@@ -6,6 +6,15 @@
         $stt = 0;
         $thanhTien = 0;
     @endphp
+    @if (@session('update-success'))
+        <div class="rounded-l-xl absolute bg-green-100 z-50 top-32 right-0 h-16 px-5 flex justify-center items-center">
+            <button onclick="this.parentElement.style.display='none';" class="absolute top-0 right-2 text-green-700"><i
+                    class="fa-solid fa-xmark"></i></button>
+            <div class="text-green-700 font-bold text-wrap">
+                {{ @session('update-success') }}
+            </div>
+        </div>
+    @endif
     <div class="bg-gray-100">
         <div class="container mx-auto py-8">
             <div class="w-full flex px-4">

@@ -15,7 +15,7 @@
         </div>
     @endif
     <div class="w-1/2 px-7 flex justify-center">
-        <a href="javascript:history.back()" class="text-blue-500 hover:text-blue-700">
+        <a href="{{route('bills.index')}}" class="text-blue-500 hover:text-blue-700">
             ← Trở về
         </a>
     </div>

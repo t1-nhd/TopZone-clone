@@ -1,4 +1,4 @@
-@extends('layout.login_layout')
+@extends('layout.layout_login')
 @section('title', 'Đăng ký')
 @section('content')
     <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">

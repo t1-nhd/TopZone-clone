@@ -36,7 +36,7 @@
                                 class="fa-solid fa-check rounded-full flex justify-center items-center h-8 w-8 border-green-600 border-4 mr-2"></i>{{ @session('payment-success') }}
                         </div>
                         <div class="text-center">
-                            <a href="{{route('profile')}}" class="text-blue-500 hover:text-blue-700">
+                            <a href="{{ route('profile') }}" class="text-blue-500 hover:text-blue-700">
                                 xem hóa đơn của bạn
                             </a>
                             <e class="mx-1">hoặc</e>
@@ -80,13 +80,24 @@
                                                 </div>
                                                 <div class="mx-2">{{ $item->Quantity }}</div>
                                                 <div>
-                                                    <form action="{{ route('carts.update') }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="ProductId"
-                                                            value="{{ $item->ProductId }}">
-                                                        <input type="hidden" name="update" value="increment">
-                                                        <button class="h-9 w-9 rounded-lg border font-bold">+</button>
-                                                    </form>
+                                                    @if ($item->Quantity < $item->Inventory)
+                                                        <form action="{{ route('carts.update') }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="ProductId"
+                                                                value="{{ $item->ProductId }}">
+                                                            <input type="hidden" name="update" value="increment">
+                                                            <button class="h-9 w-9 rounded-lg border font-bold">+</button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('carts.update') }}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="ProductId"
+                                                                value="{{ $item->ProductId }}">
+                                                            <input type="hidden" name="update" value="increment" disabled>
+                                                            <div class="h-9 w-9 rounded-lg border border-white pointer-events-none font-bold"></div>
+                                                        </form>
+                                                    @endif
+
                                                 </div>
                                             </div>
                                         </td>

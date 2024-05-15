@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -28,13 +29,18 @@ class ProfileController extends Controller
             'customer' => $customer,
         ]);
     }
-    public function update(){
+    public function update(Request $request){
         $email = Auth::user()->email;
+
+        DB::table('customers')->where('Email', $email)->update([
+            'LastName' => $request->LastName,
+            'FirstName' => $request->FirstName,
+            'Phone' => $request->Phone,
+            'Address' => $request->Address,
+        ]);
 
         $customer = Customer::where('Email', $email)->first();
 
-        return view('profile.index',[
-            'customer' => $customer,
-        ]);
+        return redirect()->route('profile')->with('update-successfully', 'Cập nhật hồ sơ thành công');
     }
 }

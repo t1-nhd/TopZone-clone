@@ -89,6 +89,7 @@
                 {{-- Add to cart button --}}
                 @if (!Auth::check() || (Auth::check() && Auth::user()->account_type==0))
                 <div class="w-full">
+                    <div class="italic text-white">({{$product->Inventory}} sản phẩm có sẵn)</div>
                     <form action="{{ route('carts.add') }}" method="post" class="w-full">
                         @csrf
                         <input type="hidden" name="ProductId" value="{{ $product->ProductId }}">
@@ -98,7 +99,6 @@
                             vào giỏ hàng</button>
                     </form>
                 </div>
-                @else
                 @endif
             </div>
         </div>

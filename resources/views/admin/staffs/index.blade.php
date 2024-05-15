@@ -8,7 +8,7 @@
             <div class="block sm:flex justify-between">
                 <div class="sm:w-1/3 px-3">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
-                        <a href="{{ route('staffs.create') }}">Thêm nhân viên</a>
+                        <a href="{{ url('admin/staffs/create') }}">Thêm nhân viên</a>
                     </button>
                 </div>
             </div>
