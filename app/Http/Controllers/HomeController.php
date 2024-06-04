@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('ShowOnHomePage', 1)->get();
 
         return view('welcome', [
             'data' => $products,
@@ -27,6 +27,7 @@ class HomeController extends Controller
         $productModels = ProductModel::where('ProductTypeId', $type->ProductTypeId)->get();
         $products = DB::table('products')
             ->join('product_models', 'products.ProductModelId', '=', 'product_models.ProductModelId')
+            ->where('products.ShowOnHomePage', 1)
             ->where('product_models.ProductTypeId', $type->ProductTypeId)
             ->get();
         return view('products.index', [
@@ -41,7 +42,7 @@ class HomeController extends Controller
         $model = ProductModel::where('ProductModelName', $productModel)->first(['ProductModelId', 'ProductTypeId']);
         $type = ProductType::find($model->ProductTypeId);
         $productModels = ProductModel::where('ProductTypeId', $model->ProductTypeId)->get();
-        $products = Product::where('ProductModelId', $model->ProductModelId)->get();
+        $products = Product::where('ProductModelId', $model->ProductModelId)->where('ShowOnHomePage', 1)->get();
         return view('products.filter', [
             'type' => $type->ProductTypeName,
             'models' => $productModels,

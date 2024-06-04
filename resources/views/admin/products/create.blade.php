@@ -38,9 +38,9 @@
                                                         {{ $model->ProductModelName }}</option>
                                                 @endforeach
                                             </select>
-                                            <button
+                                            <button type="button"
                                                 class="bg-green-500 rounded-tr-lg border border-green-500 rounded-br-lg hover:bg-green-600 text-white font-bold h-10 w-36 px-2">
-                                                <a href="{{ route('product_models.create') }}">Thêm
+                                                <a href="{{ route('product_models.index') }}">Thêm
                                                     mẫu</a>
                                             </button>
                                         </div>
@@ -74,6 +74,11 @@
                                             hành</label>
                                         <select name="Warranty" id="warranty" required
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
+                                            <option value="24 tháng">24 tháng</option>
+                                            <option value="12 tháng">12 tháng</option>
+                                            <option value="6 tháng">6 tháng</option>
+                                            <option value="3 tháng">3 tháng</option>
+                                            <option value="1 tháng">1 tháng</option>
                                         </select>
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -86,7 +91,17 @@
                                         <select name="isNew" id="is-new" required
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
                                             <option value=1>Đúng</option>
-                                            <option value=2>Sai</option>
+                                            <option value=0>Sai</option>
+                                        </select>
+                                    </div>
+                                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="ShowOnHomePage" class="text-sm font-bold text-gray-500">Hiện lên trang
+                                            chủ?</label>
+                                        <select name="ShowOnHomePage" id="ShowOnHomePage"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
+                                            <option value=1>Hiện</option>
+                                            <option value=0 selected>Không hiện
+                                            </option>
                                         </select>
                                     </div>
                                 </dl>

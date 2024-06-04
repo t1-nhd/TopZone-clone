@@ -8,7 +8,7 @@
             <div class="block sm:flex justify-between">
                 <div class="sm:w-1/3 px-3">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
-                        <a href="{{ url('admin/staffs/create') }}">Thêm nhân viên</a>
+                        <a href="{{ route('staffs.create') }}">Thêm nhân viên</a>
                     </button>
                 </div>
             </div>
@@ -146,6 +146,7 @@
                                 @if ($user->active == 1)
                                     <form action="{{ route('staffs.update') }}" method="post">
                                         @csrf
+                                        @method('PUT')
                                         <input type="hidden" name="Email" value="{{ $dt->Email }}">
                                         <input type="hidden" name="Active" value=0>
                                         <button class=" text-red-500 hover:text-red-700 mx-1"><i
@@ -154,6 +155,7 @@
                                 @else
                                     <form action="{{ route('staffs.update') }}" method="post">
                                         @csrf
+                                        @method('PUT')
                                         <input type="hidden" name="Email" value="{{ $dt->Email }}">
                                         <input type="hidden" name="Active" value=1>
                                         <button class=" text-blue-500 hover:text-blue-700 mx-1"><i

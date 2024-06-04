@@ -39,6 +39,7 @@
                     <div class="mt-3 font-semibold">Trạng thái đơn hàng:</div>
                     <div class="mt-3 col-span-2">
                         <form action="{{ route('bills.update') }}" method="post">
+                            @method('PUT')
                             @csrf
                             <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
                             <div class="flex w-full">
@@ -49,7 +50,7 @@
                                             $status = '';
                                             switch ($item) {
                                                 case 'Approve':
-                                                    $status = 'Đã nhận đơn';
+                                                    $status = 'Nhận đơn';
                                                     break;
                                                 case 'Reject':
                                                     $status = 'Từ chối đơn';

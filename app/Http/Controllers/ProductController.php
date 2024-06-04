@@ -106,6 +106,7 @@ class ProductController extends Controller
         $newProduct->Warranty = $request->Warranty;
         $newProduct->Inventory = $request->Inventory;
         $newProduct->isNew = $request->isNew;
+        $newProduct->ShowOnHomePage = $request->ShowOnHomePage;
 
         if ($request->hasFile('ProductThumbnail')) {
             $image = $request->file('ProductThumbnail');
@@ -186,6 +187,7 @@ class ProductController extends Controller
             'Warranty' => $request->Warranty,
             'Inventory' => $request->Inventory,
             'isNew' => $request->isNew,
+            'ShowOnHomePage' => $request->ShowOnHomePage,
             'MonitorTechnology' => $request->MonitorTechnology,
             'Resolution' => $request->Resolution,
             'MonitorSize' => $request->MonitorSize,

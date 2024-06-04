@@ -42,19 +42,20 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('/product_types', [ProductTypeController::class, 'index'])->name('product_types.index');
     Route::delete('/product_types', [ProductTypeController::class, 'destroy'])->name('product_types.destroy');
     // Staff
-    Route::get('staffs', [StaffController::class, 'index'])->name('staffs.index');
-    Route::get('staffs/create', [StaffController::class, 'create'])->name('staffs.create');
-    Route::post('staffs', [StaffController::class, 'store'])->name('staffs.store');
-    Route::get('staffs/{email}', [StaffController::class, 'show'])->name('staffs.show');
-    Route::post('staffs', [StaffController::class, 'update'])->name('staffs.update');
+    Route::get('/staffs', [StaffController::class, 'index'])->name('staffs.index');
+    Route::get('/staffs/create', [StaffController::class, 'create'])->name('staffs.create');
+    Route::post('/staffs', [StaffController::class, 'store'])->name('staffs.store');
+    Route::get('/staffs/{email}', [StaffController::class, 'show'])->name('staffs.show');
+    Route::put('/staffs', [StaffController::class, 'update'])->name('staffs.update');
     // Customer
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('customers/{id}', [CustomerController::class, 'show'])->name('customers.show');
     // Bill
     Route::get('bills', [BillController::class, 'index'])->name('bills.index');
     Route::get('bills/{id}/details', [BillController::class, 'show'])->name('bills.show');
-    Route::post('update-bills', [BillController::class, 'update'])->name('bills.update');
+    Route::put('update-bills', [BillController::class, 'update'])->name('bills.update');
 });
+
 // Giỏ hàng
 Route::middleware('customer')->group(function () {
     Route::get('gio-hang', [CartController::class, 'index'])->name('carts.index');

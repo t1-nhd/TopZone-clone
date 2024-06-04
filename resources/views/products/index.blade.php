@@ -1,32 +1,31 @@
-@extends('layout.layout')
+@extends('layout.layout_product_show')
 @section('title', $title)
 @section('content')
-
-    <div class="w-full">
+    <div class="w-full pb-20">
         <div class="text-center py-20 md:pt-20">
             <a href="{{ route('products.index', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
                 {{ $title }}</a>
         </div>
-        <div class="hidden md:flex justify-end mt-2 pr-10 mb-2">
+        <div class="flex justify-end mt-2 px-10 md:pr-10 mb-2">
             <input type="text" name="search" id="search"
-                class="h-12 rounded-lg md:w-full lg:w-1/4 p-4 border-white bg-[#333] text-white focus:bg-white focus:text-black"
+                class="h-12 rounded-lg w-full lg:w-1/4 p-4 border-white bg-[#333] text-white focus:bg-white focus:text-black"
                 placeholder="Tìm kiếm sản phẩm" onkeyup="liveSearch()">
         </div>
-        <div class="hidden sm:flex justify-center">
-            <div class="container sm:px-10 text-gray-300 text-md">
-                <a href="" class="mx-5 text-white sm:pb-3 border-b">
+        <div class="flex">
+            <div class="px-10 text-gray-300 text-md">
+                <a href="" class="mx-1 md:mx-5 text-white pb-3 border-b">
                     Tất cả
                 </a>
                 @foreach ($models as $model)
                     <a href="{{ route('filter', $model->ProductModelName) }}"
-                        class="mx-5 hover:text-white hover:transition-all delay-100 pb-3 hover:border-b">
+                        class="mx-1 md:mx-5 hover:text-white hover:transition-all delay-100 pb-3 hover:border-b">
                         {{ $model->ProductModelName }}
                     </a>
                 @endforeach
             </div>
         </div>
         <div class="flex justify-center">
-            <div class="container py-10 px-10 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 md:gap-2 xl:gap-5 place-items-center">
+            <div class="py-10 px-10 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-5 place-items-center">
                 @foreach ($data as $item)
                     <div
                         class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] min-w-[380px] max-w-[380px] h-[470px] rounded-2xl place-content-center relative search-item">

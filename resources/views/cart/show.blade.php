@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.layout_cart')
 @section('title', 'Xác nhận thanh toán')
 @section('content')
     @php
@@ -7,7 +7,7 @@
         $tongTien = 0;
     @endphp
     <div class="w-full flex justify-center">
-        <div class="w-1/3 h-full my-3 text-md">
+        <div class="w-full px-2 lg:px-0 md:w-3/5 lg:w-2/3 xl:w-1/3 h-full my-3 text-md">
             <div class="text-white text-center text-lg mb-3">
                 XÁC NHẬN ĐƠN HÀNG CỦA BẠN
             </div>

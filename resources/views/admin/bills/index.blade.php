@@ -7,8 +7,77 @@
     @endphp
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
-            <h1 class="w-full text-4xl text-center mb-3">HOẠT ĐỘNG CỦA CỬA HÀNG</h1>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 mt-10">
+            <h1 class="w-full text-4xl text-center mb-3">HOẠT ĐỘNG CỦA CỬA HÀNG {{$header}}</h1>
+            <div class="w-full">
+                <form action="" method="get" class="my-5 mt-10">
+                    <div class="w-full block sm:flex justify-end px-3">
+                        @if ($isFilter)
+                            <a href="{{ route('bills.index') }}"
+                                class="flex justify-center items-center mt-1 h-6 px-3 rounded-full bg-gray-300 mr-1"><i
+                                    class="fa-solid fa-xmark mr-1 mt-1"></i>Bỏ lọc</a>
+                        @endif
+                        <div class="mr-1 mb-1">
+                            <select name="Year" id="filter-year" class="px-3 w-full h-8 border-0" onchange="yearOnChange()">
+                                <option selected disabled hidden value="">Năm</option>
+                                <option value=""></option>
+                                @foreach ($year as $i)
+                                    @if ($selected['year'] == $i->bill_year)
+                                        <option value="{{ $i->bill_year }}" selected>{{ $i->bill_year }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $i->bill_year }}">{{ $i->bill_year }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mr-1 mb-1">
+                            <select name="Month" id="filter-month" class="px-3 w-full h-8 border-0" disabled
+                                onchange="monthOnChange()">
+                                <option selected disabled hidden value="">Tháng</option>
+                                <option value=""></option>
+                                @foreach ($month as $i)
+                                    @if ($selected['month'] == $i->bill_month)
+                                        <option value="{{ $i->bill_month }}" selected>{{ $i->bill_month }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $i->bill_month }}">{{ $i->bill_month }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mr-1 mb-1">
+                            <select name="Day" id="filter-day" class="px-3 w-full h-8 border-0" disabled>
+                                <option selected disabled hidden value="">Ngày</option>
+                                <option value=""></option>
+                                @foreach ($day as $i)
+                                    @if ($selected['day'] == $i->bill_day)
+                                        <option value="{{ $i->bill_day }}" selected>{{ $i->bill_day }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $i->bill_day }}">{{ $i->bill_day }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mr-1 mb-1 sm:mr-3">
+                            <select name="SortDateTime" id="filter-date-time" class="px-3 w-full h-8 border-0">
+                                <option value="desc" selected>↓ Trễ nhất
+                                </option>
+                                <option value="asc" {{$selected['sortByDate']=='asc'?'selected':''}}>↑ Sớm nhất
+                                </option>
+
+                            </select>
+                        </div>
+                        <div class="">
+                            <button
+                                class="px-3 w-full h-8 border text-white bg-blue-700 border-blue-700 rounded-lg hover:bg-blue-800">
+                                Lọc hóa đơn
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead>
                     <tr class="text-xs text-gray-700 uppercase bg-gray-200">
                         <th scope="col" class="py-3 text-center w-1/12">
@@ -137,6 +206,35 @@
                     content.style.display = "table-row";
                 }
             });
+        }
+
+        var yearInput = document.getElementById('filter-year');
+        var monthInput = document.getElementById('filter-month');
+        var dayInput = document.getElementById('filter-day')
+
+        if (yearInput.value != "") {
+            monthInput.disabled = false;
+        }
+
+        if (monthInput.value != "") {
+            dayInput.disabled = false;
+        }
+
+        function yearOnChange(){
+            if (yearInput.value === "") {
+                monthInput.disabled = true;
+                monthInput.value = "";
+            } else {
+                monthInput.disabled = false;
+            }
+        }
+        function monthOnChange() {
+            if (monthInput.value === "") {
+                dayInput.disabled = true;
+                dayInput.value = "";
+            } else {
+                dayInput.disabled = false;
+            }
         }
     </script>
 @endsection

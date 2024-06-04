@@ -7,7 +7,7 @@
             <div class="flex w-full justify-center mb-5">
                 <h1 class="text-2xl font-semibold mb-4">THÊM MỚI NHÂN VIÊN</h1>
             </div>
-            <form action="{{ route('staffs.store') }}" method="post">
+            <form action="{{route('staffs.store')}}" method="post">
                 @csrf
                 <div class="flex justify-center w-full">
                     <div class="block w-1/2">
@@ -99,7 +99,7 @@
                         <div class="mt-10 pb-3 w-full flex justify-end">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-full sm:w-32 mr-1">Thêm</button>
-                            <button
+                            <button type="button"
                                 class="bg-orange-600 hover:bg-orange-700 text-white font-bold h-9 rounded w-full mt-3 sm:mt-0 sm:w-20 sm:ml-1">
                                 <a href="{{ route('products.index') }}">
                                     Hủy

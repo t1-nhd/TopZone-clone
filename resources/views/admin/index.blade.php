@@ -28,10 +28,9 @@
             <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
                 <a href="{{ route('customers.index') }}">
                     <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
-                        <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full my-4">
+                        <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full w-[50px] h-[50px] flex justify-center items-center my-4">
                             <i class="fas fa-user text-white"></i>
                         </div>
-
                         <div class="mx-5">
                             <h4 class="text-2xl font-semibold text-gray-700">{{ $totalCustomer }}</h4>
                             <div class="text-gray-500"><b>KHÁCH HÀNG</b></div>
@@ -42,7 +41,7 @@
             <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
                 <a href="{{ route('staffs.index') }}">
                     <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
-                        <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full my-4">
+                        <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full w-[50px] h-[50px] flex justify-center items-center my-4">
                             <i class="fa-solid fa-user-tie text-white"></i>
                         </div>
 
@@ -56,7 +55,7 @@
             <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
                 <a href="{{ route('products.index') }}">
                     <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
-                        <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full my-4">
+                        <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full w-[50px] h-[50px] flex justify-center items-center my-4">
                             <i class="fas fa-star text-white"></i>
                         </div>
 
@@ -70,7 +69,7 @@
             <div class="w-full sm:w-1/2 xl:w-1/4 px-2 mb-6">
                 <a href="{{ route('bills.index') }}">
                     <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-md">
-                        <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full my-4">
+                        <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full w-[50px] h-[50px] flex justify-center items-center my-4">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </div>
 
@@ -160,12 +159,14 @@
                             <td class="py-4 text-center flex justify-center space-x-1 text-white font-bold">
                                 <form action="{{ route('bills.update') }}" method="post">
                                     @csrf
+                                    @method('PUT')
                                     <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
                                     <input type="hidden" name="Status" value="Approve">
                                     <button class="rounded-md p-2 border bg-green-500 hover:bg-green-700">Xác nhận</button>
                                 </form>
                                 <form action="{{ route('bills.update') }}" method="post">
                                     @csrf
+                                    @method('PUT')
                                     <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
                                     <input type="hidden" name="Status" value="Reject">
                                     <button class="rounded-md p-2 border bg-red-500 hover:bg-red-700">Từ chối</button>

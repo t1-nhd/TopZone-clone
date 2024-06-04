@@ -131,7 +131,7 @@ class StaffController extends Controller
         ]);
     }
 
-    public function update(Request $request){
+    public function update(UpdateStaffRequest $request){
         DB::table('users')->where('email', $request->Email)->update([
             'active' => $request->Active
         ]);

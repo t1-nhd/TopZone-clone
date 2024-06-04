@@ -19,37 +19,65 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{-- @vite('resources/css/app.css') --}}
     <style>
         body {
-            --tw-bg-opacity: 1;
-            background-color: rgb(243 244 246 / var(--tw-bg-opacity));  
+            background-color: #3E3E3F;
+        }
+
+        input:checked {
+            background-color: red;
         }
 
         .slick-slide {
-            margin: 0 17px;
+            padding: 5px;
         }
 
-        .slick-slide {
-            width: 100%;
-        }
+        .plusminus {
+            position: relative;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
 
-        .new-box {
-            position: absolute;
-            top: 12px;
-            left: 15px;
-        }
+            &.active {
+                &:before {
+                    transform: translatey(-50%) rotate(-90deg);
+                    opacity: 0;
+                }
 
-        .new-box::before {
-            content: "Mới";
+                &:after {
+                    transform: translatey(-50%) rotate(0);
+                }
+            }
+
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                background-color: #333;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transition: .35s;
+                width: 100%;
+                height: 3px;
+            }
+
+            &:before {
+                transform: translatey(-50%);
+            }
+
+            &:after {
+                transform: translatey(-50%) rotate(90deg);
+            }
+
         }
     </style>
+    @vite('resources/css/app.css')
 </head>
 
 <body>
     @include('layout.header')
     @yield('content')
-    @include('layout.footer_product_show')
 </body>
 
 </html>

@@ -24,9 +24,7 @@
 
 <body>
     @include('layout.header_login')
-    <div class="relative top-20">
-        @yield('content')
-    </div>
+    @yield('content')
 </body>
 
 </html>

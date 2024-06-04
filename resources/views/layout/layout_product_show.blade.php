@@ -78,7 +78,7 @@
 <body>
     @include('layout.header_product_show')
     @yield('content')
-    @include('layout.footer')
+    @include('layout.footer_product_show')
 </body>
 
 </html>

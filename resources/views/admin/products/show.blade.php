@@ -82,30 +82,34 @@
                             <dl>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Dòng sản phẩm</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">
                                         {{ $product->getProductModelName->ProductModelName }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Tên sản phẩm</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->ProductName }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->ProductName }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Đơn giá</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm    :col-span-2">
+                                    <dd class="text-sm text-gray-900 sm    :col-span-2">
                                         {{ number_format($product->UnitPrice) . '₫' }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Kích thước và trọng lượng</dt>
-                                    <dd class="mt-1 w-sm text-gray-900 sm:col-span-2">{{ $product->DesignSizeAndWeight }}
+                                    <dd class="w-sm text-gray-900 sm:col-span-2">{{ $product->DesignSizeAndWeight }}
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Thời gian bảo hành</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Warranty }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Warranty }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Kho</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Inventory }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Inventory }}</dd>
+                                </div>
+                                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-sm font-bold text-gray-500">Hiện trên trang chủ?</dt>
+                                    <dd class=" text-sm text-gray-900 sm:col-span-2">{{ $product->ShowOnHomePage==1?'Hiện':'Không hiện' }}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -121,27 +125,27 @@
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Dung lượng bộ nhớ</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Memory }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Memory }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">RAM</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Ram }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Ram }}</dd>
                                 </div>
                                 <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     Màn hình
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Công nghệ màn hình</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->MonitorTechnology }}
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->MonitorTechnology }}
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Độ phân giải</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Resolution }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Resolution }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Màn hình rộng</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">
                                         {{ Str::replace('"', '', $product->MonitorSize) }}</dd>
                                 </div>
                                 <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -150,7 +154,7 @@
                                 @if ($productType == 1 || $productType == 1)
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm font-bold text-gray-500">Camera sau</dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->CameraBack }}
+                                        <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->CameraBack }}
                                         </dd>
                                     </div>
                                 @endif
@@ -160,41 +164,41 @@
                                     @else
                                         <dt class="text-sm font-bold text-gray-500">Camera Front</dt>
                                     @endif
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->CameraFront }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->CameraFront }}</dd>
                                 </div>
                                 <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     Hệ điều hành & CPU
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Hệ điều hành</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Os }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Os }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">CPU</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Cpu }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Cpu }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Tốc độ CPU</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->CpuSpeed }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->CpuSpeed }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">GPU</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Gpu }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Gpu }}</dd>
                                 </div>
                                 <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     Kết nối
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Kết nối không dây</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->Wireless) !!}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->Wireless) !!}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Cổng sạc</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Port }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Port }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Jack</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Jack }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->Jack }}</dd>
                                 </div>
                                 <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     Pin & Sạc
@@ -205,16 +209,16 @@
                                     @else
                                         <dt class="text-sm font-bold text-gray-500">Thời lượng Pin</dt>
                                     @endif
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryCapacity }}
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryCapacity }}
                                     </dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Loại Pin</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryType }}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{{ $product->BatteryType }}</dd>
                                 </div>
                                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                     <dt class="text-sm font-bold text-gray-500">Công nghệ Pin</dt>
-                                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->BatteryTechnology) !!}</dd>
+                                    <dd class="text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->BatteryTechnology) !!}</dd>
                                 </div>
                                 <!-- Các dòng còn lại cũng tương tự -->
 

@@ -21,7 +21,7 @@
                         class="block py-2 px-3 text-gray-50 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                         aria-current="page">Sản phẩm</a>
                     <div
-                        class="invisible absolute z-50 flex w-auto flex-col bg-gray-100 border rounded-sm py-3 text-gray-800 group-hover:visible">
+                        class="invisible absolute z-50 flex w-auto flex-col bg-gray-100 border rounded-sm text-gray-800 group-hover:visible">
                         <div class="hover:bg-slate-300 w-full h-full">
                             <a href="{{ route('product_types.index') }}"
                                 class="my-2 block border-gray-100 font-semibold hover:text-black md:mx-2">Loại sản

@@ -13,25 +13,6 @@
                             <h1 class="text-xl font-bold">{{ $customer->LastName . ' ' . $customer->FirstName }}</h1>
                             <p class="text-gray-700">{{ Auth::user()->email }}</p>
                         </div>
-                        <hr class="my-6 border-t border-gray-300">
-                        <div class="flex flex-col">
-                            <div class="flex justify-between">
-                                <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Thông tin cá nhân</span>
-                                <a href="{{ route('profile.edit', Auth::user()->email) }}">
-                                    <i class="fa-solid fa-pen text-gray-700 text-sm"></i>
-                                </a>
-                            </div>
-                            <ul class="grid grid-cols-2">
-                                <li class="mb-2 font-bold">Số điện thoại:</li>
-                                <li class="mb-2">
-                                    {{ $customer->Phone }}
-                                </li>
-                                <li class="mb-2 font-bold">Địa chỉ:</li>
-                                <li class="mb-2">
-                                    {{ $customer->Address != null ? $customer->Address : 'Chưa có' }}
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="w-2/3 h-full">
@@ -88,7 +69,7 @@
                                         class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-4" />
                                 </div>
                             </div>
-                            <div class="bg-white w-full flex justify-center space-x-1">
+                            <div class="bg-white w-full flex justify-center space-x-1 py-5">
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded-lg px-3">
                                     Cập nhật
                                 </button>

@@ -104,6 +104,30 @@
                             </div>
                         @endif
                     @endforeach
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>  
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
+                    <div
+                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,8 +1,8 @@
 @extends('layout.layout_product_show')
 @section('title', $title)
 @section('content')
-    <section class="flex justify-center items-center py-10 sm:py-5 lg:py-10">
-        <div class="w-full px-2 sm:px-0 sm:w-4/5 md:w-full lg:w-4/5 block md:flex mt-10">
+    <div class="flex justify-center items-center py-10 sm:py-5 lg:py-10">
+        <div class="w-full px-2 sm:px-0 sm:w-4/5 md:w-full lg:w-4/5 block md:flex mt-10 pb-10">
             {{-- Image --}}
             <div class="w-full md:w-1/2">
                 <div class="block">
@@ -102,7 +102,7 @@
                 @endif
             </div>
         </div>
-    </section>
+    </div>
 
 
     <section class="bg-white pb-20 flex justify-center items-center w-full">

@@ -97,16 +97,24 @@
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Inventory" class="text-sm font-bold text-gray-500">Kho</label>
-                                        <input name="Inventory" type="number" disabled
-                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2 disabled:text-gray-400"
+                                        <input name="Inventory" type="number" readonly
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2 read-only:text-gray-400"
                                             value="{{ $product->Inventory }}" />
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="is-new" class="text-sm font-bold text-gray-500">Mới ra mắt?</label>
                                         <select name="isNew" id="is-new"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
-                                            <option {{$product->isNew == 1?'Selected':''}} value=1>Đúng</option>
-                                            <option {{$product->isNew == 0?'Selected':''}} value=2>Sai</option>
+                                            <option {{$product->isNew == 1?'selected':''}} value=1>Đúng</option>
+                                            <option {{$product->isNew == 0?'selected':''}} value=0>Sai</option>
+                                        </select>
+                                    </div>
+                                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="ShowOnHomePage" class="text-sm font-bold text-gray-500">Hiện lên trang chủ?</label>
+                                        <select name="ShowOnHomePage" id="ShowOnHomePage"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
+                                            <option {{$product->ShowOnHomePage == 1?'selected':''}} value=1>Hiện</option>
+                                            <option {{$product->ShowOnHomePage == 0?'selected':''}} value=0>Không hiện</option>
                                         </select>
                                     </div>
                                 </dl>
@@ -287,7 +295,7 @@
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-full sm:w-32 mr-1">Cập
                         nhật</button>
-                    <button
+                    <button type="button"
                         class="bg-orange-600 hover:bg-orange-700 text-white font-bold h-9 rounded w-full mt-3 sm:mt-0 sm:w-20 sm:ml-1">
                         <a href="{{ route('products.index') }}">
                             Hủy

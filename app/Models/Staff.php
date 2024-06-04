@@ -20,7 +20,6 @@ class Staff extends Model
         'YearOfBirth',
         'Phone',
         'CitizenId',
-        'Active'
     ];
 
     protected static function boot(){

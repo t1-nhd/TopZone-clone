@@ -124,10 +124,7 @@
 
 <body>
     @include('admin.layout_admin.header')
-    <div class="pt-[50px]">
-        @yield('content')
-    </div>
-
+    @yield('content')
 </body>
 
 </html>
