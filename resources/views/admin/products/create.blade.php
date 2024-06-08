@@ -32,7 +32,7 @@
                                         <div class="w-full flex sm:col-span-2">
                                             <select name="ProductModelName" id="product-model-name"
                                                 class="px-3 h-10 mb-1 w-full border border-black rounded-l-lg text-sm text-gray-900">
-                                                <option selected disabled>Chọn model máy</option>
+                                                <option selected>Chọn model máy</option>
                                                 @foreach ($models as $model)
                                                     <option value="{{ $model->ProductModelName }}">
                                                         {{ $model->ProductModelName }}</option>
@@ -56,8 +56,7 @@
                                         <div class="w-full sm:col-span-2 relative">
                                             <input name="UnitPrice" type="number" required
                                                 class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900" />
-                                            <div
-                                                class="absolute inset-y-0 end-10 flex items-center ps-3 pointer-events-none">
+                                            <div class="absolute inset-y-0 end-10 flex items-center pointer-events-none">
                                                 VNĐ
                                             </div>
                                         </div>
@@ -67,7 +66,7 @@
                                         <label for="DesignSizeAndWeight" class="text-sm font-bold text-gray-500">Kích thước
                                             và trọng lượng</label>
                                         <textarea type="text" rows="3" name="DesignSizeAndWeight" required
-                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
+                                            class="py-1 px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
                                     </div>
                                     <div class=" bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="warranty" class="text-sm font-bold text-gray-500">Thời gian bảo
@@ -94,16 +93,6 @@
                                             <option value=0>Sai</option>
                                         </select>
                                     </div>
-                                    <div class=" bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <label for="ShowOnHomePage" class="text-sm font-bold text-gray-500">Hiện lên trang
-                                            chủ?</label>
-                                        <select name="ShowOnHomePage" id="ShowOnHomePage"
-                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
-                                            <option value=1>Hiện</option>
-                                            <option value=0 selected>Không hiện
-                                            </option>
-                                        </select>
-                                    </div>
                                 </dl>
                             </div>
                         </div>
@@ -127,8 +116,7 @@
                             </div>
                             <div class="border-t border-gray-200">
                                 <dl>
-                                    <div
-                                        class="iphone ipad mac watch bg-gray-200 px-4 font-bold py-2 w-full">
+                                    <div class="iphone ipad mac watch bg-gray-200 px-4 font-bold py-2 w-full">
                                         Bộ nhớ & Lưu trữ
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -137,7 +125,7 @@
                                         <select name="Memory" id="memory"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"
                                             required>
-                                            <option selected disabled>Chọn dung lượng bộ nhớ</option>
+                                            <option selected value="">Chọn dung lượng bộ nhớ</option>
                                             <option value="64 GB">64 GB</option>
                                             <option value="128 GB">128 GB</option>
                                             <option value="256 GB">256 GB</option>
@@ -145,11 +133,12 @@
                                             <option value="1 TB">1 TB</option>
                                         </select>
                                     </div>
-                                    <div id="ram-div" class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <div id="ram-div"
+                                        class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Ram" class="text-sm font-bold text-gray-500">RAM</label>
                                         <select name="Ram" id="ram"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
-                                            <option selected disabled>Chọn dung lượng RAM</option>
+                                            <option selected value="">Chọn dung lượng RAM</option>
                                             <option value="4 GB">4 GB</option>
                                             <option value="6 GB">6 GB</option>
                                             <option value="8 GB">8 GB</option>
@@ -157,6 +146,13 @@
                                             <option value="18 GB">18 GB</option>
                                             <option value="36 GB">36 GB</option>
                                         </select>
+                                    </div>
+                                    <div style="display:none;"
+                                        class="info mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="MaximumRamUpgraded" class="text-sm font-bold text-gray-500">Dung lượng
+                                            RAM tối đa có thể nâng cấp</label>
+                                        <input name="MaximumRamUpgraded" type="text"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div style="display:none;"
                                         class="info iphone ipad mac watch bg-gray-200 px-4 font-bold py-2 w-full">
@@ -214,7 +210,7 @@
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div style="display:none;"
-                                        class="info iphone ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Cpu" class="text-sm font-bold text-gray-500">CPU</label>
                                         <input name="Cpu" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
@@ -257,11 +253,23 @@
                                         Kết nối
                                     </div>
                                     <div style="display:none;"
+                                        class="info iphone ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="Cellular" class="text-sm font-bold text-gray-500">Mạng di động</label>
+                                        <input name="Cellular" type="text"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
+                                    </div>
+                                    <div style="display:none;"
+                                        class="info iphone ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="Sim" class="text-sm font-bold text-gray-500">SIM</label>
+                                        <input name="Sim" type="text"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
+                                    </div>
+                                    <div style="display:none;"
                                         class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Wireless" class="text-sm font-bold text-gray-500">Kết nối không
                                             dây</label>
                                         <textarea name="Wireless" rows="3"
-                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
+                                            class="py-1 px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
                                     </div>
                                     <div style="display:none;"
                                         class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -288,26 +296,31 @@
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div style="display:none;"
-                                        class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        class="info watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="ChargingTime" class="text-sm font-bold text-gray-500">Thời gian
+                                            sạc</label>
+                                        <input name="ChargingTime" type="text"
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
+                                    </div>
+                                    <div style="display:none;"
+                                        class="info iphone ipad bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="BatteryType" class="text-sm font-bold text-gray-500">Loại Pin</label>
                                         <input name="BatteryType" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div style="display:none;"
-                                        class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        class="info iphone ipad bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="BatteryTechnology" class="text-sm font-bold text-gray-500">Công nghệ
                                             Pin</label>
                                         <textarea name="BatteryTechnology" rows="3"
-                                            class="px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
+                                            class="py-1 px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
                                     </div>
                                     <div style="display:none;"
                                         class="info ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <label for="SpecialFeature" class="text-sm font-bold text-gray-500">Tính năng đặc
-                                            biệt</label>
-                                        <input name="SpecialFeature" type="text"
+                                        <label for="MaximumChargable" class="text-sm font-bold text-gray-500">Hỗ trợ sạc tối đa</label>
+                                        <input name="MaximumChargable" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
-
                                     <div style="display:none;"
                                         class="info ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="ChargerIncluded" class="text-sm font-bold text-gray-500">Bộ sạc đi
@@ -318,20 +331,11 @@
 
                                     <div style="display:none;"
                                         class="info mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <label for="MaximumChargable" class="text-sm font-bold text-gray-500">Dung lượng
-                                            sạc tối đa</label>
+                                        <label for="MaximumChargable" class="text-sm font-bold text-gray-500">Hỗ trợ sạc tối đa</label>
                                         <input name="MaximumChargable" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
-                                    <div style="display:none;"
-                                        class="info mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <label for="MaximumRamUpgraded" class="text-sm font-bold text-gray-500">Dung lượng
-                                            RAM tối đa có thể nâng cấp</label>
-                                        <input name="MaximumRamUpgraded" type="text"
-                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
-                                    </div>
 
-                                    {{-- Apple Watch --}}
                                     <div id="watch">
                                         <div style="display:none;"
                                             class="info watch bg-gray-200 px-4 font-bold py-2 w-full">
@@ -385,14 +389,21 @@
                                                 thế dây đeo</label>
                                             <select name="StrapReplaceable" id="strap-replaceable"
                                                 class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
-                                                <option disabled hidden selected></option>
-                                                <option value=1>Có thể</option>
+                                                <option value=1 selected>Có thể</option>
                                                 <option value=2>Không thể</option>
                                             </select>
                                         </div>
                                         <div style="display:none;"
-                                            class="info watch bg-gray-200 px-4 font-bold py-2 w-full">
+                                            class="info ipad mac watch bg-gray-200 px-4 font-bold py-2 w-full">
                                             Tiện ích
+                                        </div>
+                                        <div style="display:none;"
+                                            class="info ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                            <label for="SpecialFeature" class="text-sm font-bold text-gray-500"
+                                                id="label-special-feature">Tính năng đặc
+                                                biệt</label>
+                                            <textarea name="SpecialFeature" id="" rows="3"
+                                                class="py-1 px-3 w-full mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2"></textarea>
                                         </div>
                                         <div style="display:none;"
                                             class="info watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -432,17 +443,6 @@
                                                 thị
                                                 thông báo</label>
                                             <input name="DisplayNotification" type="text"
-                                                class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
-                                        </div>
-                                        <div style="display:none;"
-                                            class="info watch bg-gray-200 px-4 font-bold py-2 w-full">
-                                            Pin
-                                        </div>
-                                        <div style="display:none;"
-                                            class="info watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <label for="ChargingTime" class="text-sm font-bold text-gray-500">Thời gian
-                                                sạc</label>
-                                            <input name="ChargingTime" type="text"
                                                 class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                         </div>
                                         <div style="display:none;"
@@ -502,7 +502,6 @@
     <script>
         document.getElementById('product-model-name').addEventListener('change', function() {
             var productName = document.getElementById('product-name');
-            var label_camera_front = document.getElementById('label-camera-front');
             var camera_back = document.getElementById('camera-back');
             var ram = document.getElementById('ram-div');
 
@@ -515,22 +514,20 @@
             productName.value = this.value + " ";
             ram.style.display = "";
             for (let i = 0; i < info.length; i++) {
-              iphone[i] && (iphone[i].style.display = "none");
-              ipad[i] && (ipad[i].style.display = "none");
-              mac[i] && (mac[i].style.display = "none");
-              watch[i] && (watch[i].style.display = "none");
+                info[i].style.display = "none";
             }
             if (this.value.includes('Watch')) {
-              ram.style.display = "none";
+                ram.style.display = "none";
                 for (let i = 0; i < watch.length; i++) {
                     watch[i].style.display = "";
                 }
+                document.querySelector("#label-special-feature").innerHTML = "Tiện ích đặc biệt";
             }
             if (this.value.includes('Mac')) {
                 for (let i = 0; i < mac.length; i++) {
                     mac[i].style.display = "";
                 }
-                label_camera_front.innerHTML = "Webcam";
+                document.getElementById('label-camera-front').innerHTML = "Webcam";
             }
             if (this.value.includes('iPhone')) {
                 for (let i = 0; i < iphone.length; i++) {

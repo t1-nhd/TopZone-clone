@@ -24,39 +24,30 @@ class Product extends Model
         'Warranty',
         'Inventory',
         'isNew',
-
-        //4
         'MonitorTechnology',
         'Resolution',
         'MonitorSize',
-
-
-        //iPhone iPad Mac
         'CameraBack',
-        'CameraFront', //Mac = Webcam
-        'Os', //+Watch
+        'CameraFront',
+        'Os',
         'Cpu',
         'CpuSpeed',
         'Gpu',
         'Cellular',
         'Sim',
-        'Wireless', //+Watch
-        'Port', //+Watch
+        'Wireless',
+        'Port',
         'Jack',
-        'BatteryCapacity', //Watch = Thời lượng sử dụng
+        'BatteryCapacity',
         'BatteryType', 
         'BatteryTechnology',
-
-        //Mac
         'NumberOfCore',
         'NumberOfThread',
-        'SpecialFeature', //+iPad
-        'ChargerIncluded', //+iPad
+        'SpecialFeature',
+        'ChargerIncluded',
         'MaximumChargable',
         'MaximumRamUpgraded',
         'MaximumCpuSpeed',
-
-        //Watch
         'StrapReplaceable',
         'SportSupport',
         'CallingSupport',

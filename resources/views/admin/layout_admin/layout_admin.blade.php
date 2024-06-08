@@ -118,6 +118,45 @@
             position: relative;
             padding-bottom: 100%;
         }
+        .plusminus {
+            position: relative;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+
+            &.active {
+                &:before {
+                    transform: translatey(-50%) rotate(-90deg);
+                    opacity: 0;
+                }
+
+                &:after {
+                    transform: translatey(-50%) rotate(0);
+                }
+            }
+
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                background-color: #333;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transition: .35s;
+                width: 100%;
+                height: 3px;
+            }
+
+            &:before {
+                transform: translatey(-50%);
+            }
+
+            &:after {
+                transform: translatey(-50%) rotate(90deg);
+            }
+
+        }
     </style>
     {{-- @vite('resources/css/app.css') --}}
 </head>
