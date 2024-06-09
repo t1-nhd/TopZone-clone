@@ -70,7 +70,7 @@ return new class extends Migration
             $table->string('StrapHeight')->nullable();
             $table->boolean('StrapReplaceable')->nullable();
             $table->string('WaterResistant')->nullable();
-            $table->string('Healthcare')->nullable();
+            $table->string('Healthcare', 1000)->nullable();
             $table->string('DisplayNotification')->nullable();
             $table->string('ChargingTime')->nullable();
             $table->string('OsConnectable')->nullable();

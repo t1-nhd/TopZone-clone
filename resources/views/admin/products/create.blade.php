@@ -80,9 +80,14 @@
                                             <option value="1 tháng">1 tháng</option>
                                         </select>
                                     </div>
-                                    <div class=" bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Inventory" class="text-sm font-bold text-gray-500">Kho</label>
                                         <input name="Inventory" type="number" required
+                                            class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
+                                    </div>
+                                    <div class=" bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <label for="ShowOnHomePage" class="text-sm font-bold text-gray-500">Kho</label>
+                                        <input name="ShowOnHomePage" type="text" disabled value="Không hiện"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div class=" bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -273,12 +278,12 @@
                                     </div>
                                     <div style="display:none;"
                                         class="info iphone ipad mac watch bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <label for="Port" class="text-sm font-bold text-gray-500">Cổng sạc</label>
+                                        <label for="Port" class="text-sm font-bold text-gray-500">Cổng kết nối / sạc</label>
                                         <input name="Port" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
                                     </div>
                                     <div style="display:none;"
-                                        class="info iphone ipad mac bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        class="info iphone ipad bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label for="Jack" class="text-sm font-bold text-gray-500">Jack</label>
                                         <input name="Jack" type="text"
                                             class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2" />
@@ -390,7 +395,7 @@
                                             <select name="StrapReplaceable" id="strap-replaceable"
                                                 class="px-3 w-full h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2">
                                                 <option value=1 selected>Có thể</option>
-                                                <option value=2>Không thể</option>
+                                                <option value=0>Không thể</option>
                                             </select>
                                         </div>
                                         <div style="display:none;"

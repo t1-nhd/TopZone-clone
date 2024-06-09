@@ -15,7 +15,7 @@
             </div>
         </div>
     @endif
-    <div class="bg-gray-100">
+    <div id="profile-info" class="bg-gray-100">
         <div class="container mx-auto py-8">
             <div class="w-full flex px-4">
                 <div class="w-1/3 sm:mr-3 h-full ">
@@ -89,7 +89,7 @@
                                                         $status = 'Đã từ chối';
                                                         break;
                                                     case 'Cancel':
-                                                        $status = 'Bị khách hủy';
+                                                        $status = 'Đã hủy';
                                                         break;
                                                     case 'Shipping':
                                                         $status = 'Đang giao hàng';
@@ -102,7 +102,7 @@
                                                         break;
                                                 }
                                             @endphp
-                                            <tr class="collapsible border-b bg-gray-100">
+                                            <tr class="collapsible border-b bg-gray-50">
                                                 <td class="py-4 font-medium text-gray-900 text-center">
                                                     {{ ++$stt_bill }}
                                                 </td>
@@ -116,7 +116,23 @@
                                                     {{ $bill->Note }}
                                                 </td>
                                                 <td class="py-4 text-center font-bold">
-                                                    {{ $status }}
+
+                                                    @if ($bill->Status != 'Pending')
+                                                        {{ $status }}
+                                                    @else
+                                                        {{-- <form action="{{ route('bills.update') }}" method="post"
+                                                            onsubmit="return confirm('Bạn thực sự muốn hủy đơn hàng này?');">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <input type="hidden" name="BillId"
+                                                                value="{{ $bill->BillId }}">
+                                                            <input type="hidden" name="Status" value="Cancel">
+                                                            
+                                                        </form> --}}
+                                                        <button onclick="rejectOnclick()"
+                                                            class="rounded-md p-2 border text-white bg-red-500 hover:bg-red-700">Hủy
+                                                            đơn</button>
+                                                    @endif
                                                 </td>
                                                 <td class="py-4 text-center font-bold text-red-600">
                                                     {{ number_format($bill->TotalBill) . '₫' }}
@@ -171,6 +187,25 @@
         </div>
     </div>
 
+    <div id="reject-form" class="w-[400px] h-[200px] absolute top-1/3 left-1/3 rounded-md border bg-white" style="display: none;">
+        <button class="text-white absolute right-2" onclick="rejectOffClick()">x</button>
+        <div class="w-full h-full py-10 px-2 flex flex-col justify-around">
+            <div class="text-lg font-bold text-center">
+                Bạn chắc chắn muốn hủy đơn hàng này?
+            </div>
+            <div class="flex space-x-1 w-full justify-center">
+                <form action="{{route("profile.reject")}}" method="post">
+                    @csrf
+                    @method("PUT")
+                    <input type="hidden" name="BillId" value="{{$bill->BillId}}">
+                    <button type="submit" class="px-2 py-2 bg-red-500 hover:bg-red-600 rounded-md text-white">Xác nhận</button>
+                    <button type="button" onclick="rejectOffClick()" class="px-2 py-2 bg-green-500 hover:bg-green-600 rounded-md text-white">Hủy</button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
     <script>
         var coll = document.getElementsByClassName("collapsible");
 
@@ -184,6 +219,18 @@
                     content.style.display = "table-row";
                 }
             });
+        }
+        var profile = document.getElementById("profile-info");
+        var reject_form = document.getElementById("reject-form");
+
+        function rejectOnclick() {
+            profile.style.filter = "blur(4px)";
+            reject_form.style.display = "";
+        }
+
+        function rejectOffClick(){
+            profile.style.filter = "blur(0)";
+            reject_form.style.display = "none";
         }
     </script>
 @endsection

@@ -43,4 +43,9 @@ class ProfileController extends Controller
 
         return redirect()->route('profile')->with('update-successfully', 'Cập nhật hồ sơ thành công');
     }
+    public function reject(Request $request)
+    {
+        DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => 'Cancel',]);
+        return redirect()->route("profile");
+    }
 }

@@ -147,10 +147,11 @@
             </thead>
             <tbody>
                 @if ($data->count() == 0)
-                    <th scope="row" colspan="6"
-                        class="py-8 text-2xl font-medium text-gray-400 whitespace-nowrap text-center">
-                        không có sản phẩm nào phù hợp
-                    </th>
+                    <tr>
+                        <td colspan="7" class="py-8 text-2xl font-medium text-gray-400 whitespace-nowrap text-center">
+                            không có sản phẩm nào phù hợp
+                        </td>
+                    </tr>
                 @endif
                 @foreach ($data as $dt)
                     <tr class="bg-white border-b">

@@ -7,7 +7,7 @@
     @endphp
     <div class="overflow-x-auto m-10">
         <div class="mb-3">
-            <h1 class="w-full text-4xl text-center mb-3">HOẠT ĐỘNG CỦA CỬA HÀNG {{$header}}</h1>
+            <h1 class="w-full text-4xl text-center mb-3">HOẠT ĐỘNG CỦA CỬA HÀNG {{ $header }}</h1>
             <div class="w-full">
                 <form action="" method="get" class="my-5 mt-10">
                     <div class="w-full block sm:flex justify-end px-3">
@@ -17,7 +17,8 @@
                                     class="fa-solid fa-xmark mr-1 mt-1"></i>Bỏ lọc</a>
                         @endif
                         <div class="mr-1 mb-1">
-                            <select name="Year" id="filter-year" class="px-3 w-full h-8 border-0" onchange="yearOnChange()">
+                            <select name="Year" id="filter-year" class="px-3 w-full h-8 border-0"
+                                onchange="yearOnChange()">
                                 <option selected disabled hidden value="">Năm</option>
                                 <option value=""></option>
                                 @foreach ($year as $i)
@@ -63,9 +64,48 @@
                             <select name="SortDateTime" id="filter-date-time" class="px-3 w-full h-8 border-0">
                                 <option value="desc" selected>↓ Trễ nhất
                                 </option>
-                                <option value="asc" {{$selected['sortByDate']=='asc'?'selected':''}}>↑ Sớm nhất
+                                <option value="asc" {{ $selected['sortByDate'] == 'asc' ? 'selected' : '' }}>↑ Sớm nhất
                                 </option>
 
+                            </select>
+                        </div>
+                        <div class="mr-1 mb-1 sm:mr-3">
+                            <select name="StatusFilter" class="px-3 w-full h-8 border-0">
+                                <option selected disabled hidden value="">Trạng thái</option>
+                                @foreach ($status as $item)
+                                    @php
+                                        $status = '';
+                                        switch ($item) {
+                                            case 'Approve':
+                                                $status = 'Đã xác nhận';
+                                                break;
+                                            case 'Reject':
+                                                $status = 'Đã từ chối';
+                                                break;
+                                            case 'Cancel':
+                                                $status = 'Bị khách hủy';
+                                                break;
+                                            case 'Shipping':
+                                                $status = 'Đang giao hàng';
+                                                break;
+                                            case 'Done':
+                                                $status = 'Hoàn thành';
+                                                break;
+                                            default:
+                                                $status = 'Chờ xử lý';
+                                                break;
+                                        }
+                                    @endphp
+                                    @if ($selected['status'] == $item)
+                                        <option value="{{ $item }}" selected>
+                                            {{ $status }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $item }}">
+                                            {{ $status }}
+                                        </option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
                         <div class="">
@@ -148,8 +188,28 @@
                             <td class="py-4 text-center">
                                 {{ $dt->Note }}
                             </td>
-                            <td class="py-4 text-center">
-                                {{ $status }}
+                            <td class="py-4 text-center flex justify-center">
+                                @if ($dt->Status == 'Pending')
+                                    <form action="{{ route('bills.update') }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
+                                        <input type="hidden" name="Status" value="Approve">
+                                        <button class="rounded-md text-white p-2 border bg-green-500 hover:bg-green-700">Xác
+                                            nhận</button>
+                                    </form>
+                                    <form action="{{ route('bills.update') }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
+                                        <input type="hidden" name="Status" value="Reject">
+                                        <button class="rounded-md text-white p-2 border bg-red-500 hover:bg-red-700">Từ
+                                            chối</button>
+                                    </form>
+                                @else
+                                    {{ $status }}
+                                @endif
+
                             </td>
                             <td class="py-4 text-center font-bold text-red-600">
                                 {{ number_format($dt->TotalBill) . '₫' }}
@@ -220,7 +280,7 @@
             dayInput.disabled = false;
         }
 
-        function yearOnChange(){
+        function yearOnChange() {
             if (yearInput.value === "") {
                 monthInput.disabled = true;
                 monthInput.value = "";
@@ -228,6 +288,7 @@
                 monthInput.disabled = false;
             }
         }
+
         function monthOnChange() {
             if (monthInput.value === "") {
                 dayInput.disabled = true;

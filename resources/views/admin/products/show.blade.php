@@ -381,7 +381,7 @@
                                 <dl>
                                     <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm font-bold text-gray-500">Kết nối không dây:</dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Wireless }}</dd>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->Wireless) !!}</dd>
                                     </div>
                                 </dl>
                                 <dl>
@@ -407,7 +407,7 @@
                                     <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm font-bold text-gray-500">Tính năng đặc biệt:</dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
-                                            {{ $product->SpecialFeature }}</dd>
+                                            {!! str_replace('#', '<br>', $product->SpecialFeature) !!}</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -561,14 +561,8 @@
                                 </dl>
                                 <dl>
                                     <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <dt class="text-sm font-bold text-gray-500">Cổng kết nối/sạc:</dt>
+                                        <dt class="text-sm font-bold text-gray-500">Cổng giao tiếp:</dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Port }}</dd>
-                                    </div>
-                                </dl>
-                                <dl>
-                                    <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <dt class="text-sm font-bold text-gray-500">Jack tai nghe:</dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Jack }}</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -735,7 +729,7 @@
                                     </div>
                                     <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm font-bold text-gray-500">Kết nối:</dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $product->Wireless }}</dd>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">{!! str_replace('#', '<br>', $product->Wireless) !!}</dd>
                                     </div>
                                     <div class="bg-white border-t px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm font-bold text-gray-500">Cảm biến:</dt>

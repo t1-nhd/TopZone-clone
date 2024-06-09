@@ -8,14 +8,15 @@
     @endphp
     @if (@session('update-success'))
         <div class="rounded-l-xl absolute bg-green-100 z-50 top-32 right-0 h-16 px-5 flex justify-center items-center">
-            <button onclick="this.parentElement.style.display='none';" class="absolute top-0 right-2 text-green-700"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="this.parentElement.style.display='none';" class="absolute top-0 right-2 text-green-700"><i
+                    class="fa-solid fa-xmark"></i></button>
             <div class="text-green-700 font-bold text-wrap">
                 {{ @session('update-success') }}
             </div>
         </div>
     @endif
     <div class="w-1/2 px-7 flex justify-center">
-        <a href="{{route('bills.index')}}" class="text-blue-500 hover:text-blue-700">
+        <a href="{{ route('bills.index') }}" class="text-blue-500 hover:text-blue-700">
             ← Trở về
         </a>
     </div>
@@ -37,42 +38,61 @@
                     <div class="mt-3 font-semibold">Địa chỉ giao hàng:</div>
                     <div class="mt-3 col-span-2">{{ $bill->Address }}</div>
                     <div class="mt-3 font-semibold">Trạng thái đơn hàng:</div>
-                    <div class="mt-3 col-span-2">
-                        <form action="{{ route('bills.update') }}" method="post">
-                            @method('PUT')
-                            @csrf
-                            <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
-                            <div class="flex w-full">
-                                <select name="Status" id="status-select" class="h-8 pl-1 rounded-md"
-                                    onchange="statusOnChange()">
-                                    @foreach ($status as $item)
-                                        @php
-                                            $status = '';
-                                            switch ($item) {
-                                                case 'Approve':
-                                                    $status = 'Nhận đơn';
-                                                    break;
-                                                case 'Reject':
-                                                    $status = 'Từ chối đơn';
-                                                    break;
-                                                case 'Shipping':
-                                                    $status = 'Đang giao hàng';
-                                                    break;
-                                                default:
-                                                    $status = 'Chờ xử lý';
-                                                    break;
-                                            }
-                                        @endphp
-                                        <option value="{{ $item }}" {{ $item == $bill->Status ? 'selected' : '' }}>
-                                            {{ $status }}</option>
-                                    @endforeach
-                                </select>
-                                <button type="submit" id="bt-update"
-                                    class="invisible px-2 ml-1 border border-blue-500 rounded-lg h-8 bg-blue-500 hover:bg-blue-700 hover:border-blue-700 text-white">Cập
-                                    nhật
-                                </button>
-                            </div>
-                        </form>
+                    <div class="mt-3 col-span-2 font-bold">
+                        @if ($bill->Status == 'Pending')
+                            <form action="{{ route('bills.update') }}" method="post">
+                                @method('PUT')
+                                @csrf
+                                <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
+                                <div class="flex w-full">
+                                    <select name="Status" id="status-select" class="h-8 pl-1 rounded-md"
+                                        onchange="statusOnChange()">
+                                        @foreach ($status as $item)
+                                            @php
+                                                $status = '';
+                                                switch ($item) {
+                                                    case 'Approve':
+                                                        $status = 'Nhận đơn';
+                                                        break;
+                                                    case 'Reject':
+                                                        $status = 'Từ chối đơn';
+                                                        break;
+                                                    default:
+                                                        $status = 'Chờ xử lý';
+                                                        break;
+                                                }
+                                            @endphp
+                                            <option value="{{ $item }}"
+                                                {{ $item == $bill->Status ? 'selected' : '' }}>
+                                                {{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" id="bt-update"
+                                        class="invisible px-2 ml-1 border border-blue-500 rounded-lg h-8 bg-blue-500 hover:bg-blue-700 hover:border-blue-700 text-white">Cập
+                                        nhật
+                                    </button>
+                                </div>
+                            </form>
+                        @else
+                            @php
+                                $status = '';
+                                switch ($bill->Status) {
+                                    case 'Approve':
+                                        $status = 'Đơn được nhận';
+                                        break;
+                                    case 'Reject':
+                                        $status = 'Đơn bị từ chối';
+                                        break;
+                                    case 'Shipping':
+                                        $status = 'Đang giao hàng';
+                                    case 'Cancel':
+                                        $status = 'Bị hủy';
+                                    case 'Done':
+                                        $status = 'Hoàn thành';
+                                }
+                            @endphp
+                            {{ $status }}
+                        @endif
                     </div>
                 </div>
             </div>

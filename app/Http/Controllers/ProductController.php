@@ -151,7 +151,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('ProductThumbnail')) {
             $image = $request->file('ProductThumbnail');
-            $imageName = str_replace(' ', '-', strtolower($productName)) . "." . $image->extension();
+            $imageName = str_replace('/','-',str_replace(' ', '-', strtolower($newProduct->ProductName)) . "." . $image->extension());
 
             $newProduct->ProductThumbnail = $imageName;
 
@@ -214,7 +214,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('ProductThumbnail')) {
             $image = $request->file('ProductThumbnail');
-            $imageName = str_replace(' ', '-', strtolower($product->ProductName)) . "." . $image->extension();
+            $imageName = str_replace('/','-',str_replace(' ', '-', strtolower($product->ProductName)) . "." . $image->extension());
             DB::table('products')->where('ProductId', $id)->update(['ProductThumbnail' => $imageName]);
 
             $image->move(public_path('images\Thumbnails'), $imageName);
@@ -223,8 +223,8 @@ class ProductController extends Controller
         DB::table('products')->where('ProductId', $id)->update([
             'ProductName' => $request->ProductName,
             'Ram' => $request->Ram,
-            'UnitPrice' => $request->UnitPrice,
             'DesignSizeAndWeight' => $request->DesignSizeAndWeight,
+            'UnitPrice' => $request->UnitPrice,
             'Warranty' => $request->Warranty,
             'Inventory' => $request->Inventory,
             'isNew' => $request->isNew,
@@ -245,7 +245,30 @@ class ProductController extends Controller
             'Jack' => $request->Jack,
             'BatteryCapacity' => $request->BatteryCapacity,
             'BatteryType' => $request->BatteryType,
-            'BatteryTechnology' => $request->BatteryTechnology
+            'BatteryTechnology' => $request->BatteryTechnology,
+            'NumberOfCore' => $request->NumberOfCore,
+            'NumberOfThread' => $request->NumberOfThread,
+            'SpecialFeature' => $request->SpecialFeature,
+            'ChargerIncluded' => $request->ChargerIncluded,
+            'MaximumChargable' => $request->MaximumChargable,
+            'MaximumRamUpgraded' => $request->MaximumRamUpgraded,
+            'MaximumCpuSpeed' => $request->MaximumCpuSpeed,
+            'StrapReplaceable' => $request->StrapReplaceable,
+            'SportSupport' => $request->SportSupport,
+            'CallingSupport' => $request->CallingSupport,
+            'MonitorMaterials' => $request->MonitorMaterials,
+            'BorderMaterials' => $request->BorderMaterials,
+            'StrapMaterials' => $request->StrapMaterials,
+            'StrapWidth' => $request->StrapWidth,
+            'StrapHeight' => $request->StrapHeight,
+            'WaterResistant' => $request->WaterResistant,
+            'Healthcare' => $request->Healthcare,
+            'DisplayNotification' => $request->DisplayNotification,
+            'ChargingTime' => $request->ChargingTime,
+            'OsConnectable' => $request->OsConnectable,
+            'ManagermentApplication' => $request->ManagermentApplication,
+            'Sensor' => $request->Sensor,
+            'Locater' => $request->Locater,
         ]);
 
         return redirect()->route('products.show', $product->ProductId)->with('success', 'Cập nhật sản phẩm thành công');

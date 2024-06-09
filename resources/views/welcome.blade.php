@@ -104,30 +104,6 @@
                             </div>
                         @endif
                     @endforeach
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>  
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
                 </div>
             </div>
         </section>
@@ -164,30 +140,6 @@
                             </div>
                         @endif
                     @endforeach
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>  
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
-                    <div
-                        class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
-                    </div>
                 </div>
             </div>
         </section>
@@ -199,6 +151,31 @@
                             class="fa-brands fa-apple"></i> Mac</a>
                 </div>
                 <div class="mac-slider py-10 place-items-center relative">
+                    @foreach ($data as $item)
+                        @if ($item->getProductModelName->ProductTypeId == 3)
+                            <div
+                                class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-2xl place-content-center text-wrap relative">
+                                @if ($item->isNew == 1)
+                                    <div
+                                        class="new-box border border-amber-600 text-amber-500 font-medium text-center flex justify-center items-center rounded-full w-16 h-8">
+                                    </div>
+                                @endif
+                                <a href="{{route('show', [$item->ProductName, $item->Memory])}}" class="text-center text-white flex flex-col gap-7">
+                                    <div>
+                                        <img class="mx-auto "
+                                            src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}" width="70%"
+                                            alt="">
+                                    </div>
+                                    <div class="text-md">
+                                        {{ $item->ProductName }}
+                                    </div>
+                                    <div class="text-lg font-bold">
+                                        {{ number_format($item->UnitPrice) . '₫' }}
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
                     <div
                         class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
                     </div>
@@ -234,6 +211,31 @@
                             class="fa-brands fa-apple"></i> Watch</a>
                 </div>
                 <div class="watch-slider py-10 place-items-center">
+                    @foreach ($data as $item)
+                        @if ($item->getProductModelName->ProductTypeId == 4)
+                            <div
+                                class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500  hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-2xl place-content-center text-wrap relative">
+                                @if ($item->isNew == 1)
+                                    <div
+                                        class="new-box border border-amber-600 text-amber-500 font-medium text-center flex justify-center items-center rounded-full w-16 h-8">
+                                    </div>
+                                @endif
+                                <a href="{{route('show', [$item->ProductName, $item->Memory])}}" class="text-center text-white flex flex-col gap-7">
+                                    <div>
+                                        <img class="mx-auto "
+                                            src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}" width="70%"
+                                            alt="">
+                                    </div>
+                                    <div class="text-md">
+                                        {{ $item->ProductName }}
+                                    </div>
+                                    <div class="text-lg font-bold">
+                                        {{ number_format($item->UnitPrice) . '₫' }}
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
                     <div
                         class="bg-[#323232] hover:shadow-sm-light hover:shadow-gray-500 hover:transition-all delay-[50ms] max-w-[280px] py-6 sm:py-0 sm:h-[430px] rounded-lg">
                     </div>
