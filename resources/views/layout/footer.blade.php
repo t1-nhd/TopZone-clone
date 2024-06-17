@@ -208,7 +208,7 @@
                     <div class="w-1/3 h-full text-white">
                         <div class="font-bold text-blue-400">TRƯỜNG ĐẠI HỌC NHA TRANG</div>
                         <div class="font-bold text-blue-400">CHUYÊN ĐỀ TỐT NGHIỆP K62 - NĂM 2024</div>
-                        <div>Giảng viên hướng dẫn: <b>Ths. Nguyễn Thị Hương Lý</b></div>
+                        <div>Giảng viên hướng dẫn: <b>Ths. Nguyễn Thủy Đoan Trang</b></div>
                         <div>Sinh viên thực hiện: <b>Nguyễn Hoàng Duy</b></div>
                         <div>MSSV: 62130337</div>
                         <div><i class="fa-solid fa-envelope"></i> duy.nho.62cntt@ntu.edu.vn</div>

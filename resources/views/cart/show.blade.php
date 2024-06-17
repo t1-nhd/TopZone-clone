@@ -122,8 +122,8 @@
                 <div class="w-full my-1 bg-white p-4 space-y-2">
                     <div class="w-full pb-3 font-bold">Hình thức thanh toán</div>
                     <div class="flex items-center space-x-3">
-                        <input type="radio" name="payment" id="vnpay" value="vnpay">
-                        <label for="vnpay" class="flex">
+                        <input type="radio" disabled name="payment" id="vnpay" value="vnpay">
+                        <label for="vnpay" class="flex disabled:text-gray-400">
                             Thanh toán bằng <img
                                 src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" width="15%"
                                 class="ml-1 pointer-events-none">

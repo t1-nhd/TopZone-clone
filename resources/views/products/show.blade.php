@@ -18,13 +18,22 @@
                                 <i class="fa-solid fa-arrow-right text-white text-xl"></i>
                             </button>
                         </div>
-                        <div class="slider-for w-full">
-                            @foreach ($images as $image)
+                        @if ($count > 0)
+                            <div class="slider-for w-full">
+                                @foreach ($images as $image)
+                                    <img class="mx-auto "
+                                        src="{{ URL('images/Details/' . $product->ProductName . '/' . $image->ProductImage) }}"
+                                        width="100%" alt="">
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="slider-for w-full">
                                 <img class="mx-auto "
-                                    src="{{ URL('images/Details/' . $product->ProductName . '/' . $image->ProductImage) }}"
+                                    src="{{ URL('images/Thumbnails/' . $product->ProductThumbnail) }}"
                                     width="100%" alt="">
-                            @endforeach
-                        </div>
+                            </div>
+                        @endif
+
                     </div>
                     <div class="slider-nav mt-3 w-full">
                         @foreach ($images as $image)
