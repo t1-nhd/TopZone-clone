@@ -69,7 +69,8 @@ Route::middleware('customer')->group(function () {
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('profile/{email}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::put('profile', [ProfileController::class, 'reject'])->name('profile.reject');
+    Route::put('profile/reject', [ProfileController::class, 'reject'])->name('profile.reject');
+    Route::put('profile/received', [ProfileController::class, 'received'])->name('profile.received');
 });
 
 // Homepage

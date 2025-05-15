@@ -79,7 +79,7 @@ class BillController extends Controller
             ->join('products', 'products.ProductId', '=', 'bill_details.ProductId')
             ->where('BillId', $bill->BillId)
             ->get();
-        $bill_status = ['Pending', 'Approve', 'Reject'];
+        $bill_status = ['Pending', 'Approve', 'Reject', 'Shipping'];
 
         return view('admin.bills.show', [
             'bill' => $bill,
@@ -92,7 +92,12 @@ class BillController extends Controller
     public function update(Request $request)
     {
         // dd($request->all());
-        DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => $request->Status,]);
+        if(isset($request->Shipped)) {
+            DB::table('bills')->where('BillId', $request->BillId)->update(['Shipped' => $request->Shipped,]);
+        }
+        if(isset($request->Status)) {
+            DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => $request->Status,]);
+        }
         return redirect()->back()->with('update-success', 'Cập nhật trạng thái thành công');
     }
 }

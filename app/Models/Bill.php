@@ -19,5 +19,6 @@ class Bill extends Model
         'Phone',
         'Status',
         'Note',
+        'Shipped'
     ];
 }

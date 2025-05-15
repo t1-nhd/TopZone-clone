@@ -141,12 +141,12 @@
                 <div class="w-full py-7 flex">
                     <div class="w-1/3 h-full text-white">
                         <div class="font-bold text-blue-400">TRƯỜNG ĐẠI HỌC NHA TRANG</div>
-                        <div class="font-bold text-blue-400">CHUYÊN ĐỀ TỐT NGHIỆP K62 - NĂM 2024</div>
+                        <div class="font-bold text-blue-400">CHUYÊN ĐỀ TỐT NGHIỆP K63 - NĂM 2025</div>
                         <div class="">Giảng viên hướng dẫn: <b>Ths. Nguyễn Thị Hương Lý</b></div>
-                        <div>Sinh viên thực hiện: <b>Nguyễn Hoàng Duy</b></div>
-                        <div>MSSV: 62130337</div>
-                        <div><i class="fa-solid fa-envelope"></i> duy.nho.62cntt@ntu.edu.vn</div>
-                        <div><i class="fa-solid fa-phone"></i> 086 776 9496</div>
+                        <div>Sinh viên thực hiện: <b>Nguyễn Nhật Long</b></div>
+                        <div>MSSV: 63134526</div>
+                        <div><i class="fa-solid fa-envelope"></i> long.nn.63cntt@ntu.edu.vn</div>
+                        <div><i class="fa-solid fa-phone"></i> 0794913604</div>
                     </div>
                     <div class="w-1/3 h-full">
                         <img src="https://seeklogo.com/images/D/d-i-h-c-nha-trang-ntu-logo-573F0EF85F-seeklogo.com.png" width="100px" alt="" class="mx-auto">

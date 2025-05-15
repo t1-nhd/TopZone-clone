@@ -18,22 +18,13 @@
                                 <i class="fa-solid fa-arrow-right text-white text-xl"></i>
                             </button>
                         </div>
-                        @if ($count > 0)
-                            <div class="slider-for w-full">
-                                @foreach ($images as $image)
-                                    <img class="mx-auto "
-                                        src="{{ URL('images/Details/' . $product->ProductName . '/' . $image->ProductImage) }}"
-                                        width="100%" alt="">
-                                @endforeach
-                            </div>
-                        @else
-                            <div class="slider-for w-full">
+                        <div class="slider-for w-full">
+                            @foreach ($images as $image)
                                 <img class="mx-auto "
-                                    src="{{ URL('images/Thumbnails/' . $product->ProductThumbnail) }}"
+                                    src="{{ URL('images/Details/' . $product->ProductName . '/' . $image->ProductImage) }}"
                                     width="100%" alt="">
-                            </div>
-                        @endif
-
+                            @endforeach
+                        </div>
                     </div>
                     <div class="slider-nav mt-3 w-full">
                         @foreach ($images as $image)
@@ -584,7 +575,7 @@
                 </div>
             </div>
             {{-- Watch --}}
-            <div style="display: none;" id="iphone">
+            <div style="display: none;" id="watch">
                 <button class="collapsible flex items-center justify-between px-3 w-full h-12 py-3 bg-gray-100 mt-5 ">
                     <div class="font-bold">Thiết kế:</div>
                     <div class="plusminus font-thin"></div>

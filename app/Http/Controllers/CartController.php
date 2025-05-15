@@ -141,19 +141,16 @@ class CartController extends Controller
 
         foreach($request->cartItems as $cartItem){
             // dd($cartItem);
-            $inventory = DB::table('products')->where('ProductId', $cartItem['ProductId'])->first('Inventory')->Inventory;
-            if($inventory >= $cartItem['Quantity']){
-                DB::table('bill_details')->insert([
-                    'BillId' => $newBillId, 
-                    'ProductId' => $cartItem['ProductId'],
-                    'Quantity' => $cartItem['Quantity'],
-                ]);
-    
-                $newInventory = $inventory - $cartItem['Quantity'];
-    
-                DB::table('products')->where('ProductId', $cartItem['ProductId'])->update(['Inventory' => $newInventory]);
-                DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
-            }
+            DB::table('bill_details')->insert([
+                'BillId' => $newBillId, 
+                'ProductId' => $cartItem['ProductId'],
+                'Quantity' => $cartItem['Quantity'],
+            ]);
+
+            $newInventory = Product::findOrFail($cartItem['ProductId'])->first('Inventory')->Inventory - $cartItem['Quantity'];
+
+            DB::table('products')->where('ProductId', $cartItem['ProductId'])->update(['Inventory' => $newInventory]);
+            $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
         }
         return redirect()->route('carts.index')->with('payment-success','Thanh toán thành công');
     }

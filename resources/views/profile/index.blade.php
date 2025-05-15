@@ -116,19 +116,18 @@
                                                     {{ $bill->Note }}
                                                 </td>
                                                 <td class="py-4 text-center font-bold">
-
-                                                    @if ($bill->Status != 'Pending')
-                                                        {{ $status }}
-                                                    @else
-                                                        {{-- <form action="{{ route('bills.update') }}" method="post"
-                                                            onsubmit="return confirm('Bạn thực sự muốn hủy đơn hàng này?');">
+                                                    @if ($bill->Status == 'Shipping' && $bill->Shipped == 1)
+                                                        <form action="{{ route('profile.received') }}" method="post">
                                                             @csrf
                                                             @method('PUT')
-                                                            <input type="hidden" name="BillId"
-                                                                value="{{ $bill->BillId }}">
-                                                            <input type="hidden" name="Status" value="Cancel">
-                                                            
-                                                        </form> --}}
+                                                            <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
+                                                            <input type="hidden" name="Status" value="Done">
+                                                            <input type="hidden" name="redirect" value="profile">
+                                                            <button class="rounded-md p-2 border text-white bg-green-500 hover:bg-green-700">Đã nhận hàng</button>
+                                                        </form>
+                                                    @elseif ($bill->Status != 'Pending')
+                                                        {{ $status }}
+                                                    @else
                                                         <button onclick="rejectOnclick()"
                                                             class="rounded-md p-2 border text-white bg-red-500 hover:bg-red-700">Hủy
                                                             đơn</button>

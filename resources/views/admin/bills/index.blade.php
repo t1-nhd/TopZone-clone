@@ -132,11 +132,14 @@
                         <th scope="col" class="py-3 text-center w-2/12">
                             Địa điểm giao
                         </th>
-                        <th scope="col" class="py-3 text-center w-3/12">
+                        <th scope="col" class="py-3 text-center w-2/12">
                             Ghi chú
                         </th>
-                        <th scope="col" class="py-3 text-center w-2/12">
+                        <th scope="col" class="py-3 text-center w-1/12">
                             Trạng thái
+                        </th>
+                        <th scope="col" class="py-3 text-center w-2/12">
+                            Hành động
                         </th>
                         <th scope="col" class="py-3 text-center w-1/12">
                             Giá trị đơn hàng
@@ -159,7 +162,11 @@
                                     $status = 'Bị khách hủy';
                                     break;
                                 case 'Shipping':
-                                    $status = 'Đang giao hàng';
+                                    if($dt->Shipped == 0) {
+                                        $status = 'Đang giao hàng';
+                                    } else {
+                                        $status = 'Đã giao';
+                                    }
                                     break;
                                 case 'Done':
                                     $status = 'Hoàn thành';
@@ -188,6 +195,9 @@
                             <td class="py-4 text-center">
                                 {{ $dt->Note }}
                             </td>
+                            <td class="py-4 text-center">
+                                {{ $status }}
+                            </td>
                             <td class="py-4 text-center flex justify-center">
                                 @if ($dt->Status == 'Pending')
                                     <form action="{{ route('bills.update') }}" method="post">
@@ -195,19 +205,35 @@
                                         @method('PUT')
                                         <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
                                         <input type="hidden" name="Status" value="Approve">
-                                        <button class="rounded-md text-white p-2 border bg-green-500 hover:bg-green-700">Xác
-                                            nhận</button>
+                                        <button class="rounded-md text-white p-2 border bg-green-500 hover:bg-green-700">Xác nhận</button>
                                     </form>
                                     <form action="{{ route('bills.update') }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
                                         <input type="hidden" name="Status" value="Reject">
-                                        <button class="rounded-md text-white p-2 border bg-red-500 hover:bg-red-700">Từ
-                                            chối</button>
+                                        <button class="rounded-md text-white p-2 border bg-red-500 hover:bg-red-700">Từ chối</button>
                                     </form>
-                                @else
-                                    {{ $status }}
+                                @endif
+
+                                @if ($dt->Status == 'Approve')
+                                    <form action="{{ route('bills.update') }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
+                                        <input type="hidden" name="Status" value="Shipping">
+                                        <button class="rounded-md text-white p-2 border bg-blue-500 hover:bg-blue-700">Giao hàng</button>
+                                    </form>
+                                @endif
+
+                                @if ($dt->Status == 'Shipping' && $dt->Shipped == 0)
+                                    <form action="{{ route('bills.update') }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="BillId" value="{{ $dt->BillId }}">
+                                        <input type="hidden" name="Shipped" value="1">
+                                        <button class="rounded-md text-white p-2 border bg-green-500 hover:bg-green-700">Đã giao</button>
+                                    </form>
                                 @endif
 
                             </td>

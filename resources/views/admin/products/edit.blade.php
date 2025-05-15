@@ -34,7 +34,7 @@
                                     phẩm</label>
                                 <input name="ProductThumbnail" type="file" id="product-thumbnail"
                                     class="w-full file:pr-3 file:mr-3 h-10 mb-1 border border-black rounded-lg text-sm text-gray-900 sm:col-span-2 file:h-full file:border-none file:bg-blue-500 file:text-white hover:file:bg-blue-700" />
-                                <img src="" alt="">
+                                <img class="w-100" id="preview" src="{{ URL('images/Thumbnails/' . $product->ProductThumbnail) }}" alt="">
                             </div>
 
                         </div>
@@ -550,5 +550,20 @@
                 ipad[i].style.display = "";
             }
         }
+
+        $(document).ready(function() {
+            $("#product-thumbnail").on('change',function(event) {
+                var input = event.target;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        $("#preview").attr("src", e.target.result).show();
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+        });
     </script>
 @endsection

@@ -73,6 +73,18 @@
                                     </button>
                                 </div>
                             </form>
+                        @elseif($bill->Status == 'Approve')
+                            <form action="{{ route('bills.update') }}" method="post">
+                                @method('PUT')
+                                @csrf
+                                <div class="flex w-full">
+                                    <input type="hidden" name="BillId" value="{{ $bill->BillId }}">
+                                    <input type="hidden" name="Status" value="Shipping">
+                                    <button type="submit" id="bt-update"
+                                        class="px-2 ml-1 border border-blue-500 rounded-lg h-8 bg-blue-500 hover:bg-blue-700 hover:border-blue-700 text-white">Giao hàng
+                                    </button>
+                                </div>
+                            </form>
                         @else
                             @php
                                 $status = '';

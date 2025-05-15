@@ -48,4 +48,9 @@ class ProfileController extends Controller
         DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => 'Cancel',]);
         return redirect()->route("profile");
     }
+    public function received(Request $request)
+    {
+        DB::table('bills')->where('BillId', $request->BillId)->update(['Status' => 'Done',]);
+        return redirect()->route("profile");
+    }
 }

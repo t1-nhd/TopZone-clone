@@ -211,18 +211,18 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
+        $imageName = $product['ProductThumbnail'];
 
         if ($request->hasFile('ProductThumbnail')) {
             $image = $request->file('ProductThumbnail');
-            $imageName = str_replace('/','-',str_replace(' ', '-', strtolower($product->ProductName)) . "." . $image->extension());
-            DB::table('products')->where('ProductId', $id)->update(['ProductThumbnail' => $imageName]);
-
+            $imageName = str_replace('/','-',str_replace('+', 'and', str_replace(' ', '-', strtolower($product->ProductName))) . "." . $image->extension());
             $image->move(public_path('images\Thumbnails'), $imageName);
         }
         $request->validated();
         DB::table('products')->where('ProductId', $id)->update([
             'ProductName' => $request->ProductName,
             'Ram' => $request->Ram,
+            'ProductThumbnail' => $imageName,
             'DesignSizeAndWeight' => $request->DesignSizeAndWeight,
             'UnitPrice' => $request->UnitPrice,
             'Warranty' => $request->Warranty,
