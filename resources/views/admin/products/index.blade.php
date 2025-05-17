@@ -58,6 +58,14 @@
                             class="fa-solid fa-xmark mr-1 mt-1"></i>Bỏ lọc</a>
                 @endif
                 <div class="mr-1 mb-1">
+                    <select name="FilterDisplay" id="filter-display" class="px-3 w-full h-8 border-0">
+                        <option selected disabled hidden>Trạng thái</option>
+                        <option value=""></option>
+                        <option value="1" {{ $isShowOnHomePage == 1 ? 'seleted' : '' }}>Hiển thị</option>
+                        <option value="0" {{ $isShowOnHomePage == 0 ? 'seleted' : '' }}>Ẩn</option>
+                    </select>
+                </div>
+                <div class="mr-1 mb-1">
                     <select name="FilterProductModel" id="filter-model" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Dòng sản phẩm</option>
                         <option value=""></option>

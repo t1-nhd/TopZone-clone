@@ -29,15 +29,15 @@
             margin: 0 17px;
         }
 
-        html {
+        /* html {
             scroll-snap-type: y mandatory;
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
         }
 
         section {
             scroll-snap-align: start;
             scroll-snap-stop: always;
-        }
+        } */
 
         .slick-slide {
             width: 100%;

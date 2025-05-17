@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductModel;
 use App\Models\ProductType;
-use Illuminate\Support\Facades\DB;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -62,5 +61,35 @@ class HomeController extends Controller
             'memories' => $memories,
             'title' => $productName . " " . $memory
         ]);
+    }
+
+    /**
+     * Summary of search
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
+    public function search(Request $request) {
+        if(!isset($request->productName)) {
+            return response()->json([
+                'data' => []
+            ], 200);
+        }
+        $limit = 5;
+        try {
+            $product = Product::where(DB::raw("CONCAT(ProductName, ' ', Memory)"), 'LIKE', '%' . $request->productName . '%')
+            ->where('ShowOnHomePage', true)
+            ->whereNotNull('ProductThumbnail')
+            ->limit($limit)
+            ->get();
+
+            return response()->json([
+                'data' => $product,
+            ], 200);
+        } catch(Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'data' => []
+            ], status: 400);
+        }
     }
 }

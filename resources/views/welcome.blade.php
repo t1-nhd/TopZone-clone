@@ -1,8 +1,7 @@
 @extends('layout.layout')
 @section('title', 'TopZone - Cửa hàng Apple chính hãng')
 @section('content')
-    <section class="pt-[84px] sm:pt-[56px]">
-        
+    <section>
         {{-- Banner Slider (giữ nguyên) --}}
         <div class="banner-slider w-full">
             <div class="w-full">
@@ -99,12 +98,6 @@
                             </div>
                         @endif
                     @endforeach
-                    {{-- Placeholder slides to ensure slider smoothness --}}
-                    @for ($i = 0; $i < 4; $i++)
-                        <div class="px-2">
-                            <div class="bg-[#323232] max-w-[280px] h-[400px] sm:h-[430px] rounded-2xl invisible"></div>
-                        </div>
-                    @endfor
                 </div>
             </section>
         @endforeach
@@ -158,7 +151,6 @@
                 autoplaySpeed: 3000,
                 dots: true,
                 arrows: false,
-                fade: true,
             });
 
             // Product Sliders

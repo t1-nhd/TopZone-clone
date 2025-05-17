@@ -75,6 +75,7 @@ Route::middleware('customer')->group(function () {
 
 // Homepage
 Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 // Khóa tài khoản
 
 

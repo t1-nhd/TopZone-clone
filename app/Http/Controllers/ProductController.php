@@ -23,6 +23,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $data = Product::all();
+        $conditions = [];
+        $isShowOnHomePage = 2;
         $selected = [
             "search" => $request->search,
             "ram" => $request->FilterRam,
@@ -31,25 +33,37 @@ class ProductController extends Controller
             "model" => $request->FilterProductModel
         ];
         $isFilter = false;
-        if ($request->all()) $isFilter = true;
+        if ($request->all()) {
+            $isFilter = true;
+        }
 
-        $data = Product::query()
-            ->when($request->filled('search'), function ($query) use ($request) {
-                $query->where('ProductName', 'LIKE', "%{$request->input('search')}%");
-            })
-            ->when($request->filled('FilterRam'), function ($query) use ($request) {
-                $query->where('Ram', $request->input('FilterRam'));
-            })
-            ->when($request->filled('FilterMemory'), function ($query) use ($request) {
-                $query->where('Memory', $request->input('FilterMemory'));
-            })
-            ->when($request->filled('FilterProductModel'), function ($query) use ($request) {
-                $query->where('ProductModelId', $request->input('FilterProductModel'));
-            })
-            ->when($request->filled('SortUnitPrice'), function ($query) use ($request) {
-                $query->orderBy('UnitPrice', $request->input('SortUnitPrice'));
-            })
-            ->get();
+        
+
+        if(isset($request->search)) {
+            $data = Product::where('ProductName', 'LIKE', '%' . $request->search . '%');
+        } else {
+            if(isset($request->FilterDisplay)) {
+                $isShowOnHomePage = (int)$request->FilterDisplay;
+                $conditions['ShowOnHomePage'] = $isShowOnHomePage;
+            }
+            if(isset($request->FilterRam)) {
+                $conditions['Ram'] = $request->FilterRam;
+            }
+            if(isset($request->FilterMemory)) {
+                $conditions['Memory'] = $request->FilterMemory;
+            }
+            if(isset($request->FilterProductModel)) {
+                $conditions['ProductModelId'] = $request->FilterProductModel;
+            }
+    
+            $data = Product::where($conditions);
+
+            if(isset($request->SortUnitPrice)){
+                $data = $data->orderBy('UnitPrice', $request->SortUnitPrice);
+            }
+        }
+
+        $data = $data->get();
 
         $ramList = ['4 GB', '6 GB', '8 GB', '16 GB', '18 GB', '36 GB'];
         $memoryList = ['64 GB', '128 GB', '256 GB', '512 GB', '1 TB'];
@@ -62,6 +76,7 @@ class ProductController extends Controller
             'ramList' => $ramList,
             'memoryList' => $memoryList,
             'isFilter' => $isFilter,
+            'isShowOnHomePage' => $isShowOnHomePage,
         ]);
     }
 

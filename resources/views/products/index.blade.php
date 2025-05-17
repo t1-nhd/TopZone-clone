@@ -3,12 +3,12 @@
 @section('content')
     <div class="w-full pb-20">
         <div class="text-center py-20 md:pt-20">
-            <a href="{{ route('products.index', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
+            <a href="{{ route('list', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
                 {{ $title }}</a>
         </div>
         <div class="flex justify-end mt-2 px-10 md:pr-10 mb-2">
             <input type="text" name="search" id="search"
-                class="h-12 rounded-lg w-full lg:w-1/4 p-4 border-white bg-[#333] text-white focus:bg-white focus:text-black"
+                class="h-12 rounded-lg w-full lg:w-1/4 p-4 border-gray-600 bg-[#333] text-white focus:bg-white focus:text-black focus:border-gray-900"
                 placeholder="Tìm kiếm sản phẩm" onkeyup="liveSearch()">
         </div>
         <div class="flex">
@@ -47,20 +47,34 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Modal -->
+    <div id="loadingModal" class="fixed w-full h-full inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="p-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg text-center">
+            <div class="animate-spin rounded-full h-10 w-10 border-t-2 border-gray-500 mx-auto"></div>
+        </div>
+    </div>
+
     <script>
         function liveSearch() {
             var searchText = document.getElementById("search").value.toLowerCase();
             var items = document.getElementsByClassName("search-item");
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                var itemName = item.innerText.toLowerCase();
-                if (itemName.includes(searchText)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
+            var loading = document.getElementById("loadingModal");
+
+            loading.style.display = "block";
+
+
+            setTimeout(()=>{
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    var itemName = item.innerText.toLowerCase();
+                    if (itemName.includes(searchText)) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
                 }
-            }
+                loading.style.display = "none";
+            }, 1000)
         }
     </script>
 @endsection

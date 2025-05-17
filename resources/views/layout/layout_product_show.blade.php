@@ -76,7 +76,7 @@
 </head>
 
 <body>
-    @include('layout.header_product_show')
+    @include('layout.header')
     @yield('content')
     @include('layout.footer_product_show')
 </body>

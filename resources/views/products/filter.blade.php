@@ -4,7 +4,7 @@
 
 <div class="w-full pb-20">
     <div class="text-center py-20">
-        <a href="{{ route('products.index', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
+        <a href="{{ route('filter', $title) }}" class="text-white text-5xl"><i class="fa-brands fa-apple"></i>
             {{$title}}</a>
     </div>
     <div class="flex justify-center">

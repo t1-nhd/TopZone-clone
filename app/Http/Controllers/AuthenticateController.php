@@ -23,6 +23,11 @@ class AuthenticateController extends Controller
     }
     public function login(Request $request)
     {
+        $stickyEmail = User::where([
+            'email' => $request->Email,
+            'account_type' => 0
+        ])->first();
+
         if (Auth::attempt(['email' => $request->Email, 'password' => $request->Password, 'active' => 1])) {
             if (Auth::user()->account_type == 1 || Auth::user()->account_type == 2) {
                 $request->session()->put('email', $request->Email);
@@ -33,8 +38,10 @@ class AuthenticateController extends Controller
                 return redirect()->route('index')->with('login-checked', 'Đăng nhập thành công!');
             }
         }
-        return redirect()->route('show-login', [
-        ])->with('login-failed', 'Email hoặc mật khẩu không đúng!');
+        if($stickyEmail) {
+            $request->session()->put('email', $request->Email);
+        }
+        return redirect()->route('show-login', [])->with('login-failed', 'Email hoặc mật khẩu không đúng!');
         // if(User::where('email', $request->Email)->exists()){
             
         // }
