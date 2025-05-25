@@ -18,12 +18,6 @@
             <li class="text-white text-l flex items-center hover:bg-[#333] px-7">
                 <a href="{{ route('list', 'Watch') }}">Watch</a>
             </li>
-            <li class="text-white text-l flex items-center hover:bg-[#333] px-7">
-                <a href="{{ route('list', 'Watch') }}">Tai nghe, loa</a>
-            </li>
-            <li class="text-white text-l flex items-center hover:bg-[#333] px-7">
-                <a href="{{ route('list', 'Watch') }}">Phụ kiện</a>
-            </li>
             
         </ul>
         <div class="hidden my-auto sm:flex sm:items-center hover:bg-[#333] h-14">
