@@ -56,15 +56,15 @@ class BillController extends Controller
                 ->get();
         }
 
-        $year = Bill::select(DB::raw('EXTRACT(YEAR FROM created_at) AS bill_year'))->groupBy('bill_year')->get();
-        $month = Bill::select(DB::raw('EXTRACT(MONTH FROM created_at) AS bill_month'))->groupBy('bill_month')->get();
-        $day = Bill::select(DB::raw('EXTRACT(DAY FROM created_at) AS bill_day'))->groupBy('bill_day')->get();
+        $years = range(2020, 2025);
+        $months = range(1, 12);
+        $days = range(1, 31);
         $status = ["Pending", "Approve", "Reject", "Shipping", "Done", "Cancel"];
         return view('admin.bills.index', [
             'data' => $bills,
-            'year' => $year,
-            'month' => $month,
-            'day' => $day,
+            'years' => $years,
+            'months' => $months,
+            'days' => $days,
             'isFilter' => $isFilter,
             'selected' => $selected,
             'header' => $header,

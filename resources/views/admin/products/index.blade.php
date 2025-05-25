@@ -60,7 +60,7 @@
                 <div class="mr-1 mb-1">
                     <select name="FilterDisplay" id="filter-display" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Trạng thái</option>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400">Tất cả</option>
                         <option value="1" {{ $isShowOnHomePage == 1 ? 'seleted' : '' }}>Hiển thị</option>
                         <option value="0" {{ $isShowOnHomePage == 0 ? 'seleted' : '' }}>Ẩn</option>
                     </select>
@@ -68,7 +68,7 @@
                 <div class="mr-1 mb-1">
                     <select name="FilterProductModel" id="filter-model" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Dòng sản phẩm</option>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400">Tất cả</option>
                         @foreach ($models as $model)
                             @if ($selected['model'] == $model->ProductModelId)
                                 <option value="{{ $model->ProductModelId }}" selected>
@@ -83,7 +83,7 @@
                 <div class="mr-1 mb-1">
                     <select name="FilterRam" id="filter-ram" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Ram</option>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400">Tất cả</option>
                         @foreach ($ramList as $item)
                             @if ($selected['ram'] == $item)
                                 <option value="{{ $item }}" selected>{{ $item }}
@@ -97,7 +97,7 @@
                 <div class="mr-1 mb-1">
                     <select name="FilterMemory" id="filter-memory" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Dung lượng</option>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400">Tất cả</option>
                         @foreach ($memoryList as $item)
                             @if ($selected['memory'] == $item)
                                 <option value="{{ $item }}" selected>{{ $item }}
@@ -111,7 +111,7 @@
                 <div class="mr-1 mb-1 sm:mr-3">
                     <select name="SortUnitPrice" id="filter-unit-price" class="px-3 w-full h-8 border-0">
                         <option selected disabled hidden>Đơn giá</option>
-                        <option value=""></option>
+                        <option value="" class="text-gray-400">Tất cả</option>
                         <option value="desc" {{ $selected['unit-price' ?? ''] == 'desc' ? 'selected' : '' }}>↓ Giảm dần
                         </option>
                         <option value="asc" {{ $selected['unit-price' ?? ''] == 'asc' ? 'selected' : '' }}>↑ Tăng dần
