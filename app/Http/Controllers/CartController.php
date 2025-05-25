@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Customer;
 use App\Models\Product;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,41 +77,85 @@ class CartController extends Controller
     }
     public function update(Request $request)
     {
-        $email = Auth::user()->email;
-        $productId = $request->ProductId;
-        $customer = Customer::where('Email', $email)->first('CustomerId');
-        $cart = Cart::where('CustomerId', $customer->CustomerId)->first('CartId')->CartId;
+        try {
+            $response = [
+                'message' => 'SUCCESS',
+                'data' => [],
+            ];
 
-        $cartItem = DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->first();
-        $quantity = $cartItem->Quantity;
+            $cartId = $request->cartId;
+            $productId = $request->productId;
+            $isAdd = (bool)$request->add;
 
-        if ($request->update == 'decrement') {
-            if ($quantity <= 1) {
-                DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->delete();
-                return redirect()->route('carts.index');
+            $cartItem = DB::table('cart_items')
+                ->join('products', 'cart_items.ProductId', '=', 'products.ProductId')
+                ->where('cart_items.CartId', $cartId)
+                ->where('cart_items.ProductId', $productId)
+                ->select([
+                    'cart_items.ProductId',
+                    'cart_items.CartId',
+                    'cart_items.Quantity',
+                    'products.UnitPrice',
+                ])
+                ->first();
+
+            $quantity = $cartItem->Quantity;
+
+            if ($isAdd) {
+                DB::table('cart_items')
+                    ->where('CartId', $cartId)
+                    ->where('ProductId', $productId)
+                    ->update([
+                        'Quantity' => $quantity += 1
+                    ]);
+            } else {
+                if ($quantity > 1) {
+                    DB::table('cart_items')
+                        ->where('CartId', $cartId)
+                        ->where('ProductId', $productId
+                        )->update([
+                            'Quantity' => $quantity -= 1
+                        ]);
+                }
             }
-            DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->update([
-                'Quantity' => $quantity -= 1
-            ]);
+            $cartItem->Quantity = $quantity;
+            $newTotalCartPrice = $this->totalCartPrice($cartId);
+            
+            $response['data'][0] = $newTotalCartPrice;
+            $response['data'][1] = $cartItem;
+            return response()->json($response, 200);
+        } catch (Exception $ex) {
+            $response['message'] = $ex->getMessage();
+            return response()->json($response, 400);
         }
-        if ($request->update == 'increment') {
-            DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->update([
-                'Quantity' => $quantity += 1
-            ]);
-        }
-        return redirect()->route('carts.index');
     }
 
     public function removeFromCart(Request $request)
     {
-        $email = Auth::user()->email;
+        $response = [
+            'message' => 'SUCCESS',
+            'data' => [],
+        ];
         $productId = $request->ProductId;
-        $customer = Customer::where('Email', $email)->first('CustomerId');
-        $cart = Cart::where('CustomerId', $customer->CustomerId)->first('CartId')->CartId;
+        $cartId = $request->CartId;
 
-        DB::table('cart_items')->where('CartId', $cart)->where('ProductId', $productId)->delete();
+        if (!$productId || !$cartId) {
+            $response['message'] = 'ProductId or CartId is missing';
+            return response()->json($response, 400);
+        }
 
-        return redirect()->route('carts.index');
+        try {
+            DB::table('cart_items')
+                ->where([
+                    'CartId' => $cartId,
+                    'ProductId' => $productId
+                ])->delete();
+
+            return $response;
+        } catch (Exception $ex) {
+            $response['message'] = $ex->getMessage();
+            return response()->json($response, 400);
+        }
     }
 
     public function payment(Request $request)
@@ -153,5 +198,23 @@ class CartController extends Controller
             $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
         }
         return redirect()->route('carts.index')->with('payment-success','Thanh toán thành công');
+    }
+    
+    private function totalCartPrice($cartId)
+    {
+        $cartItems = DB::table('cart_items')
+            ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
+            ->where('CartId', $cartId)
+            ->select([
+                'products.UnitPrice',
+                'cart_items.Quantity'
+            ])
+            ->get();
+
+        $total = 0;
+        foreach ($cartItems as $item) {
+            $total += $item->UnitPrice * $item->Quantity;
+        }
+        return $total;
     }
 }

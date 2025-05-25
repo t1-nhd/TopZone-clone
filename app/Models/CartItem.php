@@ -20,4 +20,8 @@ class CartItem extends Model
     function getProduct() {
         return $this->belongsTo(Product::class,'ProductId','ProductId');
     }
+
+    function totalPrice() {
+        return $this->getProduct->Price * $this->Quantity;
+    }
 }
