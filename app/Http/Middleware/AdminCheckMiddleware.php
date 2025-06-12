@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminCheckMiddleware
 {
+    public $staff_allowed_routes = [
+        'products.edit',
+        'products.store',
+        'products.create',
+        'products.delete',
+        'product_images.store',
+        'product_images.delete',
+        'product_images.destroy',
+        'product_types.destroy',
+        'staffs.create',
+        'staffs.store',
+        'staffs.update',
+        'customers.show',
+    ];
     /**
      * Handle an incoming request.
      *
@@ -19,8 +33,16 @@ class AdminCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->account_type == 2 || Auth::user()->account_type == 1){
+            if(Auth::user()->account_type == 2){
                 return $next($request);
+            } else {
+                if(Auth::user()->account_type == 1){
+                    if($request->routeIs($this->staff_allowed_routes)){
+                        return redirect(url()->previous());
+                    } else {
+                        return $next($request);
+                    }
+                }
             }
             return redirect()->route('index');
         }

@@ -37,6 +37,7 @@
                             <h3 class="text-lg font-semibold leading-6 text-gray-900">Hình ảnh sản phẩm</h3>
                         </div>
                     </div>
+                    @if (Auth::user()->account_type == 2)
                     <div class="bg-gray-200 px-4 font-bold py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         Thêm ảnh
                     </div>
@@ -52,11 +53,12 @@
                             </div>
                         </div>
                     </form>
+                    @endif
                     <div class="flex justify-between bg-gray-200 px-4 py-2">
                         <div class="font-bold">
                             Hình ảnh chi tiết
                         </div>
-                        @if ($productImages->count() != 0)
+                        @if ($productImages->count() != 0 && Auth::user()->account_type == 2)
                             <div>
                                 <a href="{{ route('product_images.delete', $productName) }}"
                                     class="text-red-500 hover:text-red-600">Xóa ảnh</a>

@@ -6,11 +6,13 @@
         <div class="mb-3">
             <h1 class="w-full text-4xl text-center mb-3">QUẢN LÝ NHÂN VIÊN</h1>
             <div class="block sm:flex justify-between">
+                @if (Auth::user()->account_type == 2)
                 <div class="sm:w-1/3 px-3">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold h-9 rounded w-40">
                         <a href="{{ route('staffs.create') }}">Thêm nhân viên</a>
                     </button>
                 </div>
+                @endif
             </div>
         </div>
         <hr>

@@ -32,9 +32,11 @@
             <div class="block md:flex w-full justify-between">
                 <h1 class="text-2xl font-semibold mb-4">{{ $product->ProductName }}</h1>
                 <div class="flex justify-end">
+                    @if (Auth::user()->account_type == 2)
                     <a href="{{ route('products.edit', $product->ProductId) }}" class="text-blue-500 mt-2 mr-3">Chỉnh
                         sửa</a>
                     <a href="{{ route('products.delete', $product->ProductId) }}" class="text-red-500 mt-2">Xóa</a>
+                    @endif
                 </div>
             </div>
             <div class="block lg:flex w-full">
@@ -56,7 +58,7 @@
                                     <div class="font-bold">Hình ảnh chi tiết sản phẩm</div>
                                     <div class="text-end">
                                         <a href="{{ route('product_images.edit', $product->ProductName) }}"
-                                            class="text-blue-500 hover:text-blue-700">Chỉnh sửa ảnh chi tiết</a>
+                                            class="text-blue-500 hover:text-blue-700">{{ Auth::user()->account_type == 2 ? 'Chỉnh sửa ảnh chi tiết' : 'Xem ảnh chi tiết' }}</a>
                                     </div>
                                 </div>
                                 <div class="your-class bg-white px-4 py-5 sm:px-6">

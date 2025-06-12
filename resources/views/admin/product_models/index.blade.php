@@ -12,6 +12,7 @@
                 <p>{{ session('success') }}</p>
             </div>
         @endif
+        @if (Auth::user()->account_type == 2)
         <div class="py-7 px-7">
             <form method="POST" action="{{ route('product_models.store') }}">
                 @csrf
@@ -39,6 +40,7 @@
                     </div>
             </form>
         </div>
+        @endif
         <table class="w-full mt-5 text-sm text-left rtl:text-right text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
@@ -62,6 +64,7 @@
                             {{ $dt->ProductModelName }}
                         </td>
                         <td class="text-right">
+                            @if (Auth::user()->account_type == 2)
                             <button>
                                 <a href="{{ route('product_models.edit', $dt->ProductModelId) }}" class="w-1">
                                     <svg width="20px" height="20px" viewBox="0 0 24 24"
@@ -105,6 +108,7 @@
                                     </svg>
                                 </button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
