@@ -2,7 +2,7 @@
 @section('title', 'Xác nhận thanh toán')
 @section('content')
     @php
-        $count = $cartItems->count();
+        $count = count($cartItems);
         $totalQuantity = 0;
         $tongTien = 0;
     @endphp
@@ -14,7 +14,7 @@
             {{-- cart --}}
             <form action="{{ route('carts.payment') }}" method="POST">
                 @csrf
-                <input type="hidden" name="CartId" value="{{ $cartItems[0]->CartId }}">
+                <input type="hidden" name="CartId" value="{{ $cartId }}">
                 <input type="hidden" name="CustomerId" value="{{ $customer->CustomerId }}">
 
                 <div class="w-full my-1 rounded-t-lg bg-white block p-3">

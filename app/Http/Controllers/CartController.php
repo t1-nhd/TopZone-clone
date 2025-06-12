@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPSTORM_META\type;
+
 class CartController extends Controller
 {
     /**
@@ -35,17 +37,36 @@ class CartController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(Request $request)
     {
         $email = Auth::user()->email;
         $customer = Customer::where('Email', $email)->first();
-        $cart = Cart::where('CustomerId', $customer->CustomerId)->first();
+        $cartId = array_column($request->cartItems, 'CartId')[0];
+        $productIds = array_column($request->cartItems, 'ProductId');
+
         $cartItems = DB::table('cart_items')
             ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
-            ->where('CartId', $cart->CartId)
-            ->get();
+            ->where('cart_items.CartId', $cartId)
+            ->get([
+                'cart_items.CartId',
+                'cart_items.ProductId',
+                'cart_items.Quantity',
+                'products.ProductName',
+                'products.Memory',
+                'products.UnitPrice',
+                'products.Inventory',
+                'products.ProductThumbnail'
+            ])->toArray();
+        
+        $cartItems = array_filter($cartItems, function ($item) use ($productIds) {
+            return in_array($item->ProductId, $productIds);
+        });
+
+        // dd($cartItems);
+
         return view('cart.show', [
             'cartItems' => $cartItems,
+            'cartId' => $cartId,
             'customer' => $customer,
         ]);
     }
@@ -119,10 +140,8 @@ class CartController extends Controller
                 }
             }
             $cartItem->Quantity = $quantity;
-            $newTotalCartPrice = $this->totalCartPrice($cartId);
             
-            $response['data'][0] = $newTotalCartPrice;
-            $response['data'][1] = $cartItem;
+            $response['data'] = $cartItem;
             return response()->json($response, 200);
         } catch (Exception $ex) {
             $response['message'] = $ex->getMessage();
@@ -198,23 +217,5 @@ class CartController extends Controller
             $cartItem = DB::table('cart_items')->where('CartId', $request->CartId)->where('ProductId', $cartItem['ProductId'])->delete();
         }
         return redirect()->route('carts.index')->with('payment-success','Thanh toán thành công');
-    }
-    
-    private function totalCartPrice($cartId)
-    {
-        $cartItems = DB::table('cart_items')
-            ->join('products', 'products.ProductId', '=', 'cart_items.ProductId')
-            ->where('CartId', $cartId)
-            ->select([
-                'products.UnitPrice',
-                'cart_items.Quantity'
-            ])
-            ->get();
-
-        $total = 0;
-        foreach ($cartItems as $item) {
-            $total += $item->UnitPrice * $item->Quantity;
-        }
-        return $total;
     }
 }

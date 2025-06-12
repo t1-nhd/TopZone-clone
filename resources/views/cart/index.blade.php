@@ -12,6 +12,7 @@ $tongTien = 0;
             <p>{{ session('add-to-cart-successfully') }}</p>
 </div>
 @endif --}}
+<div id="cart-show"></div>
 <div class="flex justify-center w-full pb-5">
     <div class="w-full px-1 xl:px-0 xl:w-2/3">
         <div class="flex justify-between text-gray-300 py-2 mx-3">
@@ -52,14 +53,18 @@ $tongTien = 0;
             <div class="rounded-t-lg bg-white p-3">
                 <table class="w-full">
                     <tbody>
+                        @php
+                        $totalQuantity = count($cartItems);
+                        @endphp
                         @foreach ($cartItems as $item)
                         @php
-                        $totalQuantity += $item->Quantity;
                         $thanhTien = $item->Quantity * $item->UnitPrice;
                         $tongTien += $thanhTien;
                         @endphp
                         @if ($item->Inventory == 0)
                         <tr class="py-3 bg-white opacity-20">
+                            <td class="w-[20px] py-3">
+                            </td>
                             <td class="w-2/12 py-3">
                                 <img src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}"
                                     alt="">
@@ -76,35 +81,17 @@ $tongTien = 0;
                             <td class="w-2/12 py-3 font-bold text-center cart-item-total-price">
                                 {{ number_format($thanhTien) . '₫' }}
                             </td>
-                            <td class="w-1/12 py-3 text-center">
-                                <form action="{{ route('carts.destroy') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="ProductId" value="{{ $item->ProductId }}">
-                                    <button class="h-9 w-9 font-bold">
-                                        <svg width="20px" height="20px" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 12V17" stroke="#000000" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M14 12V17" stroke="#000000" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M4 7H20" stroke="#000000" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                            <path
-                                                d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" />
-                                            <path
-                                                d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-                                </form>
+                            <td class="w-1/12 py-3 text-end">
+                                <button class="delete-button h-9 w-9 font-bold text-end flex items-center">
+                                    Xóa
+                                </button>
                             </td>
                         </tr>
                         @else
                         <tr class="py-3 cart-item-group">
+                            <td class="w-[20px] py-3">
+                                <input type="checkbox" class="cart-checkbox w-[20px] h-[20px] rounded-md accent-amber-800">
+                            </td>
                             <td class="w-2/12 py-3">
                                 <img src="{{ URL('images/Thumbnails/' . $item->ProductThumbnail) }}"
                                     alt="">
@@ -114,9 +101,10 @@ $tongTien = 0;
                                     href="{{ route('show', [$item->ProductName, $item->Memory]) }}">{{ $item->ProductName . ' ' . $item->Memory }}</a>
                             </td>
                             <td class="w-2/12 py-3 text-center">
-                                <div class="update-cart-block flex justify-center items-center">
+                                <div class="cart-item-information flex justify-center items-center">
                                     <input type="hidden" class="cartId" value="{{ $item->CartId }}">
                                     <input type="hidden" class="productId" value="{{ $item->ProductId }}">
+                                    <input type="hidden" class="totalPrice" value="{{ $thanhTien }}">
                                     <div>
                                         <button class="minus-bt h-9 w-9 rounded-lg border font-bold">-</button>
                                     </div>
@@ -129,25 +117,9 @@ $tongTien = 0;
                             <td class="w-2/12 py-3 font-bold text-center cart-item-total-price">
                                 {{ number_format($thanhTien) . '₫' }}
                             </td>
-                            <td class="w-1/12 py-3">
-                                <button class="delete-button h-9 w-9 font-bold text-center flex items-center">
-                                    <svg width="20px" height="20px" viewBox="0 0 24 24"
-                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 12V17" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M14 12V17" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M4 7H20" stroke="#000000" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path
-                                            d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
+                            <td class="py-3">
+                                <button class="delete-button flex text-red-500 items-center">
+                                    Xóa
                                 </button>
                             </td>
                         </tr>
@@ -156,14 +128,28 @@ $tongTien = 0;
                     </tbody>
                 </table>
             </div>
-            <div class="rounded-b-lg mt-1 bg-white p-3 flex py-3 place-items-center space-x-1">
-                <div class=""></div>
-                <div class="font-bold w-full text-end">TỔNG GIỎ HÀNG <i
-                        class="font-normal">({{ $totalQuantity }} sản phẩm)</i></div>
-                <div class="font-bold text-red-600 text-lg total-cart-price">{{ number_format($tongTien) . '₫' }}</div>
-                <button class="h-9 w-32 bg-blue-500 rounded-lg text-white font-bold">
-                    <a href="{{ route('carts.show') }}">Đặt hàng</a>
-                </button>
+            <div class="rounded-b-lg mt-1 bg-white p-3 flex py-3 place-items-center space-x-1 w-full">
+                <div class="w-[20px] flex items-center">
+                    <input type="checkbox" class="check-all-checkbox w-[20px] h-[20px] rounded-md accent-amber-800">
+                </div>
+                <div class="w-4/12">
+                    <span class="ms-2 text-gray-500" id="check-all-checkbox-label">
+                        Chọn tất cả
+                    </span>
+                </div>
+                <div class="w-4/12 font-bold text-end">
+                    TỔNG GIỎ HÀNG <i class="font-normal">({{ $totalQuantity }} sản phẩm)</i>
+                </div>
+                <div class="w-4/12 flex justify-end items-center">
+                    <div class="font-bold text-red-600 text-lg text-end me-2" id="total-cart-price">
+                        {{ number_format($tongTien) . '₫' }}
+                    </div>
+                    <form action="{{ route('carts.show') }}" method="get" id="order-form">
+                        <button id="order-button" type="submit" class="h-9 w-32 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-bold">
+                            Đặt hàng
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         @else
@@ -197,6 +183,14 @@ $tongTien = 0;
     </div>
 </div>
 
+<div id="custom-alert" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 hidden">
+    <div class="bg-white rounded-lg p-6 text-center min-w-[300px]">
+        <div class="font-bold text-lg mb-2 text-red-600">Thông báo</div>
+        <div class="mb-4">Vui lòng chọn sản phẩm để đặt hàng.</div>
+        <button id="close-custom-alert" class="px-4 py-2 bg-blue-600 text-white rounded">Đóng</button>
+    </div>
+</div>
+
 {{-- JavaScript for sliders --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -207,6 +201,8 @@ $tongTien = 0;
         $notification = $("#notification");
         $loadingModal = $("#loadingModal");
         $deleteButton = $(".delete-button");
+
+        updateCartTotalPrice();
 
         $.ajaxSetup({
             headers: {
@@ -221,13 +217,12 @@ $tongTien = 0;
         });
 
         $plus_bt.on('click', function() {
-            var parentDiv = $(this).closest(".update-cart-block");
-            var cartItemBlock = $(this).closest(".cart-item-group");
+            var cartItemInformation = $(this).closest(".cart-item-information");
+            var cartItemGroup = $(this).closest(".cart-item-group");
 
-            $cartId = parentDiv.find(".cartId").val();
-            $productId = parentDiv.find(".productId").val();
+            $cartId = cartItemInformation.find(".cartId").val();
+            $productId = cartItemInformation.find(".productId").val();
 
-            $loadingModal.removeClass("hidden");
             setTimeout(function() {
                 $.ajax({
                     url: "{{ route('carts.update') }}",
@@ -238,13 +233,14 @@ $tongTien = 0;
                         add: 1,
                     },
                     success: function(res) {
-                        console.log(res.data[1]);
-                        displayCartItem(res.data[1], parentDiv, cartItemBlock);
-                        $loadingModal.addClass("hidden");
+                        cartItemInformation.find(".cart-item-quantity").text(res.data['Quantity']);
+                        $totalPrice = res.data['UnitPrice'] * res.data['Quantity'];
+                        cartItemInformation.find(".totalPrice").val($totalPrice);
+                        cartItemGroup.find(".cart-item-total-price").text($totalPrice.toLocaleString('vi-VN') + '₫');
+                        updateCartTotalPrice();
                     },
                     error: function(res) {
                         console.log(res);
-                        $loadingModal.addClass("hidden");
                     }
 
                 });
@@ -253,21 +249,20 @@ $tongTien = 0;
 
         $minus_bt.on('click', function(e) {
             e.preventDefault();
-            var parentDiv = $(this).closest(".update-cart-block");
-            var cartItemBlock = $(this).closest(".cart-item-group");
+            var cartItemInformation = $(this).closest(".cart-item-information");
+            var cartItemGroup = $(this).closest(".cart-item-group");
 
-            $quantity = Number(parentDiv.find(".cart-item-quantity").text());
+            $quantity = Number(cartItemInformation.find(".cart-item-quantity").text());
             if ($quantity === 1) {
                 $notification.removeClass("hidden");
-                $notification.data("product-id", parentDiv.find(".productId").val());
-                $notification.data("cart-id", parentDiv.find(".cartId").val());
+                $notification.data("product-id", cartItemInformation.find(".productId").val());
+                $notification.data("cart-id", cartItemInformation.find(".cartId").val());
                 return false;
             }
 
-            $cartId = parentDiv.find(".cartId").val();
-            $productId = parentDiv.find(".productId").val();
+            $cartId = cartItemInformation.find(".cartId").val();
+            $productId = cartItemInformation.find(".productId").val();
 
-            $loadingModal.removeClass("hidden");
             setTimeout(function() {
                 $.ajax({
                     url: "{{ route('carts.update') }}",
@@ -278,13 +273,15 @@ $tongTien = 0;
                         add: 0,
                     },
                     success: function(res) {
-                        console.log(res.data[1]);
-                        displayCartItem(res.data[1], parentDiv, cartItemBlock);
-                        $loadingModal.addClass("hidden");
+                        cartItemInformation.find(".cart-item-quantity").text(res.data['Quantity']);
+                        $totalPrice = res.data['UnitPrice'] * res.data['Quantity'];
+                        cartItemInformation.find(".totalPrice").val($totalPrice);
+                        cartItemGroup.find(".cart-item-total-price").text($totalPrice.toLocaleString('vi-VN') + '₫');
+                        console.log(cartItemGroup.find(".totalPrice").val());
+                        updateCartTotalPrice();
                     },
                     error: function(res) {
                         console.log(res);
-                        $loadingModal.addClass("hidden");
                     }
 
                 });
@@ -301,7 +298,7 @@ $tongTien = 0;
             console.log($notification.data("cart-id"));
             return false;
         });
-        
+
         $("#cancel-delete").on("click", function() {
             $notification.addClass("hidden");
         });
@@ -321,6 +318,7 @@ $tongTien = 0;
                 success: function(res) {
                     console.log(res);
                     $loadingModal.addClass("hidden");
+                    updateCartTotalPrice();
                     location.reload();
                 },
                 error: function(res) {
@@ -328,13 +326,87 @@ $tongTien = 0;
                     $loadingModal.addClass("hidden");
                 }
             });
+        })
+
+        $(".check-all-checkbox").on("change", function() {
+            if ($(this).is(":checked")) {
+                $(".cart-checkbox").prop("checked", true);
+            } else {
+                $(".cart-checkbox").prop("checked", false);
+            }
+            isCheckAllCheckboxChecked();
+
         });
 
-        function displayCartItem(cartItem, parentDiv, cartItemBlock) {
-            parentDiv.find(".cart-item-quantity").text(cartItem['Quantity']);
-            $totalPrice = cartItem['UnitPrice'] * cartItem['Quantity'];
-            cartItemBlock.find(".cart-item-total-price").text($totalPrice.toLocaleString('vi-VN') + '₫');
-            $(".total-cart-price").text($totalPrice.toLocaleString('vi-VN') + '₫');
+        $(".cart-checkbox").on("change", function() {
+            if ($(".cart-checkbox:checked").length === $(".cart-checkbox").length) {
+                $(".check-all-checkbox").prop("checked", true);
+            } else {
+                $(".check-all-checkbox").prop("checked", false);
+            }
+            isCheckAllCheckboxChecked();
+        });
+
+        $("#order-button").on("click", function(e) {
+            e.preventDefault();
+            if ($(".cart-checkbox:checked").length === 0) {
+                $("#custom-alert").removeClass("hidden").hide().fadeIn(200, function() {
+                    $("#custom-alert-content").css({
+                        opacity: 1,
+                        transform: "scale(1)"
+                    });
+                });
+                return false;
+            }
+            // $loadingModal.removeClass("hidden");
+            $index = 0;
+            $(".cart-checkbox:checked").each(function() {
+                cartId = $(this).closest(".cart-item-group").find(".cartId").val();
+                productId = $(this).closest(".cart-item-group").find(".productId").val();
+
+                $newHiddenCartIdInput = $('<input>', {
+                    type: 'hidden',
+                    name: 'cartItems[' + $index + '][CartId]',
+                    value: cartId
+                });
+                $newHiddenProductIdInput = $('<input>', {
+                    type: 'hidden',
+                    name: 'cartItems[' + $index + '][ProductId]',
+                    value: productId
+                });
+                $("#order-form").append($newHiddenCartIdInput, $newHiddenProductIdInput);
+                $index++;
+            });
+
+            $("#order-form").submit();
+        });
+
+        $("#close-custom-alert").on("click", function() {
+            $("#custom-alert-content").css({
+                opacity: 0,
+                transform: "scale(0.95)"
+            });
+            $("#custom-alert").fadeOut(200, function() {
+                $(this).addClass("hidden");
+            });
+        });
+
+        function isCheckAllCheckboxChecked() {
+            $("#check-all-checkbox-label").fadeOut(150, function() {
+                $(this)
+                    .text($(".check-all-checkbox").is(":checked") ? "Bỏ chọn tất cả" : "Chọn tất cả")
+                    .fadeIn(100);
+            });
+        }
+
+        function updateCartTotalPrice() {
+            let total = 0;
+            console.log($(".totalPrice").length);
+            $(".totalPrice").each(function() {
+                console.log($(this).val());
+                total += parseInt($(this).val());
+            });
+            $("#total-cart-price").text(total.toLocaleString('vi-VN') + '₫');
         }
     });
 </script>
