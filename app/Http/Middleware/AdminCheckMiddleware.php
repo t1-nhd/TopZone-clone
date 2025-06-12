@@ -38,7 +38,9 @@ class AdminCheckMiddleware
             } else {
                 if(Auth::user()->account_type == 1){
                     if($request->routeIs($this->staff_allowed_routes)){
-                        return redirect(url()->previous());
+                        // dd(strpos($request->getRequestUri(), '/products/') !== false);
+                        // dd($this->backToRouteIndex($request->getRequestUri()));
+                        return redirect()->route($this->backToRouteIndex($request->getRequestUri()));
                     } else {
                         return $next($request);
                     }
@@ -47,5 +49,18 @@ class AdminCheckMiddleware
             return redirect()->route('index');
         }
         return redirect()->route('login');
+    }
+
+    private function backToRouteIndex($url) {
+        if (strpos($url, '/products/') !== false) {
+            return 'products.index';
+        } elseif (strpos($url, '/product_images/') !== false) {
+            return 'product_images.index';
+        } elseif (strpos($url, '/staffs/') !== false) {
+            return 'staffs.index';
+        } elseif (strpos($url, '/customers/') !== false) {
+            return 'customers.index';
+        }
+        return 'index';
     }
 }
