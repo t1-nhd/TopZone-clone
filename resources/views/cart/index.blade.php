@@ -204,6 +204,8 @@ $tongTien = 0;
 
         updateCartTotalPrice();
 
+        $("#order-form").find("input").remove();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
